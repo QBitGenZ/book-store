@@ -1,0 +1,26 @@
+export const authRoutes = {
+  login: '/login',
+  logup: '/logup',
+  resetPassword: '/reset-password',
+  adminLogin: '/admin/login',
+  forgotPassword: '/forgot-password',
+};
+
+export const adminRoutes = {
+  dashboard: '/admin/dashboards',
+  product: '/admin/products',
+
+  productType: '/admin/categories/types',
+  deliveryMethod: '/admin/categories/deliveries/methods',
+  deliveryStatus: '/admin/categories/deliveries/statuses',
+  paymentMethod: '/admin/categories/payments/methods',
+  paymentStatus: '/admin/categories/payments/statuses',
+  publisher: '/admin/categories/publisher',
+  author: '/admin/categories/authors',
+
+  event: '/admin/events',
+  order: '/admin/order',
+  config: '/admin/configs',
+
+  profile: '/admin/profile',
+};

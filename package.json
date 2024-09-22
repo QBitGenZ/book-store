@@ -1,0 +1,26 @@
+{
+  "name": "book-store",
+  "version": "1.0.0",
+  "description": "Web bán sách",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"npm run start-client\" \"npm run start-server\"",
+    "start-client": "npm --prefix client start",
+    "start-server": "npm --prefix server start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QBitGenZ/book-store.git"
+  },
+  "author": "Entier",
+  "license": "ISC",
+  "dependencies": {
+    "book-store": "file:",
+    "concurrently": "^9.0.1"
+  },
+  "bugs": {
+    "url": "https://github.com/QBitGenZ/book-store/issues"
+  },
+  "homepage": "https://github.com/QBitGenZ/book-store#readme"
+}
