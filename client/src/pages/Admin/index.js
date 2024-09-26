@@ -14,7 +14,24 @@ import PublisherPage from './PublisherPage';
 import AdminProfilePage from './AdminProfilePage';
 import ForgetPasswordPage from './ForgetPasswordPage';
 import ResetPasswordPage from './ResetPasswordPage';
+import ProductDetailPage from './ProductDetailPage';
 
 export {
-  LoginAdminPage, ProductPage, ProductTypePage, DeliveryStatusPage, DeliveryMethodPage, PaymentMethodPage, ForgetPasswordPage, PaymentStatusPage, PublisherPage, OrderPage, AuthorPage, DashboardPage, ConfigPage, EventPage,AdminProfilePage,ResetPasswordPage,
+  LoginAdminPage,
+  ProductPage,
+  ProductTypePage,
+  DeliveryStatusPage,
+  DeliveryMethodPage,
+  PaymentMethodPage,
+  ForgetPasswordPage,
+  PaymentStatusPage,
+  PublisherPage,
+  OrderPage,
+  AuthorPage,
+  DashboardPage,
+  ConfigPage,
+  EventPage,
+  AdminProfilePage,
+  ResetPasswordPage,
+  ProductDetailPage,
 };

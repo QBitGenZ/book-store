@@ -65,5 +65,5 @@ export const deleteOneByAdminApi = (id) => apiFetch({
 });
 
 // export const getProductsByTypeApi = (id) => apiFetch({
-//   url: `types/${id}/products`,
+//   url: `types/${id}/product`,
 // });

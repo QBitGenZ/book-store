@@ -59,12 +59,12 @@ const DeliveryStatusPage = () => {
     createSuccess,
   ]);
 
-  // const getNextStatus = (deliveryStatuses, currentDeliveryStatus) => {
-  //   const nextStatus = deliveryStatuses.find(
-  //     (status) => status._id === currentDeliveryStatus.nextStatus
-  //   );
-  //   return nextStatus ? nextStatus.name : '';
-  // };
+  const getNextStatus = (deliveryStatuses, currentDeliveryStatus) => {
+    const nextStatus = deliveryStatuses.find(
+      (status) => status._id === currentDeliveryStatus.nextStatus
+    );
+    return nextStatus ? nextStatus.name : '';
+  };
 
   const updateDeliveryStatus = (id, deliveryStatusData) => {
     const data = {
@@ -182,10 +182,15 @@ const DeliveryStatusPage = () => {
                   enableSort: false,
                   label: translate('next-status'),
                 },
+                {
+                  field: 'displayNextStatus',
+                  enableSort: false,
+                  label: translate('display-next-status'),
+                },
               ]}
               data={deliveryStatuses?.map((item) => ({
                 ...item,
-                // nextStatus: getNextStatus(deliveryStatuses, item),
+                displayNextStatus: getNextStatus(deliveryStatuses, item),
               }))}
               keyField='_id'
               onSort={(f, des) => {

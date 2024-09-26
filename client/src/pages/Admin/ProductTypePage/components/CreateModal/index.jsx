@@ -26,7 +26,7 @@ function CreateModal({ show, setShow, createProductType, }) {
       </BModal.Header>
       <BModal.Body>
         <div className='flex justify-between gap-3'>
-          <TextField 
+          <TextField
             className='w-full'
             required
             id='outlined-required'

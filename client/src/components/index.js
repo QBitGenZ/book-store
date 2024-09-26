@@ -11,6 +11,7 @@ import DataTable from './DataTable';
 import Pagination from './Pagination';
 import ConfirmationModal from './ConfirmationModal';
 
+import CustomerHeader from './CustomerHeader';
 export {
-  CustomSnackbar, Sidebar, AdminHeader, QuiltedImageList, DropImagesInput,OTPInput,MiniSidebar,RichTextEditor,ColorSelector,DataTable,Pagination,ConfirmationModal,
+  CustomSnackbar, Sidebar, AdminHeader, QuiltedImageList, DropImagesInput,OTPInput,MiniSidebar,RichTextEditor,ColorSelector,DataTable,Pagination,ConfirmationModal, CustomerHeader,
 };

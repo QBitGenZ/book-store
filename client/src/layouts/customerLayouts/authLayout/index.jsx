@@ -1,25 +1,24 @@
 import React, { useEffect, useState, } from 'react';
 import { LoadingPage, } from '~/pages';
-// import { Navigate, } from 'react-router-dom';
 import { useDispatch, useSelector, } from 'react-redux';
 import { getInfoRequestStart, } from '~/redux/auth/slice';
-// import config from '~/configs';
+import { Navigate, } from 'react-router-dom';
+import { clientRoutes, } from '~/configs/routes';
 
 const CustomerAuthLayout = ({ children, }) => {
-  const [, setIsLogin,] = useState(false);
+  const [isLogin, setIsLogin,] = useState(false);
   const [isLoading, setIsLoading,] = useState(true);
-  const { user, loading, error, } = useSelector(state => state.auth);
+  const { user, loading, error, } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(!user)
-      dispatch(getInfoRequestStart());
+    if (!user) dispatch(getInfoRequestStart());
   }, []);
 
   useEffect(() => {
     const checkAuth = () => {
       const isAuthenticated = localStorage.getItem('token');
-      
+
       if (isAuthenticated && !error) {
         setIsLogin(true);
       } else {
@@ -37,14 +36,11 @@ const CustomerAuthLayout = ({ children, }) => {
   const render = () => {
     if (loading || isLoading) return <LoadingPage />;
 
-    // if (isLogin) return <Navigate to={config.adminRoutes.user} />;
-    // TODO: chỉnh lại đường dẫn
+    if (isLogin) return <Navigate to={clientRoutes.home} />;
 
     return (
       <div>
-        <main>
-          {children}
-        </main>
+        <main>{children}</main>
       </div>
     );
   };
