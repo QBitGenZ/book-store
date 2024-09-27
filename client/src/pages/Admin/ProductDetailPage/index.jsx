@@ -1,12 +1,18 @@
 import React from 'react';
-import { useParams, } from 'react-router-dom';
+import { useNavigate, useParams, } from 'react-router-dom';
 import { useDispatch, useSelector, } from 'react-redux';
 import { getProductRequestStart, } from '~/redux/product/slice';
 import { getPublishersByAdminRequestStart, } from '~/redux/publisher/slice';
 import { getTypesByAdminRequestStart, } from '~/redux/productType/slice';
 import { getAuthorsByAdminRequestStart, } from '~/redux/author/slice';
+import { adminRoutes, } from '~/configs/routes';
+import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
+import { faArrowLeft, } from '@fortawesome/free-solid-svg-icons';
 
 const ProductDetailPage = () => {
+  const { shop, } = useSelector(state => state.config);
+  const navigate = useNavigate();
+  
   const { id, } = useParams();
   const { product, } = useSelector((state) => state.product);
   // const { publishers, } = useSelector((state) => state.publisher);
@@ -21,6 +27,10 @@ const ProductDetailPage = () => {
     ));
   };
 
+  const handleBack = () => {
+    navigate(adminRoutes.product);
+  };
+
   React.useEffect(() => {
     getProduct();
     dispatch(getPublishersByAdminRequestStart);
@@ -31,6 +41,19 @@ const ProductDetailPage = () => {
 
   const render = () => (
     <>
+      <div className='grid grid-cols-3 gap-3'>
+        <div className={'relative'}>
+          <div className='absolute inset-y-0 left-0 place-content-center' onClick={handleBack} style={{
+            color: shop?.accentColor,
+          }}>
+            <FontAwesomeIcon className='left-0 inset-y-0' icon={faArrowLeft}/>
+          </div>
+        </div>
+        <div>
+
+        </div>
+        <div></div>
+      </div>
       <div className='max-w-6xl mx-auto p-6 grid grid-cols-2 gap-6'>
         <div className='space-y-4'>
           <div className='bg-white border rounded-lg p-4'>
