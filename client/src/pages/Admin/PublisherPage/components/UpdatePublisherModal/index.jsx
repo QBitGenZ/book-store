@@ -1,32 +1,54 @@
-import React, { useState, } from 'react';
+import React, { useEffect, useState, } from 'react';
 import Button from 'react-bootstrap/Button';
 import { Modal as BModal, } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { translate, } from '~/helpers';
 import { TextField, } from '@mui/material';
 import { DropImagesInput, } from '~/components';
+import { formatDate, } from '~/components/DateFormat';
 
-function CreatePublisherModal({ show, setShow, createPublisher, }) {
-  const [name, setName,] = useState('');
+function UpdatePublisherModal({ publisher, show, setShow, updatePublisher, }) {
+  const [name, setName,] = useState(publisher?.name);
+  const [address, setAddress,] = useState(publisher?.address);
+  const [website, setWebsite,] = useState(publisher?.website);
+  const [email, setEmail,] = useState(publisher?.email);
+  const [phone, setPhone,] = useState(publisher?.phone);
+  const [establishedDate, setEstablishedDate,] = useState(
+    publisher?.establishedDate
+  );
   const [logos, setLogos,] = useState([]);
-  const [address, setAddress,] = useState('');
-  const [website, setWebsite,] = useState('');
-  const [email, setEmail,] = useState('');
-  const [phone, setPhone,] = useState('');
-  const [establishmentDate, setEstablishmentDate,] = React.useState('');
 
   const handleClose = () => setShow(false);
+
   const handleSave = () => {
-    createPublisher({
+    updatePublisher(publisher?._id, {
       name,
-      logo: logos[0],
       address,
       website,
       email,
       phone,
-      establishmentDate,
+      establishedDate,
+      logo: logos[0],
     });
+    setShow(false);
   };
+
+  const handleDateChange = (e) => {
+    const { value, } = e.target;
+    const [year, month, day,] = value.split('-');
+    setEstablishedDate(new Date(year, month - 1, day));
+  };
+
+  useEffect(() => {
+    if (publisher) {
+      setName(publisher.name || '');
+      setAddress(publisher.address || '');
+      setWebsite(publisher.website || '');
+      setEmail(publisher.email || '');
+      setPhone(publisher.phone || '');
+      setEstablishedDate(publisher.establishedDate || '');
+    }
+  }, [publisher,]);
 
   return (
     <BModal
@@ -36,7 +58,7 @@ function CreatePublisherModal({ show, setShow, createPublisher, }) {
       onHide={handleClose}
     >
       <BModal.Header closeButton>
-        <BModal.Title>{translate('create-publisher-label')}</BModal.Title>
+        <BModal.Title>{translate('update-publisher-label')}</BModal.Title>
       </BModal.Header>
       <BModal.Body>
         <div className='flex flex-col gap-3'>
@@ -88,12 +110,12 @@ function CreatePublisherModal({ show, setShow, createPublisher, }) {
                   shrink: true,
                 }}
                 size='small'
-                value={establishmentDate}
-                onChange={(e) => setEstablishmentDate(e.target.value)}
+                value={formatDate(establishedDate)}
+                onChange={handleDateChange}
               />
             </div>
           </div>
-          <DropImagesInput files={logos} setFiles={setLogos} multiple={false} />
+          <DropImagesInput files={logos} setFiles={setLogos} multiple={false}/>
         </div>
       </BModal.Body>
       <BModal.Footer>
@@ -108,10 +130,11 @@ function CreatePublisherModal({ show, setShow, createPublisher, }) {
   );
 }
 
-CreatePublisherModal.propTypes = {
+UpdatePublisherModal.propTypes = {
+  publisher: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
   setShow: PropTypes.func.isRequired,
-  createPublisher: PropTypes.func.isRequired,
+  updatePublisher: PropTypes.func.isRequired,
 };
 
-export default CreatePublisherModal;
+export default UpdatePublisherModal;

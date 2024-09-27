@@ -9,6 +9,7 @@ import { createPublisherByAdminRequestStart,
 import CreatePublisherModal from './components/CreatePublisherModal';
 import UpdatePublisherModal from './components/UpdatePublisherModal';
 import { Button, } from '@mui/material';
+import { formatDate, } from '~/components/DateFormat';
 
 const PublisherPage = () => {
   const dispatch = useDispatch();
@@ -30,7 +31,8 @@ const PublisherPage = () => {
   const [showCreate, setShowCreate,] = React.useState(false);
   const [showUpdate, setShowUpdate,] = React.useState(false);
   const [showConfirm, setShowConfirm,] = React.useState(false);
-  const [confirmAction, setConfirmAction,] = React.useState(() => () => {});
+  const [confirmAction, setConfirmAction,] = React.useState(() => () => {
+  });
   const [confirmMessage, setConfirmMessage,] = React.useState('');
 
   const getPublishers = () => {
@@ -67,7 +69,7 @@ const PublisherPage = () => {
     formData.append('website', publisherData?.website);
     formData.append('email', publisherData?.email);
     formData.append('phone', publisherData?.phone);
-    formData.append('establishmentDate', publisherData?.establishmentDate);
+    formData.append('establishedDate', publisherData?.establishedDate);
     if (publisherData?.logo) {
       formData.append('logo', publisherData?.logo?.file);
     }
@@ -94,7 +96,7 @@ const PublisherPage = () => {
     website,
     email,
     phone,
-    establishmentDate,
+    establishedDate,
     logo,
   }) => {
     const formData = new FormData();
@@ -103,8 +105,8 @@ const PublisherPage = () => {
     if (website) formData.append('website', website);
     if (email) formData.append('email', email);
     if (phone) formData.append('phone', phone);
-    if (establishmentDate)
-      formData.append('establishmentDate', establishmentDate);
+    if (establishedDate)
+      formData.append('establishedDate', establishedDate);
     if (logo) {
       formData.append('logo', logo.file);
     }
@@ -213,9 +215,9 @@ const PublisherPage = () => {
                   label: translate('phone'),
                 },
                 {
-                  field: 'establishmentDate',
+                  field: 'establishedDate',
                   enableSort: false,
-                  label: translate('establishment-date'),
+                  label: translate('established-date'),
                 },
               ]}
               data={publishers?.map((item) => ({
@@ -229,6 +231,7 @@ const PublisherPage = () => {
                 ) : (
                   ''
                 ),
+                establishedDate: formatDate(item?.establishedDate),
               }))}
               keyField='_id'
               onSort={(f, des) => {

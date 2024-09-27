@@ -5,9 +5,10 @@ import PropTypes from 'prop-types';
 import { translate, } from '~/helpers';
 import { TextField, } from '@mui/material';
 import { DropImagesInput, } from '~/components';
+import { formatDate, } from '~/components/DateFormat';
 
 function UpdateAuthorModal({ author, show, setShow, updateAuthor, }) {
-  const [fullname, setFullname,] = useState(author?.fullname || '');
+  const [fullName, setFullname,] = useState(author?.fullName || '');
   const [birthday, setBirthday,] = useState(
     author?.birthday ? new Date(author?.birthday) : null
   );
@@ -18,7 +19,7 @@ function UpdateAuthorModal({ author, show, setShow, updateAuthor, }) {
   const handleClose = () => setShow(false);
   const handleSave = () => {
     updateAuthor(author?._id, {
-      fullname,
+      fullName,
       birthday,
       nationality,
       biography,
@@ -29,20 +30,12 @@ function UpdateAuthorModal({ author, show, setShow, updateAuthor, }) {
 
   useEffect(() => {
     if (author) {
-      setFullname(author.fullname || '');
+      setFullname(author.fullName || '');
       setBirthday(author.birthday ? new Date(author.birthday) : null);
       setNationality(author.nationality || '');
       setBiography(author.biography || '');
     }
   }, [author,]);
-
-  const formatDate = (dateString) => {
-    if (!dateString) return '';
-    const year = dateString.getFullYear();
-    const month = String(dateString.getMonth() + 1).padStart(2, '0');
-    const day = String(dateString.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  };
 
   const handleDateChange = (e) => {
     const { value, } = e.target;
@@ -65,10 +58,10 @@ function UpdateAuthorModal({ author, show, setShow, updateAuthor, }) {
           <TextField
             className='w-full'
             required
-            id='fullname-required'
-            label={translate('author-fullname-label')}
+            id='fullName-required'
+            label={translate('author-fullName-label')}
             size='small'
-            value={fullname}
+            value={fullName}
             onChange={(e) => setFullname(e.target.value)}
           />
           <TextField

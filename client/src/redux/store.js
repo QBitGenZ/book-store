@@ -12,6 +12,7 @@ import deliveryMethodReducer from './deliveryMethod/slice';
 import deliveryStatusReducer from './deliveryStatus/slice';
 import paymentMethodReducer from './paymentMethod/slice';
 import paymentStatusReducer from './paymentStatus/slice';
+import productReducer from './product/slice';
 import rootSaga from './sagas';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -28,11 +29,12 @@ const store = configureStore({
     deliveryStatus: deliveryStatusReducer,
     paymentMethod: paymentMethodReducer,
     paymentStatus: paymentStatusReducer,
+    product: productReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(sagaMiddleware),
   devTools:
-    process.env.NODE_ENV !== 'production' ? composeWithDevTools() : undefined,
+        process.env.NODE_ENV !== 'production' ? composeWithDevTools() : undefined,
 });
 
 sagaMiddleware.run(rootSaga);
