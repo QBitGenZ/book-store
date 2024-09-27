@@ -8,7 +8,7 @@ import { DropImagesInput, } from '~/components';
 import { formatDate, } from '~/components/DateFormat';
 
 function UpdateAuthorModal({ author, show, setShow, updateAuthor, }) {
-  const [fullName, setFullname,] = useState(author?.fullName || '');
+  const [fullname, setFullname,] = useState(author?.fullname || '');
   const [birthday, setBirthday,] = useState(
     author?.birthday ? new Date(author?.birthday) : null
   );
@@ -19,7 +19,7 @@ function UpdateAuthorModal({ author, show, setShow, updateAuthor, }) {
   const handleClose = () => setShow(false);
   const handleSave = () => {
     updateAuthor(author?._id, {
-      fullName,
+      fullname,
       birthday,
       nationality,
       biography,
@@ -30,7 +30,7 @@ function UpdateAuthorModal({ author, show, setShow, updateAuthor, }) {
 
   useEffect(() => {
     if (author) {
-      setFullname(author.fullName || '');
+      setFullname(author.fullname || '');
       setBirthday(author.birthday ? new Date(author.birthday) : null);
       setNationality(author.nationality || '');
       setBiography(author.biography || '');
@@ -58,10 +58,10 @@ function UpdateAuthorModal({ author, show, setShow, updateAuthor, }) {
           <TextField
             className='w-full'
             required
-            id='fullName-required'
-            label={translate('author-fullName-label')}
+            id='fullname-required'
+            label={translate('author-fullname-label')}
             size='small'
-            value={fullName}
+            value={fullname}
             onChange={(e) => setFullname(e.target.value)}
           />
           <TextField

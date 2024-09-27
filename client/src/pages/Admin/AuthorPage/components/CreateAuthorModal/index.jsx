@@ -39,7 +39,7 @@ function CreateAuthorModal({ show, setShow, createAuthor, }) {
           <TextField
             className='w-full'
             required
-            id='fullName-required'
+            id='fullname-required'
             label={translate('author-fullname-label')}
             size='small'
             value={fullname}
