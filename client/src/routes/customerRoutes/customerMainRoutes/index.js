@@ -7,6 +7,11 @@ export default [
   {
     id: `client-${uuid4()}`,
     path: clientRoutes.home,
-    element: <HomePage />,
+    element: <HomePage/>,
   },
+  // {
+  //   id: `client-${uuid4()}`,
+  //   path: clientRoutes.product,
+  //   element: <ProductInfoPage/>,
+  // },
 ];

@@ -31,4 +31,5 @@ export const adminRoutes = {
 
 export const clientRoutes = {
   home: '/',
+  product: '/:id',
 };

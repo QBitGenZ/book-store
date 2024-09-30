@@ -3,6 +3,7 @@ import { adminRoutes, } from '~/configs/routes';
 import { AdminProfilePage,
   AuthorPage,
   ConfigPage,
+  CreateProductPage,
   DashboardPage,
   DeliveryMethodPage,
   DeliveryStatusPage,
@@ -13,10 +14,9 @@ import { AdminProfilePage,
   ProductDetailPage,
   ProductPage,
   ProductTypePage,
-  PublisherPage, } from '~/pages';
+  PublisherPage,
+  UpdateProductPage, } from '~/pages';
 import React from 'react';
-import CreateProductPage from '~/pages/Admin/ProductPage/components/CreateProductPage';
-import UpdateProductPage from '~/pages/Admin/ProductPage/components/UpdateProductPage';
 
 export default [
   {
@@ -89,7 +89,6 @@ export default [
     path: adminRoutes.productDetail,
     element: <ProductDetailPage/>,
   },
-
   {
     id: `admin-${uuid4()}`,
     path: adminRoutes.createProduct,

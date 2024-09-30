@@ -131,9 +131,9 @@ exports.updatePBook = async (req, res) => {
         object.isEbook = isEbook || object.isEbook;
 
 
-        if (req.files?.['images'] && req.files?.['image']?.length > 0) {
+        if (req.files?.['images'] && req.files?.['images']?.length > 0) {
             const images = req.files['images']?.map(file => file.filename)
-            object.images = [...object.images, images]
+            object.images = [...object.images, ...images]
         }
 
         if (req.files?.['file']?.[0]) {

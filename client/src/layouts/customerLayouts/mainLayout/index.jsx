@@ -14,15 +14,20 @@ const CustomerMainLayout = ({ children, }) => {
     dispatch(getInfoRequestStart);
   }, []);
   const render = () => {
-    if (loading) return <LoadingPage />;
+    if (loading) return <LoadingPage/>;
 
-    if (!user) return <Navigate to={authRoutes.login} />;
+    if (!user) return <Navigate to={authRoutes.login}/>;
 
     return (
       <div>
-        <main>
-          <CustomerHeader />
-          <div>{children}</div>
+        <main className='flex bg-gray-50 h-screen overflow-hidden'>
+
+          <div className='flex flex-col flex-grow '>
+            <CustomerHeader/>
+            <div className=' overflow-y-auto  p-3'>
+              {children}
+            </div>
+          </div>
 
         </main>
       </div>
