@@ -50,7 +50,7 @@ function UpdateDeliveryStatusModal({
         <BModal.Title>{translate('update-delivery-status-label')}</BModal.Title>
       </BModal.Header>
       <BModal.Body>
-        <div className='d-flex flex-wrap'>
+        <div className='flex flex-wrap'>
           <div
             className='flex-fill d-flex flex-column p-2'
             style={{

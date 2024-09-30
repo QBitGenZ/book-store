@@ -59,7 +59,7 @@ function UpdateModal({ productType, show, setShow, updateProductType, }) {
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
-        <DropImagesInput files={images} setFiles={setImages} multiple={false} />
+        <DropImagesInput files={images} setFiles={setImages} multiple={false}/>
       </BModal.Body>
       <BModal.Footer>
         <Button variant='secondary' onClick={handleClose}>

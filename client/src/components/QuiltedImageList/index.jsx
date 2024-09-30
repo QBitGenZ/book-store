@@ -12,7 +12,8 @@ import { DropImagesInput, } from '~/components';
 
 function srcset(image, size, rows = 1, cols = 1) {
   return {
-    src: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format`,
+    // src: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format`,
+    src: `${image}`,
     srcSet: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format&dpr=2 2x`,
   };
 }
@@ -95,7 +96,7 @@ export default function QuiltedImageList({
             aria-label='add an image'
             onClick={handleDialogOpen}
           >
-            <AddIcon />
+            <AddIcon/>
           </IconButton>
         </ImageListItem>
         {itemData?.map((item) => (
@@ -155,7 +156,7 @@ export default function QuiltedImageList({
             overflowY: 'auto',
           }}
         >
-          <DropImagesInput files={newImages} multiple setFiles={setNewImages} />
+          <DropImagesInput files={newImages} multiple setFiles={setNewImages}/>
         </BModal.Body>
         <BModal.Footer>
           <BButton variant='secondary' onClick={handleDialogClose}>

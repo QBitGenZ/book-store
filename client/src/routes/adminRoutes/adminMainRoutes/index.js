@@ -1,72 +1,103 @@
 import { v4 as uuid4, } from 'uuid';
 import { adminRoutes, } from '~/configs/routes';
-import { AdminProfilePage, AuthorPage, ConfigPage, DashboardPage, DeliveryMethodPage, DeliveryStatusPage, EventPage, OrderPage, PaymentMethodPage, PaymentStatusPage, ProductPage, ProductTypePage, PublisherPage, } from '~/pages';
+import { AdminProfilePage,
+  AuthorPage,
+  ConfigPage,
+  DashboardPage,
+  DeliveryMethodPage,
+  DeliveryStatusPage,
+  EventPage,
+  OrderPage,
+  PaymentMethodPage,
+  PaymentStatusPage,
+  ProductDetailPage,
+  ProductPage,
+  ProductTypePage,
+  PublisherPage, } from '~/pages';
 import React from 'react';
+import CreateProductPage from '~/pages/Admin/ProductPage/components/CreateProductPage';
+import UpdateProductPage from '~/pages/Admin/ProductPage/components/UpdateProductPage';
 
 export default [
   {
     id: `admin-${uuid4()}`,
     path: adminRoutes.product,
-    element: <ProductPage />,
+    element: <ProductPage/>,
   },
   {
     id: `admin-${uuid4()}`,
     path: adminRoutes.productType,
-    element: <ProductTypePage />,
+    element: <ProductTypePage/>,
   },
   {
     id: `admin-${uuid4()}`,
     path: adminRoutes.author,
-    element: <AuthorPage />,
+    element: <AuthorPage/>,
   },
   {
     id: `admin-${uuid4()}`,
     path: adminRoutes.config,
-    element: <ConfigPage />,
+    element: <ConfigPage/>,
   },
   {
     id: `admin-${uuid4()}`,
     path: adminRoutes.dashboard,
-    element: <DashboardPage />,
+    element: <DashboardPage/>,
   },
   {
     id: `admin-${uuid4()}`,
     path: adminRoutes.deliveryMethod,
-    element: <DeliveryMethodPage />,
+    element: <DeliveryMethodPage/>,
   },
   {
     id: `admin-${uuid4()}`,
     path: adminRoutes.deliveryStatus,
-    element: <DeliveryStatusPage />,
+    element: <DeliveryStatusPage/>,
   },
   {
     id: `admin-${uuid4()}`,
     path: adminRoutes.paymentMethod,
-    element: <PaymentMethodPage />,
+    element: <PaymentMethodPage/>,
   },
   {
     id: `admin-${uuid4()}`,
     path: adminRoutes.paymentStatus,
-    element: <PaymentStatusPage />,
+    element: <PaymentStatusPage/>,
   },
   {
     id: `admin-${uuid4()}`,
     path: adminRoutes.event,
-    element: <EventPage />,
+    element: <EventPage/>,
   },
   {
     id: `admin-${uuid4()}`,
     path: adminRoutes.publisher,
-    element: <PublisherPage />,
+    element: <PublisherPage/>,
   },
   {
     id: `admin-${uuid4()}`,
     path: adminRoutes.order,
-    element: <OrderPage />,
+    element: <OrderPage/>,
   },
   {
     id: `admin-${uuid4()}`,
     path: adminRoutes.profile,
-    element: <AdminProfilePage />,
+    element: <AdminProfilePage/>,
+  },
+  {
+    id: `admin-${uuid4()}`,
+    path: adminRoutes.productDetail,
+    element: <ProductDetailPage/>,
+  },
+
+  {
+    id: `admin-${uuid4()}`,
+    path: adminRoutes.createProduct,
+    element: <CreateProductPage/>,
+  },
+  {
+    id: `admin-${uuid4()}`,
+    path: adminRoutes.updateProduct,
+    element: <UpdateProductPage/>,
   },
 ];

@@ -9,11 +9,12 @@ import { createAuthorByAdminRequestStart,
 import CreateAuthorModal from './components/CreateAuthorModal';
 import UpdateAuthorModal from './components/UpdateAuthorModal';
 import { Button, } from '@mui/material';
+import { formatDate, } from '~/components/DateFormat';
 
 const AuthorPage = () => {
   const dispatch = useDispatch();
   const { authors, meta, author, updateSuccess, deleteSuccess, createSuccess, } =
-    useSelector((state) => state.author);
+        useSelector((state) => state.author);
 
   const [orderBy, setOrderBy,] = React.useState('');
   const [descending, setDescending,] = React.useState(true);
@@ -24,7 +25,8 @@ const AuthorPage = () => {
   const [showCreate, setShowCreate,] = React.useState(false);
   const [showUpdate, setShowUpdate,] = React.useState(false);
   const [showConfirm, setShowConfirm,] = React.useState(false);
-  const [confirmAction, setConfirmAction,] = React.useState(() => () => {});
+  const [confirmAction, setConfirmAction,] = React.useState(() => () => {
+  });
   const [confirmMessage, setConfirmMessage,] = React.useState('');
 
   const getAuthors = () => {
@@ -36,18 +38,6 @@ const AuthorPage = () => {
         descending,
       })
     );
-  };
-
-  const formatDate = (dateString) => {
-    // let date;
-    // date = new Date(dateString);
-    // return date.toLocaleDateString('vn-VN');
-    let date;
-    date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${day}/${month}/${year}`;
   };
 
   React.useEffect(() => {
@@ -67,7 +57,7 @@ const AuthorPage = () => {
 
   const updateAuthor = (id, author) => {
     const formData = new FormData();
-    formData.append('fullname', author?.fullname);
+    if (author?.fullname) formData.append('fullname', author?.fullname);
     if (author?.birthday) formData.append('birthday', author?.birthday);
     if (author?.nationality)
       formData.append('nationality', author?.nationality);
