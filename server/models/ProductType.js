@@ -14,4 +14,5 @@ const ProductTypeSchema = new mongoose.Schema({
   }
 })
 
+//Todo:
 module.exports = mongoose.model('ProductType', ProductTypeSchema)
