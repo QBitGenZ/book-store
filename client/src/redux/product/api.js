@@ -55,7 +55,7 @@ export const deleteImageApi = (productId, imageId) => {
   const token = localStorage.getItem('token');
 
   return apiFetch({
-    url: `/books/admin/${productId}/images/${imageId}`,
+    url: `books/admin/${productId}/images/${imageId}`,
     options: {
       method: 'DELETE',
       headers: {

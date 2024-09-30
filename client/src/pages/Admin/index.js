@@ -15,6 +15,8 @@ import AdminProfilePage from './AdminProfilePage';
 import ForgetPasswordPage from './ForgetPasswordPage';
 import ResetPasswordPage from './ResetPasswordPage';
 import ProductDetailPage from './ProductDetailPage';
+import CreateProductPage from './CreateProductPage';
+import UpdateProductPage from './UpdateProductPage';
 
 export {
   LoginAdminPage,
@@ -34,4 +36,6 @@ export {
   AdminProfilePage,
   ResetPasswordPage,
   ProductDetailPage,
+  CreateProductPage,
+  UpdateProductPage,
 };
