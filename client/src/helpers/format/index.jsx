@@ -6,3 +6,9 @@ export const formatDate = (dateString) => {
   const day = String(dateString.getDate()).padStart(2, '0');
   return `${year}-${month}-${day}`;
 };
+
+export const formatCurrency = (price) => {
+  return new Intl.NumberFormat('vi-VN', {
+    style: 'currency', currency: 'VND',
+  }).format(price);
+};

@@ -9,7 +9,7 @@ import { adminRoutes, } from '~/configs/routes';
 import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, } from '@fortawesome/free-solid-svg-icons';
 import ProductImage from '~/components/ProductImage/productImage';
-import ProductInfo from '~/components/ProductInfo';
+import ProductDetailInformation from '~/components/ProductDetailInformation';
 
 const ProductDetailPage = () => {
   const { shop, } = useSelector(state => state.config);
@@ -32,38 +32,38 @@ const ProductDetailPage = () => {
 
   React.useEffect(() => {
     getProduct();
-    dispatch(getPublishersByAdminRequestStart);
-    dispatch(getTypesByAdminRequestStart);
-    dispatch(getAuthorsByAdminRequestStart);
+    dispatch(getPublishersByAdminRequestStart());
+    dispatch(getTypesByAdminRequestStart());
+    dispatch(getAuthorsByAdminRequestStart());
   }, []);
 
-  const render = () => (
-    <>
+  const render = () => <>
 
-      <div className={'relative flex flex-col gap-4 m-2'}>
-        <div className='flex justify-start' onClick={handleBack} style={{
-          color: shop?.accentColor,
-        }}>
-          <FontAwesomeIcon icon={faArrowLeft}/>
-        </div>
-
-        <div className='flex flex-row gap-4'>
-
-          <div>
-            <ProductImage
-              product={product}
-            />
-          </div>
-          <div>
-            <ProductInfo
-              product={product}
-            />
-          </div>
-
-        </div>
+    <div className={'relative flex flex-col gap-4 m-2'}>
+      <div className='flex justify-start' onClick={handleBack} style={{
+        color: shop?.accentColor,
+      }}>
+        <FontAwesomeIcon icon={faArrowLeft}/>
       </div>
-    </>
-  );
+
+      <div className='flex flex-row gap-4'>
+
+        <div>
+          <ProductImage
+            product={product}
+          />
+        </div>
+        <div className={'w-full'}>
+          <ProductDetailInformation
+            product={product}
+            hiddenFields={['__v', 'images', 'description',]}
+          />
+        </div>
+
+      </div>
+
+    </div>
+  </>;
 
   return render();
 };

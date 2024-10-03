@@ -1,4 +1,4 @@
-import { deleteImageRequestStart, deleteImageRequestSuccess, } from '~/redux/product/slice';
+import { deleteImageRequestFailure, deleteImageRequestStart, deleteImageRequestSuccess, } from '~/redux/product/slice';
 import { deleteImageApi, } from '~/redux/product/api';
 
 const { put, takeLatest, call, } = require('redux-saga/effects');
@@ -154,7 +154,7 @@ function* handleDeleteProductImageRequest(action) {
       message: 'Deleted successfully!', severity: 'success',
     }));
   } catch (err) {
-    yield put(deleteProductRequestFailure(err.message));
+    yield put(deleteImageRequestFailure(err.message));
     yield put(showSnackbar({
       message: `Delete failed: ${err.message}`, severity: 'error',
     }));

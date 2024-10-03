@@ -2,15 +2,14 @@ import React from 'react';
 import { useDispatch, useSelector, } from 'react-redux';
 import { useNavigate, } from 'react-router-dom';
 import { ConfirmationModal, DataTable, Pagination, } from '~/components';
-import { translate, } from '~/helpers';
-import { deleteProductRequestStart,
-  getProductsRequestStart, } from '~/redux/product/slice';
+import { formatCurrency, translate, } from '~/helpers';
+import { deleteProductRequestStart, getProductsRequestStart, } from '~/redux/product/slice';
 
 import { Button, } from '@mui/material';
 import { adminRoutes, } from '~/configs/routes';
 import { getPublishersByAdminRequestStart, } from '~/redux/publisher/slice';
 import { getAuthorsByAdminRequestStart, } from '~/redux/author/slice';
-import { formatDate, } from '~/components/DateFormat';
+import { formatDate, } from 'src/helpers';
 
 const ProductPage = () => {
   const dispatch = useDispatch();
@@ -177,6 +176,7 @@ const ProductPage = () => {
                 pubDate: formatDate(item?.pubDate),
                 author: authors?.find((author) => item.author === author._id)?.fullname,
                 publisher: publishers?.find((publisher) => item.publisher === publisher._id)?.name,
+                price: formatCurrency(item?.price),
               }))}
               keyField='_id'
               onSort={(f, des) => {

@@ -12,7 +12,7 @@ import { getTypesByAdminRequestStart, } from '~/redux/productType/slice';
 import { getAuthorsByAdminRequestStart, } from '~/redux/author/slice';
 import { deleteImageRequestStart, getProductRequestStart, updateProductRequestStart, } from '~/redux/product/slice';
 import { QuiltedImageList, } from '~/components';
-import { formatDate, } from '~/components/DateFormat';
+import { formatDate, } from 'src/helpers';
 
 const UpdateProductPage = () => {
   const { id, } = useParams();
@@ -147,7 +147,7 @@ const UpdateProductPage = () => {
   };
 
   const handleBack = () => {
-    navigate(adminRoutes.product);
+    navigate(-1);
   };
 
   const handleFileChange = (e) => {

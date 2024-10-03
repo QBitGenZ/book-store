@@ -1,25 +1,29 @@
 import React from 'react';
-import ProductCard from '~/components/ProductCard';
 import { useDispatch, useSelector, } from 'react-redux';
 import { getProductsRequestStart, } from '~/redux/product/slice';
+import ProductCard from '~/components/ProductCard';
+import { getShopRequestStart, } from '~/redux/config/slice';
 
 const HomePage = () => {
   const { products, } = useSelector((state) => state.product);
+  // const { shop, } = useSelector((state) => state.config);
+
   const dispatch = useDispatch();
 
-  const getProduct = () => {
-    dispatch(getProductsRequestStart(
-
-    ));
-  };
-
   React.useEffect(() => {
-    getProduct();
-  }, []);
+    dispatch(getProductsRequestStart());
+    dispatch(getShopRequestStart());
+  }, [dispatch,]);
 
   return (
     <div>
-      <ProductCard product={products[0]}></ProductCard>
+      {products && products.length > 0 ? (
+        products.map((product) =>
+          product ? <ProductCard product={product} key={product._id}/> : null
+        )
+      ) : (
+        <p>No products available</p>
+      )}
     </div>
   );
 };

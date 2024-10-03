@@ -1,7 +1,7 @@
 import { v4 as uuid4, } from 'uuid';
 import { clientRoutes, } from '~/configs/routes';
 import React from 'react';
-import { HomePage, } from '~/pages';
+import { HomePage, ProductInfoPage, } from '~/pages';
 
 export default [
   {
@@ -9,9 +9,9 @@ export default [
     path: clientRoutes.home,
     element: <HomePage/>,
   },
-  // {
-  //   id: `client-${uuid4()}`,
-  //   path: clientRoutes.product,
-  //   element: <ProductInfoPage/>,
-  // },
+  {
+    id: `client-${uuid4()}`,
+    path: clientRoutes.product,
+    element: <ProductInfoPage/>,
+  },
 ];

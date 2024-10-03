@@ -12,7 +12,7 @@ import { getTypesByAdminRequestStart, } from '~/redux/productType/slice';
 import { getAuthorsByAdminRequestStart, } from '~/redux/author/slice';
 import { createProductRequestStart, } from '~/redux/product/slice';
 import { QuiltedImageList, } from '~/components';
-import { formatDate, } from '~/components/DateFormat';
+import { formatDate, } from 'src/helpers';
 
 const CreateProductPage = () => {
   const [name, setName,] = useState('');
@@ -62,10 +62,6 @@ const CreateProductPage = () => {
 
   const handleRemovePhoto = (imageRemoved) => {
     setImages(prevImages => prevImages.filter(image => image.url !== imageRemoved.img));
-    // setImagesSubmit(prevImagesSubmit => prevImagesSubmit.filter((_, index) => {
-    //   const removedImage = prevImagesSubmit.find(image => image.url === imageRemoved.img);
-    //   return removedImage?.file !== prevImagesSubmit[index];
-    // }));
   };
   const handleAddImages = (imagesUpload) => {
     if (imagesUpload.length > 0) {

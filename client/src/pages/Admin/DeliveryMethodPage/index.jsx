@@ -30,7 +30,8 @@ const DeliveryMethodPage = () => {
   const [showCreate, setShowCreate,] = React.useState(false);
   const [showUpdate, setShowUpdate,] = React.useState(false);
   const [showConfirm, setShowConfirm,] = React.useState(false);
-  const [confirmAction, setConfirmAction,] = React.useState(() => () => {});
+  const [confirmAction, setConfirmAction,] = React.useState(() => () => {
+  });
   const [confirmMessage, setConfirmMessage,] = React.useState('');
 
   const getDeliveryMethods = () => {

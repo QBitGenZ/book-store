@@ -26,7 +26,6 @@ const ProductImage = ({ product, }) => {
       setEndIndex(endIndex - 1);
       setStartIndex(startIndex - 1);
     }
-
   };
 
   React.useEffect(() => {
@@ -81,6 +80,27 @@ const ProductImage = ({ product, }) => {
           )}
         </div>
       </div>
+
+      {/* <div*/}
+      {/*  className={'relative snap-x overflow-x-auto snap-mandatory scrollbar-hidden flex flex-row gap-1'}>*/}
+      {/*  {data?.images?.map((image, index) => (*/}
+      {/*    <div className={'snap-start shrink-0'} key={index}>*/}
+      {/*      <img*/}
+      {/*        key={index}*/}
+      {/*        src={`${process.env.REACT_APP_HOST_IP}/${image}`}*/}
+      {/*        alt={`Thumbnail ${index + 1}`}*/}
+      {/*        className={`w-16 h-16 p-0.5 object-contain cursor-pointer rounded ${image === selectedImage ? 'border-2' : 'border'}`}*/}
+      {/*        style={image === selectedImage ? {*/}
+      {/*          borderColor: shop?.accentColor,*/}
+      {/*        } : {*/}
+      {/*        }}*/}
+
+      {/*        onClick={() => handleProductChange(image)}*/}
+      {/*      />*/}
+      {/*    </div>*/}
+      {/*  ))}*/}
+
+      {/* </div>*/}
     </div>
   );
 };

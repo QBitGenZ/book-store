@@ -1,61 +1,60 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate, } from 'react-router-dom';
-import { customerMainRoutes, } from '~/routes';
+import { clientRoutes, } from '~/configs/routes';
+import { useSelector, } from 'react-redux';
+import { formatCurrency, } from '~/helpers';
 
 const ProductCard = ({ product, }) => {
   const navigate = useNavigate();
+  const { shop, } = useSelector(state => state.config);
+
   const handleNavigate = () => {
-    navigate(customerMainRoutes.product);
+    navigate(clientRoutes.product.replace(':id', product._id));
   };
 
   return (
     <div
-      className='relative m-10 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md'>
-      <div className='relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl' onClick={handleNavigate}>
-        {product?.images !== [] ?
+      className='relative flex mb-5 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 max-w-56 max-h-[360px] flex-col overflow-hidden bg-white hover:shadow-xl'>
+      <div className='relative mx-3 mt-3 flex justify-center overflow-hidden rounded-xl cursor-pointer'
+        onClick={handleNavigate}>
+        {product?.images?.length > 0 ? (
           <img
-            src={`${process.env.REACT_APP_HOST_IP}/${product?.images[0]}`}
-            alt='Product'
-            className='w-full h-auto'/> : ''
-        }
+            src={`${process.env.REACT_APP_HOST_IP}/${product.images[0]}`}
+            alt={`${product.name}`}
+            className='size-48 object-cover aspect-square'
+          />
+        ) : (
+          <span>No Image Available</span>
+        )}
       </div>
-      <div className='mt-4 px-5 pb-5'>
-        <div onClick={handleNavigate}>
-          <h5>{product?.name}</h5>
+      <div className='flex flex-col justify-start mt-2 mx-2 px-2 pb-2'>
+        <div onClick={handleNavigate} className='cursor-pointer'>
+          <div
+            className='text-pretty text-start text-sm md:text-base truncate font-normal line-clamp-2'>
+            {product?.name}
+          </div>
         </div>
         <div className='mt-2 mb-5 flex items-center justify-between'>
-          <p>
-            <span className='text-3xl font-bold text-slate-900'>${product?.price}</span>
-          </p>
+          <div className='font-semibold text-base md:text-lg' style={{
+            color: shop?.accentColor,
+          }}>
+            {formatCurrency(product?.price)}
+          </div>
         </div>
-        <a
-          href='#'
-          className='flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300'
-        >
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            className='mr-2 h-6 w-6'
-            fill='none'
-            viewBox='0 0 24 24'
-            stroke='currentColor'
-            strokeWidth='2'
-          >
-            <path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              d='M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z'
-            />
-          </svg>
-                    Add to cart
-        </a>
       </div>
     </div>
+
   );
 };
 
 ProductCard.propTypes = {
-  product: PropTypes.object.isRequired,
+  product: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    price: PropTypes.number,
+    images: PropTypes.arrayOf(PropTypes.string),
+  }).isRequired,
 };
 
 export default ProductCard;
