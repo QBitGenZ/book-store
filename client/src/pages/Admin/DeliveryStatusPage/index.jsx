@@ -30,7 +30,8 @@ const DeliveryStatusPage = () => {
   const [showCreate, setShowCreate,] = useState(false);
   const [showUpdate, setShowUpdate,] = useState(false);
   const [showConfirm, setShowConfirm,] = useState(false);
-  const [confirmAction, setConfirmAction,] = useState(() => () => {});
+  const [confirmAction, setConfirmAction,] = useState(() => () => {
+  });
   const [confirmMessage, setConfirmMessage,] = useState('');
 
   const getDeliveryStatuses = () => {
@@ -45,7 +46,9 @@ const DeliveryStatusPage = () => {
   };
 
   useEffect(() => {
-    getDeliveryStatuses();
+    if (!deliveryStatuses || deliveryStatuses.length === 0 || deliveryStatuses.length !== limit) {
+      getDeliveryStatuses();
+    }
   }, [
     orderBy,
     descending,

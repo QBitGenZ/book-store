@@ -5,6 +5,8 @@ import { authRoutes, clientRoutes, } from '~/configs/routes';
 import { translate, } from '~/helpers';
 import { Avatar, Box, IconButton, Menu, MenuItem, Paper, Tooltip, Typography, } from '@mui/material';
 import { logout, } from '~/redux/auth/slice';
+import { faCartShopping, } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
 
 const CustomerHeader = () => {
   const [anchorElUser, setAnchorElUser,] = React.useState(null);
@@ -37,10 +39,17 @@ const CustomerHeader = () => {
     },
   ];
 
+  const handleChangeCartPage = () => {
+    navigate(clientRoutes.cart);
+  };
+
   return (
     <Paper className='mx-auto w-full px-16 py-3 sticky top-0 z-40'>
 
-      <div className='flex justify-end items-center space-x-2'>
+      <div className='flex justify-end items-center space-x-2 gap-3'>
+        <div onClick={handleChangeCartPage}>
+          <FontAwesomeIcon icon={faCartShopping}/>
+        </div>
         <Box sx={{
           flexGrow: 0,
         }}>

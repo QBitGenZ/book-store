@@ -8,12 +8,14 @@ import { getAuthorsByAdminRequestStart, } from '~/redux/author/slice';
 import { useDispatch, useSelector, } from 'react-redux';
 import { formatDate, } from 'src/helpers';
 import DescriptionList from '~/components/DescriptionList';
+import { getUserAllRequestStart, } from '~/redux/user/slice';
 
 const ProductDetailInformation = ({ product, hiddenFields, }) => {
 
   const { publishers, } = useSelector((state) => state.publisher);
   const { types, } = useSelector((state) => state.type);
   const { authors, } = useSelector((state) => state.author);
+  const { users, } = useSelector(state => state.user);
 
   const dispatch = useDispatch();
 
@@ -29,10 +31,15 @@ const ProductDetailInformation = ({ product, hiddenFields, }) => {
     dispatch(getAuthorsByAdminRequestStart());
   };
 
+  const getDonor = () => {
+    dispatch(getUserAllRequestStart());
+  };
+
   React.useEffect(() => {
     getAuthors();
     getTypes();
     getPublishers();
+    getDonor();
   }, []);
 
   const formatProductData = (product) => {
@@ -55,6 +62,10 @@ const ProductDetailInformation = ({ product, hiddenFields, }) => {
       formattedProduct.author = author?.fullname;
     }
 
+    const donor = users.find((user) => user._id === product?.donor);
+    if (donor)
+      formattedProduct.donor = donor.fullname;
+
     if (product?.pubDate)
       formattedProduct.pubDate = formatDate(product?.pubDate);
 
@@ -71,16 +82,12 @@ const ProductDetailInformation = ({ product, hiddenFields, }) => {
     return formattedProduct;
   };
 
-  const formattedProduct = formatProductData(product);
-
-  console.log(formattedProduct);
-
   return (
     <>
       <div className={'flex flex-col gap-4'}>
         <DescriptionList
           title={'product-detail'}
-          data={Object.entries(formattedProduct).map(([key, value,]) => ({
+          data={Object.entries(formatProductData(product)).map(([key, value,]) => ({
             label: key,
             value: value,
           }))}

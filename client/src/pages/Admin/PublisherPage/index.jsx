@@ -48,7 +48,6 @@ const PublisherPage = () => {
 
   React.useEffect(() => {
     getPublishers();
-    console.log(publishers);
   }, [
     orderBy,
     descending,

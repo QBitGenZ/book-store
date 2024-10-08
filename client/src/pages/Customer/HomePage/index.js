@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector, } from 'react-redux';
 import { getProductsRequestStart, } from '~/redux/product/slice';
-import ProductCard from '~/components/ProductCard';
 import { getShopRequestStart, } from '~/redux/config/slice';
+import { ProductList, } from '~/components';
 
 const HomePage = () => {
   const { products, } = useSelector((state) => state.product);
@@ -17,13 +17,7 @@ const HomePage = () => {
 
   return (
     <div>
-      {products && products.length > 0 ? (
-        products.map((product) =>
-          product ? <ProductCard product={product} key={product._id}/> : null
-        )
-      ) : (
-        <p>No products available</p>
-      )}
+      {products && <ProductList products={products}/>}
     </div>
   );
 };

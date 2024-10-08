@@ -8,8 +8,7 @@ import { getAuthorsByAdminRequestStart, } from '~/redux/author/slice';
 import { adminRoutes, } from '~/configs/routes';
 import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, } from '@fortawesome/free-solid-svg-icons';
-import ProductImage from '~/components/ProductImage/productImage';
-import ProductDetailInformation from '~/components/ProductDetailInformation';
+import { ProductDetailInformation, ProductImage, } from '~/components';
 
 const ProductDetailPage = () => {
   const { shop, } = useSelector(state => state.config);
@@ -48,7 +47,7 @@ const ProductDetailPage = () => {
 
       <div className='flex flex-row gap-4'>
 
-        <div>
+        <div className={'max-h-max'}>
           <ProductImage
             product={product}
           />

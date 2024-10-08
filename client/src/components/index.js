@@ -12,6 +12,31 @@ import Pagination from './Pagination';
 import ConfirmationModal from './ConfirmationModal';
 
 import CustomerHeader from './CustomerHeader';
+import ProductList from './ProductList';
+import ProductDescription from './ProductDescription';
+import DescriptionList from './DescriptionList';
+import ProductCard from './ProductCard';
+import ProductImage from './ProductImage';
+import ProductDetailInformation from './ProductDetailInformation';
+
 export {
-  CustomSnackbar, Sidebar, AdminHeader, QuiltedImageList, DropImagesInput,OTPInput,MiniSidebar,RichTextEditor,ColorSelector,DataTable,Pagination,ConfirmationModal, CustomerHeader,
+  CustomSnackbar,
+  Sidebar,
+  AdminHeader,
+  QuiltedImageList,
+  DropImagesInput,
+  OTPInput,
+  MiniSidebar,
+  RichTextEditor,
+  ColorSelector,
+  DataTable,
+  Pagination,
+  ConfirmationModal,
+  CustomerHeader,
+  ProductList,
+  ProductDescription,
+  DescriptionList,
+  ProductCard,
+  ProductImage,
+  ProductDetailInformation,
 };

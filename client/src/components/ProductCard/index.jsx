@@ -15,14 +15,15 @@ const ProductCard = ({ product, }) => {
 
   return (
     <div
-      className='relative flex mb-5 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 max-w-56 max-h-[360px] flex-col overflow-hidden bg-white hover:shadow-xl'>
+      className='relative flex w-full max-w-56 max-h-[360px] flex-col overflow-hidden bg-white hover:shadow-xl transition-shadow duration-200'>
+
       <div className='relative mx-3 mt-3 flex justify-center overflow-hidden rounded-xl cursor-pointer'
         onClick={handleNavigate}>
         {product?.images?.length > 0 ? (
           <img
             src={`${process.env.REACT_APP_HOST_IP}/${product.images[0]}`}
             alt={`${product.name}`}
-            className='size-48 object-cover aspect-square'
+            className='size-48 object-fit-contain aspect-square'
           />
         ) : (
           <span>No Image Available</span>

@@ -4,6 +4,11 @@ export const getAllRequestApi = (query) => {
   return apiFetch({
     url: 'types',
     queryParams: query,
+    options: {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    },
   });
 };
 
@@ -21,13 +26,18 @@ export const getAllByAdminRequestApi = (query) => {
 
 export const getOneRequestApi = (id) => apiFetch({
   url: `types/${id}`,
+  options: {
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('token')}`,
+    },
+  },
 });
 
 export const getOneByAdminRequestApi = (id) => apiFetch({
   url: `types/admin/${id}`,
   options: {
     headers: {
-      'Authorization': `Baerer ${localStorage.getItem('token')}`,
+      'Authorization': `Bearer ${localStorage.getItem('token')}`,
     },
   },
 });

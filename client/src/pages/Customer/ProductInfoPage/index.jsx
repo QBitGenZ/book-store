@@ -1,36 +1,40 @@
 import React from 'react';
-import ProductImage from '~/components/ProductImage/productImage';
 import { useDispatch, useSelector, } from 'react-redux';
-import { getPublishersByAdminRequestStart, } from '~/redux/publisher/slice';
-import { getTypesByAdminRequestStart, } from '~/redux/productType/slice';
-import { getAuthorsByAdminRequestStart, } from '~/redux/author/slice';
 import { getProductRequestStart, } from '~/redux/product/slice';
 import { useParams, } from 'react-router-dom';
 import ProductPurchaseSection from '~/pages/Customer/ProductInfoPage/Components/ProductPurchaseSection';
-import ProductDetailInformation from '~/components/ProductDetailInformation';
+import { ProductDetailInformation, ProductImage, } from '~/components';
+import ProductNameCard from '~/pages/Customer/ProductInfoPage/Components/ProductNameCard';
+import { createCartRequestStart, } from '~/redux/cart/slice';
+import { getPublishersRequestStart, } from '~/redux/publisher/slice';
+import { getTypesRequestStart, } from '~/redux/productType/slice';
+import { getAuthorsRequestStart, } from '~/redux/author/slice';
 
 const ProductInfoPage = () => {
-  // const { shop, } = useSelector(state => state.config);
   const dispatch = useDispatch();
 
   const { id, } = useParams();
   const { product, } = useSelector((state) => state.product);
-  // const navigate = useNavigate();
   const getProduct = () => {
     dispatch(getProductRequestStart(
       id
     ));
   };
 
-  // const handleBack = () => {
-  //   navigate(-1);
-  // };
+  const handleAddToCart = (product, quantity) => {
+    const cartData = {
+      product: product._id,
+      quantity: quantity,
+    };
+
+    dispatch(createCartRequestStart(JSON.stringify(cartData))); // Dispatch the action with the JSON payload
+  };
 
   React.useEffect(() => {
     getProduct();
-    dispatch(getPublishersByAdminRequestStart());
-    dispatch(getTypesByAdminRequestStart());
-    dispatch(getAuthorsByAdminRequestStart());
+    dispatch(getPublishersRequestStart());
+    dispatch(getTypesRequestStart());
+    dispatch(getAuthorsRequestStart());
   }, []);
   const render = () => (
     <>
@@ -49,13 +53,15 @@ const ProductInfoPage = () => {
               product={product}
             />
           </div>
-          <div className={'w-full'}>
+          <div className={'flex flex-col gap-4 w-full'}>
+            <ProductNameCard product={product}></ProductNameCard>
             <ProductDetailInformation product={product}
-              hiddenFields={['_id', '__v', 'images', 'description', 'donor', 'cost', 'price', 'stockQuantity', 'quantity',]}
+              hiddenFields={['_id', '__v', 'images', 'description', 'donor', 'cost', 'price', 'stockQuantity', 'quantity', 'name',]}
             />
           </div>
           <div>
-            <ProductPurchaseSection></ProductPurchaseSection>
+            <ProductPurchaseSection product={product}
+              handleAddToCart={handleAddToCart}></ProductPurchaseSection>
           </div>
 
         </div>

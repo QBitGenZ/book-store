@@ -33,7 +33,7 @@ const ProductImage = ({ product, }) => {
   }, [product,]);
 
   return (
-    <div className={'flex flex-col gap-3 w-max bg-white p-4 m-auto rounded shadow-sm'}>
+    <div className={'flex flex-col gap-3 w-max bg-white p-4 m-auto rounded shadow-sm sticky top-0'}>
       <div className='bg-white border rounded-lg p-1'>
         {product?.images.length > 0 ? (
           <img

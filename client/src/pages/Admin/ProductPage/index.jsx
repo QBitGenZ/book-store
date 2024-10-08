@@ -10,6 +10,7 @@ import { adminRoutes, } from '~/configs/routes';
 import { getPublishersByAdminRequestStart, } from '~/redux/publisher/slice';
 import { getAuthorsByAdminRequestStart, } from '~/redux/author/slice';
 import { formatDate, } from 'src/helpers';
+import { getUserAllRequestStart, } from '~/redux/user/slice';
 
 const ProductPage = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const ProductPage = () => {
   const { products, meta, updateSuccess, deleteSuccess, createSuccess, } = useSelector((state) => state.product);
   const { authors, } = useSelector(state => state.author);
   const { publishers, } = useSelector((state) => state.publisher);
+  const { users, } = useSelector(state => state.user);
 
   const [orderBy, setOrderBy,] = React.useState('');
   const [descending, setDescending,] = React.useState(true);
@@ -52,10 +54,15 @@ const ProductPage = () => {
     );
   };
 
+  const getUsers = () => {
+    dispatch(getUserAllRequestStart());
+  };
+
   React.useEffect(() => {
     getProducts();
     getAuthors();
     getPublishers();
+    getUsers();
   }, [orderBy, descending, page, limit, dispatch, selectedObj, updateSuccess, deleteSuccess, createSuccess,]);
 
   const handleDelete = (value) => {
@@ -147,6 +154,11 @@ const ProductPage = () => {
                   label: translate('publisher'),
                 },
                 {
+                  field: 'donor',
+                  enableSort: false,
+                  label: translate('donor'),
+                },
+                {
                   field: 'price',
                   enableSort: true,
                   label: translate('price'),
@@ -177,6 +189,8 @@ const ProductPage = () => {
                 author: authors?.find((author) => item.author === author._id)?.fullname,
                 publisher: publishers?.find((publisher) => item.publisher === publisher._id)?.name,
                 price: formatCurrency(item?.price),
+                donor: users?.find((user) => item.donor === user._id)?.fullname,
+
               }))}
               keyField='_id'
               onSort={(f, des) => {

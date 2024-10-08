@@ -13,6 +13,7 @@ import { getAuthorsByAdminRequestStart, } from '~/redux/author/slice';
 import { deleteImageRequestStart, getProductRequestStart, updateProductRequestStart, } from '~/redux/product/slice';
 import { QuiltedImageList, } from '~/components';
 import { formatDate, } from 'src/helpers';
+import { getUserAllRequestStart, } from '~/redux/user/slice';
 
 const UpdateProductPage = () => {
   const { id, } = useParams();
@@ -44,7 +45,10 @@ const UpdateProductPage = () => {
   const { publishers, } = useSelector((state) => state.publisher);
   const { types, } = useSelector(state => state.type);
   const { authors, } = useSelector(state => state.author);
-  const { product, updateSuccess, } = useSelector((state) => state.product);
+  const { product, updateSuccess, } = useSelector(state => state.product);
+  const { users, } = useSelector(state => state.user);
+
+  const [limit,] = React.useState(100);
 
   const getProduct = () => {
     dispatch(getProductRequestStart(
@@ -53,20 +57,32 @@ const UpdateProductPage = () => {
   };
 
   const getTypes = () => {
-    dispatch(getTypesByAdminRequestStart());
+    dispatch(getTypesByAdminRequestStart({
+      limit,
+    }));
   };
 
   const getPublishers = () => {
     dispatch(
-      getPublishersByAdminRequestStart()
+      getPublishersByAdminRequestStart({
+        limit,
+      })
     );
   };
 
   const getAuthors = () => {
     dispatch(
-      getAuthorsByAdminRequestStart(
-      )
+      getAuthorsByAdminRequestStart({
+        limit,
+      })
     );
+
+  };
+
+  const getUsers = () => {
+    dispatch(getUserAllRequestStart({
+      limit,
+    }));
   };
 
   const handleRemovePhoto = (imageRemoved) => {
@@ -92,6 +108,8 @@ const UpdateProductPage = () => {
     getPublishers();
     getAuthors();
     getProduct();
+    getUsers();
+
   }, []);
 
   React.useEffect(() => {
@@ -193,6 +211,15 @@ const UpdateProductPage = () => {
             size='small'
             value={type}
             onChange={(e) => setType(e.target.value)}
+            SelectProps={{
+              MenuProps: {
+                PaperProps: {
+                  style: {
+                    maxHeight: 200,
+                  },
+                },
+              },
+            }}
           >
             {types?.map((type) => (
               <MenuItem key={type._id} value={type._id}>
@@ -210,6 +237,15 @@ const UpdateProductPage = () => {
             size='small'
             value={publisher}
             onChange={(e) => setPublisher(e.target.value)}
+            SelectProps={{
+              MenuProps: {
+                PaperProps: {
+                  style: {
+                    maxHeight: 200,
+                  },
+                },
+              },
+            }}
           >
             {publishers?.map((publisher) => (
               <MenuItem key={publisher._id} value={publisher._id}>
@@ -227,6 +263,15 @@ const UpdateProductPage = () => {
             size='small'
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
+            SelectProps={{
+              MenuProps: {
+                PaperProps: {
+                  style: {
+                    maxHeight: 200,
+                  },
+                },
+              },
+            }}
           >
             {authors?.map((author) => (
               <MenuItem key={author._id} value={author._id}>
@@ -235,12 +280,31 @@ const UpdateProductPage = () => {
             ))}
           </TextField>
           <TextField
-            label={translate('donor')}
+            className='w-100'
+            select
+            sx={{
+              textAlign: 'left',
+            }}
+            label={translate('donor-label')}
             size='small'
-            name='donor'
             value={donor}
             onChange={(e) => setDonor(e.target.value)}
-          />
+            SelectProps={{
+              MenuProps: {
+                PaperProps: {
+                  style: {
+                    maxHeight: 200,
+                  },
+                },
+              },
+            }}
+          >
+            {users?.map((user) => (
+              <MenuItem key={user._id} value={user._id}>
+                {user.fullname}
+              </MenuItem>
+            ))}
+          </TextField>
           <TextField
             label={translate('pub-date')}
             size='small'

@@ -41,7 +41,9 @@ const AuthorPage = () => {
   };
 
   React.useEffect(() => {
-    getAuthors();
+    if (!authors || authors.length === 0 || authors.length !== limit) {
+      getAuthors();
+    }
   }, [
     orderBy,
     descending,

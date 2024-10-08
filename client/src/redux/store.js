@@ -13,6 +13,9 @@ import deliveryStatusReducer from './deliveryStatus/slice';
 import paymentMethodReducer from './paymentMethod/slice';
 import paymentStatusReducer from './paymentStatus/slice';
 import productReducer from './product/slice';
+import userReducer from './user/slice';
+import cartReducer from './cart/slice';
+import orderReducer from './order/slice';
 import rootSaga from './sagas';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -30,6 +33,9 @@ const store = configureStore({
     paymentMethod: paymentMethodReducer,
     paymentStatus: paymentStatusReducer,
     product: productReducer,
+    user: userReducer,
+    cart: cartReducer,
+    order: orderReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(sagaMiddleware),
