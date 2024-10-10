@@ -13,7 +13,6 @@ export const getAllRequestApi = (query) => {
 };
 
 export const createOneAPi = (data) => {
-  console.log(data);
   return apiFetch({
     url: 'carts',
     options: {

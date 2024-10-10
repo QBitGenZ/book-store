@@ -2,12 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate, } from 'react-router-dom';
 import { clientRoutes, } from '~/configs/routes';
-import { useSelector, } from 'react-redux';
 import { formatCurrency, } from '~/helpers';
 
 const ProductCard = ({ product, }) => {
   const navigate = useNavigate();
-  const { shop, } = useSelector(state => state.config);
+  // const { shop, } = useSelector(state => state.config);
 
   const handleNavigate = () => {
     navigate(clientRoutes.product.replace(':id', product._id));
@@ -37,9 +36,7 @@ const ProductCard = ({ product, }) => {
           </div>
         </div>
         <div className='mt-2 mb-5 flex items-center justify-between'>
-          <div className='font-semibold text-base md:text-lg' style={{
-            color: shop?.accentColor,
-          }}>
+          <div className='font-semibold text-base md:text-lg text-red-500'>
             {formatCurrency(product?.price)}
           </div>
         </div>

@@ -1,8 +1,8 @@
 import React, { useState, } from 'react';
 import PropTypes from 'prop-types';
-import { formatCurrency, } from '~/helpers';
+import { formatCurrency, translate, } from '~/helpers';
 import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
-import { faMinus, faPlus, } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faMinus, faPlus, } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector, } from 'react-redux';
 import { getShopRequestStart, } from '~/redux/config/slice';
 
@@ -42,7 +42,7 @@ const ProductPurchaseSection = ({ product, handleAddToCart, }) => {
     <div className='border rounded-lg p-4 w-80 mx-auto bg-white'>
 
       <div className='mb-4'>
-        <label className='block font-semibold mb-2 text-left'>Số Lượng</label>
+        <label className='block font-semibold mb-2 text-left'>{translate('Amount')}</label>
         <div className='flex gap-2 items-center'>
           <button
             onClick={handleDecrement}
@@ -69,27 +69,21 @@ const ProductPurchaseSection = ({ product, handleAddToCart, }) => {
       </div>
 
       <div className='mb-4'>
-        <span className='block text-left text-sm'>Tạm tính</span>
+        <span className='block text-left text-sm'>{translate('Temporary-calculation')}</span>
         <span className='block text-left text-2xl font-bold'>
           {formatCurrency(price)}
         </span>
       </div>
 
       <div className={'flex flex-col gap-2'}>
-        <button className='w-full py-2 rounded' style={{
-          borderColor: shop?.accentColor,
-          color: shop?.accentColor,
-          borderWidth: '1px', // Add border width if it's missing
-        }}>
-                    Mua ngay
+        <button className='w-full py-2 rounded bg-red-500 text-white font-semibold'>
+          {translate('Buy-now')}
         </button>
 
-        <button className='w-full py-2 rounded' onClick={() => handleAddToCart(product, quantity)} style={{
-          borderColor: shop?.accentColor,
-          color: shop?.accentColor,
-          borderWidth: '1px', // Ensure border width is also set for consistency
-        }}>
-                    Thêm vào giỏ
+        <button className='w-full py-2 rounded text-red-500 bg-white border-red-500 border-2 font-semibold'
+          onClick={() => handleAddToCart(product, quantity)}>
+          <FontAwesomeIcon icon={faCartShopping} className={'mr-2'}/>
+          {translate('Add-to-cart')}
         </button>
       </div>
 

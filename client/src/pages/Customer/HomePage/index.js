@@ -6,12 +6,21 @@ import { ProductList, } from '~/components';
 
 const HomePage = () => {
   const { products, } = useSelector((state) => state.product);
+  const [orderBy,] = React.useState('');
+  const [descending,] = React.useState(true);
+  const [page,] = React.useState(1);
+  const [limit,] = React.useState(100);
   // const { shop, } = useSelector((state) => state.config);
 
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    dispatch(getProductsRequestStart());
+    dispatch(getProductsRequestStart({
+      orderBy,
+      page,
+      limit,
+      descending,
+    }));
     dispatch(getShopRequestStart());
   }, [dispatch,]);
 

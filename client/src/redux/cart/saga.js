@@ -22,8 +22,7 @@ function* handleCartRequest(action) {
   try {
     const response = yield call(getAllRequestApi, action.payload);
     const { data, meta, } = response;
-    console.log(response);
-
+    
     yield put(getCartRequestSuccess({
       data, meta,
     }));
