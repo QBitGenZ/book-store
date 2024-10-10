@@ -1,6 +1,6 @@
 export const apiFetch = async ({
   url, options = {
-  }, queryParams, 
+  }, queryParams,
 }) => {
   const defaultOptions = {
     method: 'GET',
@@ -35,7 +35,6 @@ export const apiFetch = async ({
 
   try {
     const response = await fetch(urlObject.toString(), finalOptions);
-    // console.log(response);
 
     if (!response.ok) {
       const error = new Error('HTTP error');

@@ -9,7 +9,7 @@ import { createPublisherByAdminRequestStart,
 import CreatePublisherModal from './components/CreatePublisherModal';
 import UpdatePublisherModal from './components/UpdatePublisherModal';
 import { Button, } from '@mui/material';
-import { formatDate, } from '~/components/DateFormat';
+import { formatDate, } from 'src/helpers';
 
 const PublisherPage = () => {
   const dispatch = useDispatch();
@@ -48,7 +48,6 @@ const PublisherPage = () => {
 
   React.useEffect(() => {
     getPublishers();
-    console.log(publishers);
   }, [
     orderBy,
     descending,

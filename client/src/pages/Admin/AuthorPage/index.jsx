@@ -9,7 +9,7 @@ import { createAuthorByAdminRequestStart,
 import CreateAuthorModal from './components/CreateAuthorModal';
 import UpdateAuthorModal from './components/UpdateAuthorModal';
 import { Button, } from '@mui/material';
-import { formatDate, } from '~/components/DateFormat';
+import { formatDate, } from 'src/helpers';
 
 const AuthorPage = () => {
   const dispatch = useDispatch();
@@ -41,7 +41,9 @@ const AuthorPage = () => {
   };
 
   React.useEffect(() => {
-    getAuthors();
+    if (!authors || authors.length === 0 || authors.length !== limit) {
+      getAuthors();
+    }
   }, [
     orderBy,
     descending,

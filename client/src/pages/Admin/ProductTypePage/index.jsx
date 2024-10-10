@@ -37,7 +37,10 @@ const ProductTypePage = () => {
   };
 
   React.useEffect(() => {
-    getTypes();
+    if (!types || types.length === 0 || types.length !== limit) {
+      getTypes();
+    }
+
   }, [orderBy, descending, page, limit, dispatch, type, selectedObj, updateSucess, deleteSuccess, createSuccess,]);
 
   const updateProductType = (id, productType) => {

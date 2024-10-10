@@ -90,6 +90,7 @@ function* handleGetAuthorsByAdminRequest(action) {
 function* handleGetAuthorRequest(action) {
   try {
     const response = yield call(getOneRequestApi, action.payload);
+    console.log('author', action.payload);
     const { data, } = response;
     yield put(getAuthorRequestSuccess(data));
     yield put(

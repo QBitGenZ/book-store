@@ -4,6 +4,11 @@ export const getAllRequestApi = (query) => {
   return apiFetch({
     url: 'publishers',
     queryParams: query,
+    options: {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    },
   });
 };
 

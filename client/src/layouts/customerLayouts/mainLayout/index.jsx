@@ -11,8 +11,8 @@ const CustomerMainLayout = ({ children, }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getInfoRequestStart);
-  }, []);
+    dispatch(getInfoRequestStart());
+  }, [dispatch,]);
   const render = () => {
     if (loading) return <LoadingPage/>;
 
@@ -20,17 +20,16 @@ const CustomerMainLayout = ({ children, }) => {
 
     return (
       <div>
-        <main className='flex bg-gray-50 h-screen overflow-hidden'>
-
+        <main className='flex bg-gray-50 h-screen overflow-y-auto'>
           <div className='flex flex-col flex-grow '>
             <CustomerHeader/>
-            <div className=' overflow-y-auto  p-3'>
+            <div className='flex-grow p-6 my-6 sm:mx-6 md:mx-8 lg:mx-18 xl:mx-20'>
               {children}
             </div>
           </div>
-
         </main>
       </div>
+
     );
   };
 

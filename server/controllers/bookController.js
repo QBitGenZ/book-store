@@ -46,6 +46,7 @@ exports.createPBook = async (req, res) => {
             name,
             publisher,
             isEbook,
+            donor
         } = req.body;
 
         const object = new Book({
@@ -64,6 +65,7 @@ exports.createPBook = async (req, res) => {
             file,
             name,
             publisher,
+            donor,
             isEbook,
         })
 
@@ -103,6 +105,7 @@ exports.updatePBook = async (req, res) => {
             file,
             name,
             publisher,
+            donor,
             isEbook,
         } = req.body;
 
@@ -129,6 +132,7 @@ exports.updatePBook = async (req, res) => {
         object.publisher = publisher || object.publisher;
         object.author = author || object.author;
         object.isEbook = isEbook || object.isEbook;
+        object.donor = donor || object.donor;
 
 
         if (req.files?.['images'] && req.files?.['images']?.length > 0) {

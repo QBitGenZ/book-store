@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { translate, } from '~/helpers';
 import { TextField, } from '@mui/material';
 import { DropImagesInput, } from '~/components';
-import { formatDate, } from '~/components/DateFormat';
+import { formatDate, } from 'src/helpers';
 
 function UpdateAuthorModal({ author, show, setShow, updateAuthor, }) {
   const [fullname, setFullname,] = useState(author?.fullname || '');

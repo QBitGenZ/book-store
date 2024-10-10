@@ -4,6 +4,11 @@ export const getAllRequestApi = (query) => {
   return apiFetch({
     url: 'authors',
     queryParams: query,
+    options: {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    },
   });
 };
 
@@ -22,6 +27,11 @@ export const getAllByAdminRequestApi = (query) => {
 export const getOneRequestApi = (id) =>
   apiFetch({
     url: `authors/${id}`,
+    options: {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    },
   });
 
 export const getOneByAdminRequestApi = (id) =>

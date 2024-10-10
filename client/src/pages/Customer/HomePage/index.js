@@ -1,25 +1,23 @@
 import React from 'react';
-import ProductCard from '~/components/ProductCard';
 import { useDispatch, useSelector, } from 'react-redux';
 import { getProductsRequestStart, } from '~/redux/product/slice';
+import { getShopRequestStart, } from '~/redux/config/slice';
+import { ProductList, } from '~/components';
 
 const HomePage = () => {
   const { products, } = useSelector((state) => state.product);
+  // const { shop, } = useSelector((state) => state.config);
+
   const dispatch = useDispatch();
 
-  const getProduct = () => {
-    dispatch(getProductsRequestStart(
-
-    ));
-  };
-
   React.useEffect(() => {
-    getProduct();
-  }, []);
+    dispatch(getProductsRequestStart());
+    dispatch(getShopRequestStart());
+  }, [dispatch,]);
 
   return (
     <div>
-      <ProductCard product={products[0]}></ProductCard>
+      {products && <ProductList products={products}/>}
     </div>
   );
 };

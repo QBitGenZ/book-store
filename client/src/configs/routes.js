@@ -8,7 +8,7 @@ export const authRoutes = {
 
 export const adminRoutes = {
   dashboard: '/admin/dashboards',
-  product: '/admin/product',
+  product: '/admin/products',
 
   productType: '/admin/categories/types',
   deliveryMethod: '/admin/categories/deliveries/methods',
@@ -32,4 +32,5 @@ export const adminRoutes = {
 export const clientRoutes = {
   home: '/',
   product: '/:id',
+  cart: '/cart',
 };
