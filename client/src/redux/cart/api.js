@@ -51,7 +51,7 @@ export const deleteOneApi = (data) => apiFetch({
 });
 
 export const deleteAllApi = () => apiFetch({
-  url: 'carts',
+  url: 'carts/all',
   options: {
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('token')}`,

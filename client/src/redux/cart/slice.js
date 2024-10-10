@@ -80,6 +80,12 @@ const cartSlice = createSlice({
     deleteAllCartRequestSuccess: (state) => {
       state.loading = false;
       state.deleteSuccess = true;
+      state.cart = {
+        cart: {
+          items: [],
+        },
+      };
+            
     },
     deleteAllCartRequestFailure: (state, action) => {
       state.loading = false;
