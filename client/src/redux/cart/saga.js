@@ -22,7 +22,6 @@ function* handleCartRequest(action) {
   try {
     const response = yield call(getAllRequestApi, action.payload);
     const { data, meta, } = response;
-    console.log(response);
 
     yield put(getCartRequestSuccess({
       data, meta,
@@ -87,13 +86,15 @@ function* handleDeleteCartItemRequest(action) {
   }
 }
 
-function* handleDeleteAllCartRequest(action) {
+function* handleDeleteAllCartRequest() {
   try {
-    yield call(deleteAllApi, action.payload);
-    yield put(deleteAllCartRequestSuccess());
+    const response = yield call(deleteAllApi);
+    const { data, } = response;
+    yield put(deleteAllCartRequestSuccess(data));
     yield put(showSnackbar({
       message: 'Request successful!', severity: 'success',
     }));
+
   } catch (err) {
     yield put(deleteAllCartRequestFailure(err.message));
     yield put(showSnackbar({

@@ -419,7 +419,7 @@ const CreateProductPage = () => {
           {translate('cancel')}
         </Button>
         <Button onClick={handleSubmit} variant='primary'>
-          {translate('update')}
+          {translate('create')}
         </Button></div>
       </div>
     </div>

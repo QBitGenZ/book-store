@@ -13,7 +13,6 @@ export const getAllRequestApi = (query) => {
 };
 
 export const createOneAPi = (data) => {
-  console.log(data);
   return apiFetch({
     url: 'carts',
     options: {
@@ -52,7 +51,7 @@ export const deleteOneApi = (data) => apiFetch({
 });
 
 export const deleteAllApi = () => apiFetch({
-  url: 'carts',
+  url: 'carts/all',
   options: {
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('token')}`,
