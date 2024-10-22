@@ -32,7 +32,6 @@ exports.createAddress = async (req, res) => {
         const userID = req.user.id;
         const newAddress = new Address({name, phone, addressDetail});
         const user = await User.findById(userID);
-        console.log(req.body);
         if (!user) {
             return res.status(404).json({error: 'User not found'});
         }

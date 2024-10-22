@@ -30,6 +30,7 @@ export const createOneRequestApi = (data) => {
     options: {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json',
       },
       method: 'POST',
       body: data,

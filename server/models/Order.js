@@ -40,7 +40,7 @@ const orderSchema = new mongoose.Schema({
   deliveryStatus: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'DeliveryStatus',
-    required: true,
+    required: false,
   },
   totalPrice: {
     type: Number,
@@ -54,7 +54,7 @@ const orderSchema = new mongoose.Schema({
   paymentStatus: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'PaymentStatus',
-    required: true,
+    required: false,
   },
   paymentDate: {
     type: Date,

@@ -33,7 +33,6 @@ exports.getAllAdmin = async (req, res) => {
 
 exports.getOne = async (req, res) => {
   try {
-    console.log('get one')
     const id = req.params.id
     
     const object = await User.findById(id)
@@ -83,8 +82,7 @@ exports.updateOne = async (req, res) => {
   try {
     const { isAdmin } = req.body;
     const id = req.params.id;
-  
-    console.log(isAdmin)
+
 
     const object = await User.findById(id);
   

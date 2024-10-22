@@ -66,7 +66,6 @@ exports.createOrUpdate = async (req, res) => {
 exports.deleteImage = async (req, res) => {
   const { field, image } = req.body; 
 
-  console.log(field, image)
 
   try {
     let config = await Config.findOne();

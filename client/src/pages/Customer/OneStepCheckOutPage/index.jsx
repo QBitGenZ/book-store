@@ -17,6 +17,7 @@ import { getPaymentMethodsRequestStart, } from '~/redux/paymentMethod/slice';
 import { getCartRequestStart, } from '~/redux/cart/slice';
 import OrderSummary from '~/pages/Customer/OneStepCheckOutPage/Components/OrderSummary';
 import { getShopRequestStart, } from '~/redux/config/slice';
+import { createOrderRequestStart, } from '~/redux/order/slice';
 
 const OneStepCheckOutPage = () => {
   const dispatch = useDispatch();
@@ -140,6 +141,14 @@ const OneStepCheckOutPage = () => {
     }));
   };
 
+  const createOrder = () => {
+    dispatch(createOrderRequestStart(JSON.stringify({
+      address: selectedAddress?.addressDetail,
+      delivery: selectedDeliveryMethods?._id,
+      payment: selectedPaymentMethod?._id,
+    })));
+  };
+
   return (
     <>
       <ConfirmationModal
@@ -236,19 +245,8 @@ const OneStepCheckOutPage = () => {
           setSelectedPaymentMethod={setSelectedPaymentMethod}
         />
         <OrderSummary items={getItems(cart)} shippingCost={selectedDeliveryMethods?.cost}/>
-
-        {/* Terms and Confirm Button */}
         <div className='flex flex-col gap-4 p-4 rounded-lg bg-white'>
-          {/* <div className='flex items-start gap-2'>*/}
-          {/*  <input type='checkbox' defaultChecked className='mt-1'/>*/}
-          {/*  <p className='text-sm'>*/}
-          {/*                  Bằng việc tiến hành Mua hàng, Bạn đã đồng ý với{' '}*/}
-          {/*    <a href='#' className='text-blue-500'>*/}
-          {/*                      Điều khoản & Điều kiện của Fahasa.com*/}
-          {/*    </a>*/}
-          {/*  </p>*/}
-          {/* </div>*/}
-          <button className='w-full bg-red-600 text-white py-3 rounded font-medium hover:bg-red-700'>
+          <button onClick={createOrder} className='w-full bg-red-600 text-white py-3 rounded font-medium hover:bg-red-700'>
                         Xác nhận thanh toán
           </button>
         </div>
