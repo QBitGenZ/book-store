@@ -4,14 +4,14 @@ import { faMinus, faPlus, faTrash, } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 import { formatCurrency, } from '~/helpers';
 
-const CartItem = ({ cartItem, handleUpdateItem, handleDeleteItem, allCheck, selectItem, }) => {
+const CartItem = ({ cartItem, handleUpdateItem, handleDeleteItem, }) => {
   const [quantity, setQuantity,] = useState(cartItem?.quantity || 1);
-  const [isCheck, setIsCheck,] = React.useState(allCheck || false);
+  const [isCheck, setIsCheck,] = React.useState(cartItem?.checked || false);
 
   const handleIncrement = () => {
     setQuantity(prev => {
       const newQuantity = prev + 1;
-      handleUpdateItem(cartItem?.product?._id, newQuantity); // Immediately update
+      handleUpdateItem(cartItem?.product?._id, newQuantity, isCheck); // Immediately update
       return newQuantity; // Update state
     });
   };
@@ -20,7 +20,7 @@ const CartItem = ({ cartItem, handleUpdateItem, handleDeleteItem, allCheck, sele
     setQuantity(prev => {
       if (prev > 1) {
         const newQuantity = prev - 1;
-        handleUpdateItem(cartItem?.product?._id, newQuantity); // Immediately update
+        handleUpdateItem(cartItem?.product?._id, newQuantity, isCheck); // Immediately update
         return newQuantity; // Update state
       }
       return prev; // Do not decrement below 1
@@ -32,14 +32,20 @@ const CartItem = ({ cartItem, handleUpdateItem, handleDeleteItem, allCheck, sele
   };
 
   const handleCheckChange = (e) => {
-    setIsCheck(e.target.checked);
-    selectItem(cartItem, e.target.checked);
-
+    const checked = e.target.checked;
+    setIsCheck(checked);
+    handleUpdateItem(cartItem?.product?._id, quantity, checked);
   };
 
+  // const handleCheckChange = (e) => {
+  //   setIsCheck(e.target.checked);
+  //   selectItem(cartItem, e.target.checked);
+  //
+  // };
+
   React.useEffect(() => {
-    setIsCheck(allCheck);
-  }, [allCheck,]);
+    setIsCheck(cartItem.checked);
+  }, [cartItem.checked,]);
 
   return (
     <div className='flex justify-between items-center border-b py-4'>
@@ -108,8 +114,8 @@ CartItem.propTypes = {
   cartItem: PropTypes.object,
   handleUpdateItem: PropTypes.func,
   handleDeleteItem: PropTypes.func,
-  allCheck: PropTypes.bool,
-  selectItem: PropTypes.func,
+  // allCheck: PropTypes.bool,
+  // selectItem: PropTypes.func,
 };
 
 export default CartItem;

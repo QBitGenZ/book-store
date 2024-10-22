@@ -31,7 +31,7 @@ exports.createOne = async (req, res) => {
             return res.status(400).json({error: 'Cart is empty'});
         }
 
-        const orderItems = cart.items.map(item => ({
+        const orderItems = cart.items.filter(value => value.checked === true).map(item => ({
             product: item.product._id,
             quantity: item.quantity,
             totalPrice: item.quantity * item.product.price,

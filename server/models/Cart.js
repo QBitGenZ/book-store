@@ -11,6 +11,11 @@ const CartItemSchema = new mongoose.Schema({
         required: true,
         default: 1,
     },
+    checked: {
+        type: Boolean,
+        default: false,
+        required: true,
+    }
 });
 
 const CartSchema = new mongoose.Schema({

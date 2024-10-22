@@ -16,6 +16,7 @@ import productReducer from './product/slice';
 import userReducer from './user/slice';
 import cartReducer from './cart/slice';
 import orderReducer from './order/slice';
+import addressReducer from './address/slice';
 import rootSaga from './sagas';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -36,6 +37,7 @@ const store = configureStore({
     user: userReducer,
     cart: cartReducer,
     order: orderReducer,
+    address: addressReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(sagaMiddleware),

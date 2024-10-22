@@ -1,5 +1,4 @@
 const Cart = require('../models/Cart')
-const Product = require('../models/Book');
 const Book = require('../models/Book');
 
 exports.getAll = async (req, res) => {
@@ -83,10 +82,11 @@ exports.addNewProduct = async (req, res) => {
 
 exports.updateCart = async (req, res) => {
     try {
-        const {product, quantity} = req.body;
+        const {product, quantity, checked} = req.body;
         const userId = req.user.id;
 
-        console.log(product, quantity);
+
+        // console.log(checked, quantity);
 
         let cart = await Cart.findOne({user: userId});
 
@@ -107,8 +107,11 @@ exports.updateCart = async (req, res) => {
 
         const updatedQuantity = Math.min(Math.max(quantity, 1), p.quantity);
         cart.items[itemIndex].quantity = updatedQuantity;
+        if (checked != null && checked != undefined)
+            cart.items[itemIndex].checked = checked
 
         await cart.save();
+        // console.log(cart)
         await cart.populate('items.product');
         let totalPrice = 0;
         cart.items.forEach(item => {
@@ -184,7 +187,7 @@ exports.clearCart = async (req, res) => {
 
         await cart.save();
         await cart.populate('items.product');
-        
+
         let totalPrice = 0;
         cart.items.forEach(item => {
             if (item.product && item.product.price) {

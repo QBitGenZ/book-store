@@ -7,6 +7,7 @@ import { Avatar, Box, IconButton, Menu, MenuItem, Paper, Tooltip, Typography, } 
 import { logout, } from '~/redux/auth/slice';
 import { faCartShopping, } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
+import { SearchBar, } from '~/components';
 
 const CustomerHeader = () => {
   const [anchorElUser, setAnchorElUser,] = React.useState(null);
@@ -44,12 +45,18 @@ const CustomerHeader = () => {
   };
 
   return (
-    <Paper className='mx-auto w-full px-16 py-3 sticky top-0 z-40'>
+    <Paper className='mx-auto w-full px-16 py-2 sticky top-0 z-40'>
 
       <div className='flex justify-end items-center space-x-2 gap-3'>
+        {/* Search Bar*/}
+        <SearchBar></SearchBar>
+
+        {/* Cart Icon*/}
         <div onClick={handleChangeCartPage}>
           <FontAwesomeIcon icon={faCartShopping}/>
         </div>
+
+        {/* User*/}
         <Box sx={{
           flexGrow: 0,
         }}>

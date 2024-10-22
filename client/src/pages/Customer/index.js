@@ -3,7 +3,8 @@ import SignUpPage from './SignUpPage';
 import HomePage from './HomePage';
 import ProductInfoPage from './ProductInfoPage';
 import CartPage from './CartPage';
+import OneStepCheckOutPage from './OneStepCheckOutPage';
 
 export {
-  LoginPage, SignUpPage, HomePage, ProductInfoPage, CartPage,
+  LoginPage, SignUpPage, HomePage, ProductInfoPage, CartPage, OneStepCheckOutPage,
 };
