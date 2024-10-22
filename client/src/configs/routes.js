@@ -33,4 +33,5 @@ export const clientRoutes = {
   home: '/',
   product: '/:id',
   cart: '/cart',
+  oneStepCheckOut: '/one-step-check-out',
 };

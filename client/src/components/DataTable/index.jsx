@@ -302,6 +302,11 @@
 import React, { useState, } from 'react';
 import PropTypes from 'prop-types';
 import { Box,
+  Checkbox,
+  IconButton,
+  Menu,
+  MenuItem,
+  Paper,
   Table,
   TableBody,
   TableCell,
@@ -309,12 +314,7 @@ import { Box,
   TableHead,
   TableRow,
   TableSortLabel,
-  Paper,
-  Checkbox,
-  IconButton,
-  Tooltip,
-  Menu,
-  MenuItem, } from '@mui/material';
+  Tooltip, } from '@mui/material';
 import { MoreVert as MoreVertIcon, } from '@mui/icons-material';
 import TableChartIcon from '@mui/icons-material/TableChart';
 import { visuallyHidden, } from '@mui/utils';
@@ -395,7 +395,7 @@ const DataTable = ({ data, columns, onSort, actions, keyField, }) => {
         <TableCell key={column.field} align={column.numeric ? 'right' : 'left'}>
           {Array.isArray(row[column.field]) ? (
             <IconButton>
-              <MoreVertIcon />
+              <MoreVertIcon/>
             </IconButton>
           ) : (
             row[column.field]
@@ -409,7 +409,7 @@ const DataTable = ({ data, columns, onSort, actions, keyField, }) => {
           aria-haspopup='true'
           onClick={(event) => handleMenuClick(event, row[keyField])}
         >
-          <MoreVertIcon />
+          <MoreVertIcon/>
         </IconButton>
         <Menu
           id={`action-menu-${row[keyField]}`}
@@ -559,7 +559,7 @@ const DataTable = ({ data, columns, onSort, actions, keyField, }) => {
                     <IconButton
                       onClick={(event) => setAnchorEl(event.currentTarget)}
                     >
-                      <TableChartIcon />
+                      <TableChartIcon/>
                     </IconButton>
                   </Tooltip>
                 </TableCell>

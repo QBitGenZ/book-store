@@ -17,7 +17,7 @@ const CartPage = () => {
   const { cart, } = useSelector(state => state.cart);
   const [allCheck, setAllCheck,] = React.useState(false);
   const [totalPrice, setTotalPrice,] = React.useState(0);
-  const [selected, setSelected,] = React.useState([]);
+  // const [selected, setSelected,] = React.useState([]);
 
   const dispatch = useDispatch();
   const nav = useNavigate();
@@ -26,10 +26,11 @@ const CartPage = () => {
     dispatch(getCartRequestStart());
   };
 
-  const handleUpdateItem = (productId, quantity) => {
+  const handleUpdateItem = (productId, quantity, checked) => {
     const data = {
       product: productId,
       quantity: quantity,
+      checked: checked,
     };
     dispatch(updateCartRequestStart(JSON.stringify(data)));
   };
@@ -41,37 +42,53 @@ const CartPage = () => {
     dispatch(deleteCartRequestStart(JSON.stringify(data)));
   };
 
+  // const calTotalPrice = () => {
+  //   let totalPrice = 0;
+  //   selected?.map(item => {
+  //     if (item.product && item.product.price) {
+  //       totalPrice += item.quantity * item.product.price;
+  //     }
+  //   });
+  //   setTotalPrice(totalPrice);
+  // };
+
+  // const calTotalPrice = () => {
+  //   const total = selected.reduce((acc, item) => {
+  //     return item.product && item.product.price
+  //       ? acc + item.quantity * item.product.price
+  //       : acc;
+  //   }, 0);
+  //   setTotalPrice(total);
+  // };
+
   const calTotalPrice = () => {
-    let totalPrice = 0;
-    selected?.map(item => {
-      if (item.product && item.product.price) {
-        totalPrice += item.quantity * item.product.price;
-      }
+    const total = cart?.cart?.items.reduce((acc, item) => {
+      return item.checked && item.product.price
+        ? acc + item.quantity * item.product.price
+        : acc;
+    }, 0);
+    setTotalPrice(total);
+  };
+
+  // const selectItem = (selectedItem, isCheck) => {
+  //   if (isCheck) {
+  //     setSelected(prev => [...prev, selectedItem,]);
+  //   } else {
+  //     setSelected(prev => prev.filter(item => item.product._id !== selectedItem.product._id));
+  //   }
+  // };
+
+  const selectAllItem = (e) => {
+    const isChecked = e.target.checked;
+    setAllCheck(isChecked);
+    cart?.cart?.items.map((item) => {
+      handleUpdateItem(item.product._id, item.quantity, isChecked);
     });
-    setTotalPrice(totalPrice);
-  };
-
-  const selectItem = (selectedItem, isCheck) => {
-    if (isCheck) {
-      setSelected(prev => [...prev, selectedItem,]);
-    } else {
-      setSelected(prev => prev.filter(item => item.product._id !== selectedItem.product._id));
-    }
-  };
-
-  const selectAllItem = () => {
-    const newAllCheck = !allCheck;
-    setAllCheck(newAllCheck);
-    if (newAllCheck) {
-      setSelected(cart?.cart?.items || []);
-    } else {
-      setSelected([]);
-    }
   };
 
   const isAllCheck = () => {
-    const isAllCheck = cart?.cart?.items?.length === selected.length;
-    setAllCheck(isAllCheck);
+    const allChecked = cart?.cart?.items.every((item) => item.checked);
+    setAllCheck(allChecked);
   };
 
   const deleteAllItem = () => {
@@ -82,14 +99,16 @@ const CartPage = () => {
     nav(clientRoutes.home);
   };
 
+  // console.log('handlePurchase:', typeof (handlePurchase));
+
   React.useEffect(() => {
     getCart();
-  }, [dispatch,]);
+  }, [dispatch, allCheck,]);
 
   React.useEffect(() => {
     calTotalPrice();
     isAllCheck();
-  }, [totalPrice, selected, cart,]);
+  }, [totalPrice, cart, allCheck, dispatch,]);
 
   return (
     cart?.cart?.items.length !== 0 ? (<>
@@ -101,7 +120,7 @@ const CartPage = () => {
                 <input
                   type='checkbox'
                   checked={allCheck}
-                  onClick={selectAllItem}
+                  onChange={selectAllItem}
                   className=' content-center w-4 h-4 accent-blue-500'
                 />
               </div>
@@ -136,14 +155,15 @@ const CartPage = () => {
                 cartItem={product}
                 handleUpdateItem={handleUpdateItem}
                 handleDeleteItem={handleDeleteItem}
-                allCheck={selected.includes(product)}
-                selectItem={selectItem}
               />
             </div>))}
         </div>
 
         <div className={'w-1/3'}>
-          <TotalCart totalPrice={totalPrice}></TotalCart>
+          <TotalCart
+            totalPrice={totalPrice}
+          >
+          </TotalCart>
         </div>
 
       </div>
