@@ -1,7 +1,8 @@
 import { v4 as uuid4, } from 'uuid';
 import { clientRoutes, } from '~/configs/routes';
 import React from 'react';
-import { CartPage, HomePage, OneStepCheckOutPage, ProductInfoPage, } from '~/pages';
+import { CartPage, CategoriesPage, HomePage, ProductInfoPage, } from '~/pages';
+import SearchResultPage from '~/pages/Customer/SearchResultPage';
 
 export default [
   {
@@ -21,7 +22,12 @@ export default [
   },
   {
     id: `client-${uuid4()}`,
-    path: clientRoutes.oneStepCheckOut,
-    element: <OneStepCheckOutPage/>,
+    path: clientRoutes.categories,
+    element: <CategoriesPage/>,
+  },
+  {
+    id: `client-${uuid4()}`,
+    path: clientRoutes.search,
+    element: <SearchResultPage/>,
   },
 ];

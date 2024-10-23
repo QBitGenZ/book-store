@@ -1,26 +1,39 @@
 import React from 'react';
 import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, } from '@fortawesome/free-solid-svg-icons';
+import { clientRoutes, } from '~/configs/routes';
+import { useNavigate, } from 'react-router-dom';
 
 const SearchBar = () => {
-  // const nav = useNavigate();
-  // const [search, setSearch,] = React.useState('');
-  // const handleSearch = () => {
-  //     nav(clientROoute.)
-  // };
+  const nav = useNavigate();
+  const [search, setSearch,] = React.useState('');
+
+  const handleSearch = () => {
+    if (search.trim()) {
+      nav(clientRoutes.search.replace(':query', search));
+    }
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
   return (
     <div className='flex items-center rounded-full border p-2 w-full max-w-xl mx-auto'>
-      {/* Search Icon */}
-      <div className='pl-3'>
-        <FontAwesomeIcon icon={faMagnifyingGlass}/>
-      </div>
       {/* Input Field */}
       <input
         type='text'
         placeholder='Tìm kiếm'
-        className='w-full px-3 text-gray-700 rounded-full focus:outline-none '
+        className='w-full px-3 text-gray-700 rounded-full focus:outline-none'
+        onChange={(e) => setSearch(e.target.value)}
+        onKeyPress={handleKeyPress} // Trigger search on "Enter"
       />
-
+      {/* Search Icon */}
+      <div className='px-3' onClick={handleSearch}>
+        <FontAwesomeIcon icon={faMagnifyingGlass}/>
+      </div>
     </div>
   );
 };
