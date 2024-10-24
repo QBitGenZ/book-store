@@ -9,7 +9,7 @@ exports.getAllByAdmin = async (req, res) => {
         query.name = {$regex: req.query.search, $options: 'i'}
 
     const defaultField = 'createdAt';
-    getAllDocuments(Order, query, defaultField, req, res, [ 'user', 'payment', 'items.product', 'delivery']);
+    getAllDocuments(Order, query, defaultField, req, res, [ 'user', 'payment', 'items.book', 'delivery']);
 }
 
 exports.getAllBySelf = async (req, res) => {
@@ -19,7 +19,7 @@ exports.getAllBySelf = async (req, res) => {
 
     const defaultField = 'createdAt';
     getAllDocuments(Order, query, defaultField, req, res, [
-        'user', 'payment', 'items.product', 'delivery'
+        'user', 'payment', 'items.book', 'delivery'
     ]);
 }
 
@@ -34,7 +34,7 @@ exports.createOne = async (req, res) => {
         }
 
         const orderItems = cart.items.filter(value => value.checked === true).map(item => ({
-            product: item.product._id,
+            book: item.product._id,
             quantity: item.quantity,
             totalPrice: item.quantity * item.product.price,
         }));
