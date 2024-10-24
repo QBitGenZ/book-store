@@ -81,7 +81,7 @@ exports.getProductByOwner = async (req, res) => {
 
 exports.deleteProductByOwner = async (req, res) => {
   try { 
-    const product = await Book.findOneAndDelete({donor: req.user.id})
+    const product = await Book.findOneAndDelete({donor: req.user.id, _id: req.query.id})
     if(!product) {
       return res.status(404).json({error: 'Not found'})
     }

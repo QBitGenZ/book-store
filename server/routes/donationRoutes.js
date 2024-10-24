@@ -19,6 +19,6 @@ router.get('', isAuthorization, controller.getProductsByOwner)
 
 router.get('/:id', isAuthorization, controller.getProductByOwner)
 
-router.delete('', isAuthorization, controller.deleteProductByOwner)
+router.delete('/:id', isAuthorization, controller.deleteProductByOwner)
 
 module.exports = router
