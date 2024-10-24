@@ -34,4 +34,6 @@ export const clientRoutes = {
   product: '/:id',
   cart: '/cart',
   oneStepCheckOut: '/one-step-check-out',
+  search: '/search/:query',
+  categories: '/categories/:id',
 };

@@ -3,6 +3,7 @@ import { useDispatch, useSelector, } from 'react-redux';
 import { getProductsRequestStart, } from '~/redux/product/slice';
 import { getShopRequestStart, } from '~/redux/config/slice';
 import { ProductList, } from '~/components';
+import Categories from './Components/Categories';
 
 const HomePage = () => {
   const { products, } = useSelector((state) => state.product);
@@ -25,9 +26,12 @@ const HomePage = () => {
   }, [dispatch,]);
 
   return (
-    <div>
-      {products && <ProductList products={products}/>}
-    </div>
+    <>
+      <div className={'w-full mb-4'}><Categories></Categories></div>
+      <div>
+        {products && <ProductList products={products}/>}
+      </div>
+    </>
   );
 };
 
