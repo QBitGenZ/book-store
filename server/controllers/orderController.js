@@ -9,16 +9,18 @@ exports.getAllByAdmin = async (req, res) => {
         query.name = {$regex: req.query.search, $options: 'i'}
 
     const defaultField = 'createdAt';
-    getAllDocuments(Order, query, defaultField, req, res,);
+    getAllDocuments(Order, query, defaultField, req, res, [ 'user', 'payment', 'items.product', 'delivery']);
 }
 
 exports.getAllBySelf = async (req, res) => {
     const query = {
-        user: req.user.toString()
+        user: req.user.id
     };
 
     const defaultField = 'createdAt';
-    getAllDocuments(Order, query, defaultField, req, res,);
+    getAllDocuments(Order, query, defaultField, req, res, [
+        'user', 'payment', 'items.product', 'delivery'
+    ]);
 }
 
 exports.createOne = async (req, res) => {
