@@ -8,11 +8,20 @@ const SearchResultPage = () => {
   const { query, } = useParams();
   const dispatch = useDispatch();
 
+  const [orderBy,] = React.useState('');
+  const [descending,] = React.useState(true);
+  const [page,] = React.useState(1);
+  const [limit,] = React.useState(100);
+
   const { products, meta, } = useSelector((state) => state.product);
 
   React.useEffect(() => {
     dispatch(getProductsRequestStart({
       search: query,
+      orderBy,
+      page,
+      limit,
+      descending,
     }));
     console.log(products, meta);
   }, [query,]);

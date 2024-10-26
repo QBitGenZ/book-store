@@ -6,7 +6,16 @@ import CartPage from './CartPage';
 import OneStepCheckOutPage from './OneStepCheckOutPage';
 import CategoriesPage from './CategoriesPage';
 import SearchResultPage from './SearchResultPage';
+import OrderHistoryPage from './OrderHistoryPage';
 
 export {
-  LoginPage, SignUpPage, HomePage, ProductInfoPage, CartPage, OneStepCheckOutPage, CategoriesPage, SearchResultPage,
+  LoginPage,
+  SignUpPage,
+  HomePage,
+  ProductInfoPage,
+  CartPage,
+  OneStepCheckOutPage,
+  CategoriesPage,
+  SearchResultPage,
+  OrderHistoryPage,
 };

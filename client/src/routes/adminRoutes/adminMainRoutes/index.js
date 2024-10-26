@@ -17,6 +17,7 @@ import { AdminProfilePage,
   PublisherPage,
   UpdateProductPage, } from '~/pages';
 import React from 'react';
+import DetailOrderPage from '~/pages/Admin/DetailOrderPage';
 
 export default [
   {
@@ -98,5 +99,10 @@ export default [
     id: `admin-${uuid4()}`,
     path: adminRoutes.updateProduct,
     element: <UpdateProductPage/>,
+  },
+  {
+    id: `admin-${uuid4}`,
+    path: adminRoutes.detailOrder,
+    element: <DetailOrderPage/>,
   },
 ];
