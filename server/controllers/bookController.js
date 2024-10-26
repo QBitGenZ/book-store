@@ -9,7 +9,6 @@ exports.getAll = async (req, res) => {
     if (req.query.search) {
         query.name = {$regex: req.query.search, $options: 'i'}
     }
-    console.log(req.query.search);
 
     const defaultField = 'name';
     getAllDocuments(Book, query, defaultField, req, res);
