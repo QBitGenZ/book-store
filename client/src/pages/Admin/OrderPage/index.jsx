@@ -3,6 +3,8 @@ import { useDispatch, useSelector, } from 'react-redux';
 import { DataTable, Pagination, } from '~/components'; // Assuming you have these components like in ProductTypePage
 import { getAllByAdminRequestStart, } from '~/redux/order/slice';
 import { formatCurrency, translate, } from '~/helpers';
+import { useNavigate, } from 'react-router-dom';
+import { adminRoutes, } from '~/configs/routes';
 
 const OrderPage = () => {
   const dispatch = useDispatch();
@@ -12,6 +14,13 @@ const OrderPage = () => {
   const [descending, setDescending,] = React.useState(true);
   const [page, setPage,] = React.useState(1);
   const [limit, setLimit,] = React.useState(5);
+  const navigate = useNavigate();
+
+  const handleDetail = (e) => {
+    navigate(adminRoutes.detailOrder.replace(':id', e._id), {
+      state: e,
+    });
+  };
 
   React.useEffect(() => {
     dispatch(getAllByAdminRequestStart({
@@ -31,6 +40,13 @@ const OrderPage = () => {
         <div className='flex flex-row w-full justify-between gap-3'>
           <div className='rounded-xl p-3 bg-white w-full'>
             <DataTable
+              actions={[
+                {
+                  label: translate('detail'),
+                  handler: handleDetail,
+                },
+
+              ]}
               columns={[
                 {
                   field: 'id',
@@ -71,10 +87,10 @@ const OrderPage = () => {
               data={orders?.map((order) => ({
                 ...order,
                 'id': order._id,
-                'user': order.user, // Assuming this will map to a user ID or name
+                'user': order.user.fullname, // Assuming this will map to a user ID or name
                 'address': order.address,
                 'totalPrice': `${formatCurrency(order.totalPrice)}`, // Formatting currency
-                'payment': order.payment, // Payment ID or method
+                'payment': order.payment.name, // Payment ID or method
                 'paymentDate': order.paymentDate ? new Date(order.paymentDate).toLocaleDateString() : '',
                 'createdAt': new Date(order.createdAt).toLocaleDateString(),
               }))}

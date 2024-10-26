@@ -20,6 +20,7 @@ export const adminRoutes = {
 
   event: '/admin/events',
   order: '/admin/order',
+  detailOrder: '/admin/order/:id',
   config: '/admin/configs',
 
   profile: '/admin/profile',
@@ -36,4 +37,5 @@ export const clientRoutes = {
   oneStepCheckOut: '/one-step-check-out',
   search: '/search/:query',
   categories: '/categories/:id',
+  orderHistory: '/order-history',
 };

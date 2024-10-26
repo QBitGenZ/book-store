@@ -2,10 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { formatCurrency, } from '~/helpers';
 
-function OrderSummary({ items, shippingCost = 0, }) {
+function OrderedSummary({ order, shippingCost = 0, }) {
+  const items = order.items;
   const calSubTotal = () => {
     return items.reduce((total, item) => total + item.product.price * item.quantity, 0);
   };
+
   const calculateTotal = () => {
     const subtotal = calSubTotal();
     return subtotal + shippingCost;
@@ -13,17 +15,18 @@ function OrderSummary({ items, shippingCost = 0, }) {
 
   return (
     <div className='space-y-4 p-4 rounded-lg bg-white'>
-      <h2 className='font-semibold text-lg text-left'>KIỂM TRA LẠI ĐƠN HÀNG</h2>
+      <h2 className='font-semibold text-lg text-left'>{order?.deliveryStatus?.name}</h2>
       <div className='border rounded p-4 flex flex-col'>
-        {items.map((item) => (
+        {/* Display only the first 2 items */}
+        {items.slice(0, 2).map((item) => (
           <div key={item._id} className='flex gap-4 border-b-[1px] py-3'>
-            {/* <img src={item.product.image[0]} alt={item.name} className='w-20'/>*/}
-            <img src={`${process.env.REACT_APP_HOST_IP}/${item.product.images[0]}`}
+            <img
+              src={`${process.env.REACT_APP_HOST_IP}/${item.product.images[0]}`}
               alt='Product'
               className='w-20 h-24 object-cover'
             />
             <div className='flex-1'>
-              <h6 className={'text-left'}>{item.product.name}</h6>
+              <h6 className='text-left'>{item.product.name}</h6>
               <div className='flex justify-between items-center mt-2'>
                 <div className='space-y-1'>
                   <p className='text-red-500'>{formatCurrency(item.product.price)}</p>
@@ -34,19 +37,18 @@ function OrderSummary({ items, shippingCost = 0, }) {
           </div>
         ))}
 
+        {/* Show a message if there are more than 2 items */}
+        {items.length > 2 && (
+          <div className='text-gray-500 text-sm mt-2 text-left'>
+                        ...and {items.length - 2} more items
+          </div>
+        )}
+
         {/* Order Total */}
         <div className='mt-6 space-y-2'>
-          <div className='flex justify-between'>
-            <span>Thành tiền</span>
-            <span>{formatCurrency(calSubTotal())}</span>
-          </div>
-          <div className='flex justify-between'>
-            <span>Phí vận chuyển (Giao hàng tiêu chuẩn)</span>
-            <span>{formatCurrency(shippingCost)}</span>
-          </div>
-          <div className='flex justify-between font-semibold pt-2 border-t'>
-            <span>Tổng Số Tiền</span>
-            <span className='text-orange-500'>{formatCurrency(calculateTotal())}</span>
+          <div className='flex justify-end font-semibold'>
+            <span>Tổng Tiền</span>
+            <span className='ml-2 text-orange-500'>{formatCurrency(calculateTotal())}</span>
           </div>
         </div>
       </div>
@@ -54,9 +56,9 @@ function OrderSummary({ items, shippingCost = 0, }) {
   );
 }
 
-OrderSummary.propTypes = {
-  items: PropTypes.array.isRequired,
+OrderedSummary.propTypes = {
+  order: PropTypes.array.isRequired,
   shippingCost: PropTypes.number.isRequired,
 };
 
-export default OrderSummary;
+export default OrderedSummary;

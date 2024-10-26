@@ -26,9 +26,14 @@ const CustomerHeader = () => {
     {
       handle: () => {
         navigate(clientRoutes.home);
-        // Todo: config route
       },
       label: translate('home'),
+    },
+    {
+      handle: () => {
+        navigate(clientRoutes.orderHistory);
+      },
+      label: translate('order-history'),
     },
     {
       handle: () => {
@@ -38,6 +43,7 @@ const CustomerHeader = () => {
       },
       label: translate('logout'),
     },
+
   ];
 
   const handleChangeCartPage = () => {
