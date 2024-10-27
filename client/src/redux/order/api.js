@@ -40,10 +40,11 @@ export const createOneRequestApi = (data) => {
 
 export const updateOneRequestApi = (id, data) => {
   return apiFetch({
-    url: `orders/${id}`,
+    url: `orders/admin/${id}`,
     options: {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json',
       },
       method: 'PUT',
       body: data,

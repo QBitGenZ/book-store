@@ -1,20 +1,27 @@
-import React from 'react';
+import React, { useState, } from 'react';
 import { useDispatch, useSelector, } from 'react-redux';
-import { DataTable, Pagination, } from '~/components'; // Assuming you have these components like in ProductTypePage
-import { getAllByAdminRequestStart, } from '~/redux/order/slice';
+import { ConfirmationModal, DataTable, Pagination, } from '~/components'; // Assuming you have these components like in ProductTypePage
+import { getAllByAdminRequestStart, updateOrderRequestStart, } from '~/redux/order/slice';
 import { formatCurrency, translate, } from '~/helpers';
 import { useNavigate, } from 'react-router-dom';
 import { adminRoutes, } from '~/configs/routes';
+import UpdateOrder from './components/UpdateOrder';
 
 const OrderPage = () => {
   const dispatch = useDispatch();
-  const { orders, meta, } = useSelector((state) => state.order);
+  const { orders, meta, updateSuccess, } = useSelector((state) => state.order);
 
   const [orderBy, setOrderBy,] = React.useState('');
   const [descending, setDescending,] = React.useState(true);
   const [page, setPage,] = React.useState(1);
   const [limit, setLimit,] = React.useState(5);
+  const [showConfirm, setShowConfirm,] = useState(false);
+  const [confirmAction, setConfirmAction,] = useState(() => () => {
+  });
+  const [confirmMessage, setConfirmMessage,] = useState('');
   const navigate = useNavigate();
+  const [selectedObj, setSelectedObj,] = useState(null);
+  const [showUpdate, setShowUpdate,] = useState(false);
 
   const handleDetail = (e) => {
     navigate(adminRoutes.detailOrder.replace(':id', e._id), {
@@ -29,10 +36,58 @@ const OrderPage = () => {
       limit,
       descending,
     }));
-  }, [dispatch, orderBy, page, limit, descending,]);
+  }, [dispatch, orderBy, page, limit, descending, updateSuccess,]);
+
+  const updateOrder = (value) => {
+    setSelectedObj(value);
+    setShowUpdate(true);
+  };
+
+  const confirmOrder = (id, deliveryStatusData) => {
+    setConfirmAction(() => () => {
+      updateOrderRequest(id, deliveryStatusData);
+      setShowConfirm(false);
+      setShowUpdate(false);
+    });
+    setConfirmMessage('Are you sure you want to save these changes?');
+    setShowConfirm(true);
+  };
+
+  const updateOrderRequest = (id, orderData) => {
+    const data = {
+
+    };
+
+    if(orderData?.deliveryStatus) {
+      data.deliveryStatus = orderData?.deliveryStatus;
+    }
+    if(orderData?.paymentStatus) {
+      data.paymentStatus = orderData?.paymentStatus;
+    }
+
+    dispatch(
+      updateOrderRequestStart({
+        id,
+        data: JSON.stringify(data),
+      })
+    );
+  };
 
   const render = () => (
     <>
+      <ConfirmationModal
+        body={confirmMessage}
+        onConfirm={confirmAction}
+        onHide={() => setShowConfirm(false)}
+        title='Confirm'
+        show={showConfirm}
+      />
+      <UpdateOrder
+        setShow={setShowUpdate}
+        show={showUpdate}
+        updateOrder={confirmOrder}
+        order={selectedObj}
+      />
       <div className='flex flex-col'>
         <div className='leading-10 text-left py-2 mb-3 bg-gray-50 text-2xl'>
           {translate('orders')}
@@ -44,6 +99,10 @@ const OrderPage = () => {
                 {
                   label: translate('detail'),
                   handler: handleDetail,
+                },
+                {
+                  label: translate('update-order'),
+                  handler: updateOrder,
                 },
 
               ]}

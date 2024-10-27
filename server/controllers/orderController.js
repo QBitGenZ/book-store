@@ -67,15 +67,19 @@ exports.createOne = async (req, res) => {
 exports.updateDeliveryStatus = async (req, res) => {
     try {
         const orderId = req.params.id;
-        const {deliveryStatus} = req.body;
+        const {deliveryStatus, paymentStatus} = req.body;
 
         let order = await Order.findById(orderId);
 
         if (!order) {
             return res.status(404).json({error: 'Order not found'});
         }
-
-        order.deliveryStatus = deliveryStatus;
+        
+        order.deliveryStatus = deliveryStatus || order.deliveryStatus;
+        order.paymentStatus = paymentStatus || order.paymentStatus;
+        if(paymentStatus) {
+            order.paymentDate = new Date()
+        }
 
         await order.save();
 
