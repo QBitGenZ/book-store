@@ -8,6 +8,7 @@ import { CartPage,
   OrderHistoryPage,
   ProductInfoPage,
   SearchResultPage, } from '~/pages';
+import UserInfoPage from '~/pages/Customer/UserInfoPage';
 
 export default [
   {
@@ -44,5 +45,10 @@ export default [
     id: `client-${uuid4()}`,
     path: clientRoutes.orderHistory,
     element: <OrderHistoryPage/>,
+  },
+  {
+    id: `client-${uuid4()}`,
+    path: clientRoutes.userInfo,
+    element: <UserInfoPage/>,
   },
 ];

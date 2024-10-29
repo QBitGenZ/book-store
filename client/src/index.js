@@ -13,8 +13,9 @@ import { AdapterDayjs, } from '@mui/x-date-pickers/AdapterDayjs';
 import { SnackbarProvider, } from './helpers/utils/provider';
 import { FilesUiProvider, } from '@files-ui/react';
 import { createTheme, ThemeProvider, } from '@mui/material';
+
 const theme = createTheme({
-  palette : {
+  palette: {
     red: '#ff0000',
     blue: '#0000ff',
     green: '#00ff00',
@@ -39,7 +40,7 @@ root.render(
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <SnackbarProvider>
             <FilesUiProvider>
-              <App />
+              <App/>
             </FilesUiProvider>
           </SnackbarProvider>
         </LocalizationProvider>

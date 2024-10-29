@@ -1,5 +1,10 @@
-import { deleteImageRequestFailure, deleteImageRequestStart, deleteImageRequestSuccess, } from '~/redux/product/slice';
-import { deleteImageApi, } from '~/redux/product/api';
+import { deleteImageRequestFailure,
+  deleteImageRequestStart,
+  deleteImageRequestSuccess,
+  getProductsByTypeRequestFailure,
+  getProductsByTypeRequestStart,
+  getProductsByTypeRequestSuccess, } from '~/redux/product/slice';
+import { deleteImageApi, getProductByType, } from '~/redux/product/api';
 
 const { put, takeLatest, call, } = require('redux-saga/effects');
 const { showSnackbar, } = require('../snackbar/slice');
@@ -161,6 +166,25 @@ function* handleDeleteProductImageRequest(action) {
   }
 }
 
+function* handleGetProductsByTypesRequest(action) {
+  try {
+    const response = yield call(getProductByType, action.payload.id, action.payload.meta);
+    const { data, meta, } = response;
+    yield put(getProductsByTypeRequestSuccess({
+      data, meta,
+    }));
+    yield put(showSnackbar({
+      message: 'Product list successfully!',
+    }));
+
+  } catch (err) {
+    yield put(getProductsByTypeRequestFailure(err.message));
+    yield put(showSnackbar({
+      message: `Request failed: ${err.message}`, severity: 'error',
+    }));
+  }
+}
+
 export default function* watchProductActions() {
   yield takeLatest(getProductsRequestStart.type, handleGetProductsRequest);
   yield takeLatest(getProductRequestStart.type, handleGetProductRequest);
@@ -168,4 +192,5 @@ export default function* watchProductActions() {
   yield takeLatest(updateProductRequestStart.type, handleUpdateProductRequest);
   yield takeLatest(deleteProductRequestStart.type, handleDeleteProductRequest);
   yield takeLatest(deleteImageRequestStart.type, handleDeleteProductImageRequest);
+  yield takeLatest(getProductsByTypeRequestStart.type, handleGetProductsByTypesRequest);
 }

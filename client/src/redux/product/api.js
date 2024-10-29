@@ -64,3 +64,10 @@ export const deleteImageApi = (productId, imageId) => {
     },
   });
 };
+
+export const getProductByType = (id, query) => {
+  return apiFetch({
+    url: `types/${id}/products`,
+    queryParams: query,
+  });
+};

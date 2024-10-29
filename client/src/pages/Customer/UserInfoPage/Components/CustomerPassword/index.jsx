@@ -5,7 +5,7 @@ import { translate, } from '~/helpers';
 import { updatePasswordRequestStart, } from '~/redux/auth/slice';
 import { showSnackbar, } from '~/redux/snackbar/slice';
 
-const Password = () => {
+const CustomerPassword = () => {
   const dispatch = useDispatch();
 
   const [oldPwd, setOldPwd,] = React.useState('');
@@ -56,4 +56,4 @@ const Password = () => {
   return render();
 };
 
-export default Password;
+export default CustomerPassword;

@@ -19,6 +19,7 @@ import ProductCard from './ProductCard';
 import ProductImage from './ProductImage';
 import ProductDetailInformation from './ProductDetailInformation';
 import SearchBar from './SearchBar';
+import CustomerPagination from './CustomerPagination';
 
 export {
   CustomSnackbar,
@@ -41,4 +42,5 @@ export {
   ProductImage,
   ProductDetailInformation,
   SearchBar,
+  CustomerPagination,
 };
