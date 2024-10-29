@@ -23,6 +23,7 @@ const eventRoutes = require('./routes/eventRoutes');
 const donationRoutes = require('./routes/donationRoutes');
 const feedbackRoutes = require('./routes/feedbackRoutes');
 const addressRoutes = require('./routes/addressRoutes');
+const statisticsRoutes =  require('./routes/statisticsRoutes');
 
 const config = require('./config');
 const morgan = require('morgan')
@@ -93,6 +94,7 @@ app.use(`/${version}/events`, eventRoutes);
 app.use(`/${version}/donations`, donationRoutes);
 app.use(`/${version}/feedbacks`, feedbackRoutes);
 app.use(`/${version}/addresses`, addressRoutes);
+app.use(`/${version}/statistics`, statisticsRoutes);
 
 app.use(`/${version}`, express.static('uploads'));
 
