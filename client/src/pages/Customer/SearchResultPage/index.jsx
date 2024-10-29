@@ -1,19 +1,26 @@
 import React from 'react';
-import { useParams, } from 'react-router-dom';
+import { useNavigate, useParams, } from 'react-router-dom';
 import { useDispatch, useSelector, } from 'react-redux';
 import { getProductsRequestStart, } from '~/redux/product/slice';
-import { ProductList, } from '~/components';
+import { CustomerPagination, ProductList, } from '~/components';
+import { translate, } from '~/helpers';
+import { clientRoutes, } from '~/configs/routes';
 
 const SearchResultPage = () => {
   const { query, } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [orderBy,] = React.useState('');
   const [descending,] = React.useState(true);
-  const [page,] = React.useState(1);
+  const [page, setPage,] = React.useState(1);
   const [limit,] = React.useState(100);
 
   const { products, meta, } = useSelector((state) => state.product);
+
+  const goToHome = () => {
+    navigate(clientRoutes.home);
+  };
 
   React.useEffect(() => {
     dispatch(getProductsRequestStart({
@@ -27,10 +34,28 @@ const SearchResultPage = () => {
   }, [query,]);
 
   return (
-    <div>
-      <ProductList products={products}/>
-
-    </div>
+    <>
+      {products.length > 0 && <div>
+        <ProductList title={'Kết quả tìm kiếm'} products={products}/>
+        <CustomerPagination
+          currentPage={meta?.page ?? 1}
+          totalPages={meta?.totalPage ?? 1}
+          onPageChange={setPage}
+        />
+      </div>}
+      {products?.length === 0 && <div>
+        <div className={'rounded shadow-sm bg-white w-full flex flex-col items-center p-16'}>
+          {/* <img className='mb-4' src={`${process.env.PUBLIC_URL}/assets/pages/other/ico_emptycart.svg`}*/}
+          {/*  alt='Empty Cart'/>*/}
+          <p>{translate('There are no products.')}</p>
+          <button
+            className='w-fit py-2 px-4 rounded shadow-md bg-red-600 text-white font-semibold mt-4'
+            onClick={goToHome}>
+            {translate('Go to Home')}
+          </button>
+        </div>
+      </div>}
+    </>
   );
 };
 

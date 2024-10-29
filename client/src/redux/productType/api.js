@@ -75,5 +75,5 @@ export const deleteOneByAdminApi = (id) => apiFetch({
 });
 
 // export const getProductsByTypeApi = (id) => apiFetch({
-//   url: `types/${id}/product`,
+//   url: `types/${id}/products`,
 // });
