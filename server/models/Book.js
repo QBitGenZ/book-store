@@ -70,6 +70,9 @@ const BookSchema = new mongoose.Schema({
   isEbook: {
     type: Boolean,
   },
+  translator: {
+    type: String
+  }
 });
 
 module.exports = mongoose.model('Book', BookSchema);
