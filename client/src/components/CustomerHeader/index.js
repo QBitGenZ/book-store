@@ -31,6 +31,12 @@ const CustomerHeader = () => {
     },
     {
       handle: () => {
+        navigate(clientRoutes.userInfo);
+      },
+      label: translate('User-Info'),
+    },
+    {
+      handle: () => {
         navigate(clientRoutes.orderHistory);
       },
       label: translate('order-history'),
@@ -49,11 +55,18 @@ const CustomerHeader = () => {
   const handleChangeCartPage = () => {
     navigate(clientRoutes.cart);
   };
+  const goToHome = () => {
+    navigate(clientRoutes.home);
+  };
 
   return (
     <Paper className='mx-auto w-full px-16 py-2 sticky top-0 z-40'>
 
       <div className='flex justify-end items-center space-x-2 gap-3'>
+        <div onClick={goToHome}>
+          <img className='h-10' src={`${process.env.PUBLIC_URL}/assets/pages/other/bookStore.png`}
+            alt='Home'/>
+        </div>
         {/* Search Bar*/}
         <SearchBar></SearchBar>
 
