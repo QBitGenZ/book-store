@@ -13,6 +13,7 @@ import userSaga from './user/saga';
 import cartSage from './cart/saga';
 import orderSaga from './order/saga';
 import addressSaga from './address/saga';
+import eventSaga from './event/saga';
 
 export default function* rootSaga() {
   yield all([
@@ -30,5 +31,6 @@ export default function* rootSaga() {
     cartSage(),
     orderSaga(),
     addressSaga(),
+    eventSaga(),
   ]);
 }
