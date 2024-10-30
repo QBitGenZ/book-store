@@ -1,6 +1,7 @@
 const moment = require('moment');
 const Order = require('../models/Order');
 const config = require('../config');
+const Delivery = require('../models/Delivery');
 
 
 exports.createPaymentUrl = async (req, res, next) => {
@@ -21,8 +22,9 @@ exports.createPaymentUrl = async (req, res, next) => {
     let orderId = req.body.order;
 
     const order = await Order.findById(orderId)
+    const delivery = await Delivery.findById(order.delivery._id)
 
-    let amount = order.totalPrice;
+    let amount = order.totalPrice + delivery.cost;
     
     let locale = req.body.language;
     if(locale === null || locale === ''){
@@ -83,8 +85,6 @@ exports.vnpayReturn = async (req, res) => {
       if(code === '00') {
           let order = await Order.findById(orderId);
           order.paymentDate = Date.now();
-          // TODO: Them payment status vao
-          // order.paymentStatus = xxx
           await order.save();
 
           res.redirect(`${process.env.CLIENT_ROOT}/checkout/success`)
@@ -95,4 +95,20 @@ exports.vnpayReturn = async (req, res) => {
   } else{
       res.send({status: 'success', code: '97'})
   }
+}
+
+function sortObject(obj) {
+	let sorted = {};
+	let str = [];
+	let key;
+	for (key in obj){
+		if (obj.hasOwnProperty(key)) {
+		str.push(encodeURIComponent(key));
+		}
+	}
+	str.sort();
+    for (key = 0; key < str.length; key++) {
+        sorted[str[key]] = encodeURIComponent(obj[str[key]]).replace(/%20/g, "+");
+    }
+    return sorted;
 }

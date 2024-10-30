@@ -84,7 +84,7 @@ exports.deleteOne = async (req, res) => {
       return res.status(400).json({ error: 'Cannot delete an event that has already started' });
     }
 
-    await event.remove();
+    await Event.findByIdAndDelete(event._id)
     res.status(204).send()
   } catch (err) {
     console.error(err.message);
