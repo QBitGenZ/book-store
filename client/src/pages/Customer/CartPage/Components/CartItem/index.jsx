@@ -54,11 +54,19 @@ const CartItem = ({ cartItem, handleUpdateItem, handleDeleteItem, }) => {
           <input type='checkbox' checked={isCheck} onChange={handleCheckChange}
             className=' w-4 h-4 accent-blue-500'/>
         </div>
-        <img
-          src={`${process.env.REACT_APP_HOST_IP}/${cartItem?.product?.images?.[0]}`}
-          alt={cartItem?.product?.name}
-          className='w-20 h-24 object-cover'
-        />
+        {cartItem?.product?.images?.[0] ? (
+          <img
+            src={`${process.env.REACT_APP_HOST_IP}/${cartItem?.product?.images?.[0]}`}
+            alt={cartItem?.product?.name}
+            className='w-20 h-24 object-cover'
+          />
+        ) : (
+          <img
+            src={`${process.env.PUBLIC_URL}/assets/pages/other/noImageItem.jpg`}
+            alt='Product'
+            className='w-20 h-24 object-cover'
+          />
+        )}
 
         {/* Product Details */}
         <div>

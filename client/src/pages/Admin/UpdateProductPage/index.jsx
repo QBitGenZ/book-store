@@ -13,14 +13,13 @@ import { getAuthorsByAdminRequestStart, } from '~/redux/author/slice';
 import { deleteImageRequestStart, getProductRequestStart, updateProductRequestStart, } from '~/redux/product/slice';
 import { QuiltedImageList, } from '~/components';
 import { formatDate, } from 'src/helpers';
-import { getUserAllRequestStart, } from '~/redux/user/slice';
 
 const UpdateProductPage = () => {
   const { id, } = useParams();
   const [name, setName,] = useState('');
   const [type, setType,] = useState('');
   const [author, setAuthor,] = useState('');
-  const [donor, setDonor,] = useState('');
+  // const [donor, setDonor,] = useState('');
   const [publisher, setPublisher,] = useState('');
   const [pubDate, setPubDate,] = useState('');
   const [size, setSize,] = useState('');
@@ -46,7 +45,7 @@ const UpdateProductPage = () => {
   const { types, } = useSelector(state => state.type);
   const { authors, } = useSelector(state => state.author);
   const { product, updateSuccess, } = useSelector(state => state.product);
-  const { users, } = useSelector(state => state.user);
+  // const { users, } = useSelector(state => state.user);
 
   const [limit,] = React.useState(100);
 
@@ -79,11 +78,11 @@ const UpdateProductPage = () => {
 
   };
 
-  const getUsers = () => {
-    dispatch(getUserAllRequestStart({
-      limit,
-    }));
-  };
+  // const getUsers = () => {
+  //   dispatch(getUserAllRequestStart({
+  //     limit,
+  //   }));
+  // };
 
   const handleRemovePhoto = (imageRemoved) => {
     dispatch(deleteImageRequestStart({
@@ -108,7 +107,7 @@ const UpdateProductPage = () => {
     getPublishers();
     getAuthors();
     getProduct();
-    getUsers();
+    // getUsers();
 
   }, []);
 
@@ -121,7 +120,7 @@ const UpdateProductPage = () => {
       setName(product.name || '');
       setType(product.type || '');
       setAuthor(product.author || '');
-      setDonor(product.donor || '');
+      // setDonor(product.donor || '');
       setPublisher(product.publisher || '');
       setPubDate(product.pubDate || '');
       setSize(product.size || '');
@@ -144,7 +143,7 @@ const UpdateProductPage = () => {
     formData.append('name', name);
     if (type) formData.append('type', type);
     if (author) formData.append('author', author);
-    if (donor) formData.append('donor', donor);
+    // if (donor) formData.append('donor', donor);
     if (publisher) formData.append('publisher', publisher);
     if (pubDate) formData.append('pubDate', pubDate);
     if (size) formData.append('size', size);
@@ -279,32 +278,32 @@ const UpdateProductPage = () => {
               </MenuItem>
             ))}
           </TextField>
-          <TextField
-            className='w-100'
-            select
-            sx={{
-              textAlign: 'left',
-            }}
-            label={translate('donor-label')}
-            size='small'
-            value={donor}
-            onChange={(e) => setDonor(e.target.value)}
-            SelectProps={{
-              MenuProps: {
-                PaperProps: {
-                  style: {
-                    maxHeight: 200,
-                  },
-                },
-              },
-            }}
-          >
-            {users?.map((user) => (
-              <MenuItem key={user._id} value={user._id}>
-                {user.fullname}
-              </MenuItem>
-            ))}
-          </TextField>
+          {/* <TextField */}
+          {/*  className='w-100'*/}
+          {/*  select*/}
+          {/*  sx={{*/}
+          {/*    textAlign: 'left',*/}
+          {/*  }}*/}
+          {/*  label={translate('donor-label')}*/}
+          {/*  size='small'*/}
+          {/*  value={donor}*/}
+          {/*  onChange={(e) => setDonor(e.target.value)}*/}
+          {/*  SelectProps={{*/}
+          {/*    MenuProps: {*/}
+          {/*      PaperProps: {*/}
+          {/*        style: {*/}
+          {/*          maxHeight: 200,*/}
+          {/*        },*/}
+          {/*      },*/}
+          {/*    },*/}
+          {/*  }}*/}
+          {/* > */}
+          {/*  {users?.map((user) => (*/}
+          {/*    <MenuItem key={user._id} value={user._id}>*/}
+          {/*      {user.fullname}*/}
+          {/*    </MenuItem>*/}
+          {/*  ))}*/}
+          {/* </TextField>*/}
           <TextField
             label={translate('pub-date')}
             size='small'

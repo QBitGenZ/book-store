@@ -39,10 +39,14 @@ const ProductImage = ({ product, }) => {
           <img
             src={`${process.env.REACT_APP_HOST_IP}/${selectedImage}`}
             alt='Product'
-            className='size-96 object-contain'
+            className='size-[22rem] object-contain'
           />
         ) : (
-          <p>No images available</p>
+          <img
+            src={`${process.env.PUBLIC_URL}/assets/pages/other/noImageItem.jpg`}
+            alt='Product'
+            className='size-80 object-contain'
+          />
         )}
       </div>
 
@@ -61,7 +65,7 @@ const ProductImage = ({ product, }) => {
             key={index}
             src={`${process.env.REACT_APP_HOST_IP}/${image}`}
             alt={`Thumbnail ${index + 1}`}
-            className={`w-16 h-16 p-0.5 object-contain cursor-pointer rounded ${image === selectedImage ? 'border-2' : 'border'}`}
+            className={`size-14 p-0.5 object-contain cursor-pointer rounded ${image === selectedImage ? 'border-2' : 'border'}`}
             style={image === selectedImage ? {
               borderColor: shop?.accentColor,
             } : {
