@@ -187,14 +187,12 @@ const OneStepCheckOutPage = () => {
     //     :
     //     "6720f1be67b4df2c0e3a5387"
     if (selectedAddress && selectedPaymentMethod && selectedDeliveryMethods) {
+      await requestCreateOrder(selectedPaymentMethod);
       if (selectedPaymentMethod.name === 'Thanh toán trực tuyến') {
-        await requestCreateOrder(selectedPaymentMethod);
-        // console.log(order);
         handlePayment(order._id, order.totalPrice + selectedDeliveryMethods?.cost);
       } else {
-        console.log(navigate(clientRoutes.orderSuccess));
+        navigate(clientRoutes.orderSuccess);
         // console.log(order);
-        console.log(order);
       }
     }
 

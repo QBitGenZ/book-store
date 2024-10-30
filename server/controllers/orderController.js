@@ -9,7 +9,7 @@ exports.getAllByAdmin = async (req, res) => {
         query.name = {$regex: req.query.search, $options: 'i'}
 
     const defaultField = 'createdAt';
-    getAllDocuments(Order, query, defaultField, req, res, [ 'user', 'payment', 'items.product', 'delivery']);
+    getAllDocuments(Order, query, defaultField, req, res, ['user', 'payment', 'items.product', 'delivery', 'deliveryStatus']);
 }
 
 exports.getAllBySelf = async (req, res) => {
@@ -19,7 +19,7 @@ exports.getAllBySelf = async (req, res) => {
 
     const defaultField = 'createdAt';
     getAllDocuments(Order, query, defaultField, req, res, [
-        'user', 'payment', 'items.product', 'delivery'
+        'user', 'payment', 'items.product', 'delivery', 'deliveryStatus'
     ]);
 }
 
@@ -74,10 +74,10 @@ exports.updateDeliveryStatus = async (req, res) => {
         if (!order) {
             return res.status(404).json({error: 'Order not found'});
         }
-        
+
         order.deliveryStatus = deliveryStatus || order.deliveryStatus;
         order.paymentStatus = paymentStatus || order.paymentStatus;
-        if(paymentStatus) {
+        if (paymentStatus) {
             order.paymentDate = new Date()
         }
 
