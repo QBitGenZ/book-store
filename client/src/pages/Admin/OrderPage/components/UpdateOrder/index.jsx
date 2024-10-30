@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import { Modal as BModal, } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { translate, } from '~/helpers';
-import { TextField, MenuItem, } from '@mui/material';
+import { MenuItem, TextField, } from '@mui/material';
 import { useDispatch, useSelector, } from 'react-redux';
 import { getDeliveryStatusesRequestStart, } from '~/redux/deliveryStatus/slice';
 import { getPaymentStatusesRequestStart, } from '~/redux/paymentStatus/slice';
@@ -76,13 +76,14 @@ function UpdateOrder({
             <TextField
               select
               label={translate('delivery-status-label')}
-              value={deliveryStatus}
+              value={deliveryStatus.name}
               onChange={(e) => setDeliveryStatus(e.target.value)}
               fullWidth
               variant='outlined'
             >
               {
-                deliveryStatuses?.map(value => (<MenuItem key={value?._id} value={value?._id}>{value?.name}</MenuItem>))
+                deliveryStatuses?.map(value => (
+                  <MenuItem key={value?._id} value={value?._id}>{value?.name}</MenuItem>))
               }
             </TextField>
           </div>
@@ -100,7 +101,8 @@ function UpdateOrder({
               fullWidth
               variant='outlined'
             >
-              {paymentStatuses?.map(value => (<MenuItem key={value?._id} value={value?._id}>{value?.name}</MenuItem>))}
+              {paymentStatuses?.map(value => (
+                <MenuItem key={value?._id} value={value?._id}>{value?.name}</MenuItem>))}
             </TextField>
           </div>
         </div>

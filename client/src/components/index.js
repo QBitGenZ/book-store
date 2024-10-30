@@ -20,6 +20,8 @@ import ProductImage from './ProductImage';
 import ProductDetailInformation from './ProductDetailInformation';
 import SearchBar from './SearchBar';
 import CustomerPagination from './CustomerPagination';
+import DropdownCategories from './DropdownCategories';
+import Dropdown from './Dropdown';
 
 export {
   CustomSnackbar,
@@ -43,4 +45,6 @@ export {
   ProductDetailInformation,
   SearchBar,
   CustomerPagination,
+  DropdownCategories,
+  Dropdown,
 };
