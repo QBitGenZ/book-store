@@ -64,7 +64,7 @@ const CustomerHeader = () => {
 
       <div className='flex justify-end items-center space-x-2 gap-3'>
         <div onClick={goToHome}>
-          <img className='h-10' src={`${process.env.PUBLIC_URL}/assets/pages/other/bookStore.png`}
+          <img className='h-12' src={`${process.env.PUBLIC_URL}/assets/pages/other/bookStore.png`}
             alt='Home'/>
         </div>
         {/* Search Bar*/}

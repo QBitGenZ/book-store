@@ -14,7 +14,7 @@ const SearchResultPage = () => {
   const [orderBy,] = React.useState('');
   const [descending,] = React.useState(true);
   const [page, setPage,] = React.useState(1);
-  const [limit,] = React.useState(100);
+  const [limit,] = React.useState(20);
 
   const { products, meta, } = useSelector((state) => state.product);
 
@@ -31,7 +31,7 @@ const SearchResultPage = () => {
       descending,
     }));
     console.log(products, meta);
-  }, [query,]);
+  }, [query, dispatch, page, orderBy, descending, limit,]);
 
   return (
     <>
@@ -51,7 +51,7 @@ const SearchResultPage = () => {
           <button
             className='w-fit py-2 px-4 rounded shadow-md bg-red-600 text-white font-semibold mt-4'
             onClick={goToHome}>
-            {translate('Go to Home')}
+            {translate('Về Trang chủ')}
           </button>
         </div>
       </div>}

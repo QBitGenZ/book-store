@@ -39,4 +39,5 @@ export const clientRoutes = {
   categories: '/categories/:id',
   orderHistory: '/order-history',
   userInfo: '/userInfo',
+  orderSuccess: '/orderSuccess',
 };

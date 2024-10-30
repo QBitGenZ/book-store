@@ -18,10 +18,18 @@ function OrderSummary({ items, shippingCost = 0, }) {
         {items.map((item) => (
           <div key={item._id} className='flex gap-4 py-3 border-b-[1px]'>
             {/* <img src={item.product.image[0]} alt={item.name} className='w-20'/>*/}
-            <img src={`${process.env.REACT_APP_HOST_IP}/${item.product.images[0]}`}
-              alt='Product'
-              className='w-20 h-24 object-cover'
-            />
+            {item.product.images[0] ? (
+              <img src={`${process.env.REACT_APP_HOST_IP}/${item.product.images[0]}`}
+                alt='Product'
+                className='w-20 h-24 object-cover'
+              />
+            ) : (
+              <img
+                src={`${process.env.PUBLIC_URL}/assets/pages/other/noImageItem.jpg`}
+                alt='Product'
+                className='w-20 h-24 object-cover'
+              />
+            )}
             <div className='flex-1'>
               <h6 className={'text-left'}>{item.product.name}</h6>
               <div className='flex justify-between items-center mt-2'>

@@ -25,15 +25,24 @@ const HomePage = () => {
 
   return (
     <>
-      <div className={'w-full mb-4'}><Categories></Categories></div>
       <div>
-        {products && <ProductList products={products} title={'Danh sách sản phẩm'}/>}
+        <div className={'w-full mb-4'}>
+          <Categories/>
+        </div>
+        <div>
+          {products &&
+                        <div>
+                          <ProductList products={products} title={'Danh sách sản phẩm'}/>
+                          <CustomerPagination
+                            currentPage={meta?.page ?? 1}
+                            totalPages={meta?.totalPage ?? 1}
+                            onPageChange={setPage}
+                          />
+                        </div>
+          }
+        </div>
       </div>
-      <CustomerPagination
-        currentPage={meta?.page ?? 1}
-        totalPages={meta?.totalPage ?? 1}
-        onPageChange={setPage}
-      />
+
     </>
   );
 };

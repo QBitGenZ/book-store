@@ -20,10 +20,10 @@ const CustomerMainLayout = ({ children, }) => {
 
     return (
       <div>
-        <main className='flex bg-gray-50 h-screen overflow-y-auto'>
+        <main className='flex  bg-slate-50 h-screen overflow-y-auto'>
           <div className='flex flex-col flex-grow '>
             <CustomerHeader/>
-            <div className='flex-grow p-6 sm:mx-12 md:mx-24 lg:mx-32 xl:mx-48'>
+            <div className='flex-grow p-6 sm:mx-8 md:mx-8 lg:mx-12 xl:mx-28'>
               {children}
             </div>
           </div>
