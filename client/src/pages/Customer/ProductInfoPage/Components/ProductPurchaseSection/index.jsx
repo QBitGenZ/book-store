@@ -76,9 +76,9 @@ const ProductPurchaseSection = ({ product, handleAddToCart, }) => {
       </div>
 
       <div className={'flex flex-col gap-2'}>
-        <button className='w-full py-2 rounded bg-red-500 text-white font-semibold'>
-          {translate('Buy-now')}
-        </button>
+        {/* <button className='w-full py-2 rounded bg-red-500 text-white font-semibold'>*/}
+        {/*  {translate('Buy-now')}*/}
+        {/* </button>*/}
 
         <button className='w-full py-2 rounded text-red-500 bg-white border-red-500 border-2 font-semibold'
           onClick={() => handleAddToCart(product, quantity)}>

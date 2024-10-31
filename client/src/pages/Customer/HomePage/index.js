@@ -2,8 +2,8 @@ import React from 'react';
 import { useDispatch, useSelector, } from 'react-redux';
 import { getProductsRequestStart, } from '~/redux/product/slice';
 import { getShopRequestStart, } from '~/redux/config/slice';
-import { CustomerPagination, ProductList, } from '~/components';
-import Categories from './Components/Categories';
+import { AuthorList, CustomCarousel, CustomerPagination, ProductList, } from '~/components';
+import Categories from '~/pages/Customer/HomePage/Components/Categories';
 
 const HomePage = () => {
   const { products, meta, } = useSelector((state) => state.product);
@@ -26,6 +26,12 @@ const HomePage = () => {
   return (
     <>
       <div>
+        <div className={'w-full mb-4 rounded'}>
+          <CustomCarousel/>
+        </div>
+        <div className={'w-full mb-4'}>
+          <AuthorList/>
+        </div>
         <div className={'w-full mb-4'}>
           <Categories/>
         </div>

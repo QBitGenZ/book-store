@@ -44,13 +44,17 @@ const ProductPage = () => {
 
   const getPublishers = () => {
     dispatch(
-      getPublishersByAdminRequestStart()
+      getPublishersByAdminRequestStart({
+        limit: 1000,
+      })
     );
   };
 
   const getAuthors = () => {
     dispatch(
-      getAuthorsByAdminRequestStart()
+      getAuthorsByAdminRequestStart({
+        limit: 1000,
+      })
     );
   };
 

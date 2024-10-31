@@ -13,6 +13,7 @@ import { getAuthorsByAdminRequestStart, } from '~/redux/author/slice';
 import { deleteImageRequestStart, getProductRequestStart, updateProductRequestStart, } from '~/redux/product/slice';
 import { QuiltedImageList, } from '~/components';
 import { formatDate, } from 'src/helpers';
+import { getAllFormatsRequestStart, } from '~/redux/format/slice';
 
 const UpdateProductPage = () => {
   const { id, } = useParams();
@@ -44,6 +45,7 @@ const UpdateProductPage = () => {
   const { publishers, } = useSelector((state) => state.publisher);
   const { types, } = useSelector(state => state.type);
   const { authors, } = useSelector(state => state.author);
+  const { formats, } = useSelector(state => state.format);
   const { product, updateSuccess, } = useSelector(state => state.product);
   // const { users, } = useSelector(state => state.user);
 
@@ -58,6 +60,12 @@ const UpdateProductPage = () => {
   const getTypes = () => {
     dispatch(getTypesByAdminRequestStart({
       limit,
+    }));
+  };
+
+  const getFormats = () => {
+    dispatch(getAllFormatsRequestStart({
+      limit: 1000,
     }));
   };
 
@@ -107,6 +115,7 @@ const UpdateProductPage = () => {
     getPublishers();
     getAuthors();
     getProduct();
+    getFormats();
     // getUsers();
 
   }, []);
@@ -315,13 +324,39 @@ const UpdateProductPage = () => {
               shrink: true,
             }}
           />
+          {/* <TextField*/}
+          {/*  label={translate('format')}*/}
+          {/*  size='small'*/}
+          {/*  name='format'*/}
+          {/*  value={format}*/}
+          {/*  onChange={(e) => setFormat(e.target.value)}*/}
+          {/* />*/}
           <TextField
-            label={translate('format')}
+            className='w-100'
+            select
+            sx={{
+              textAlign: 'left',
+            }}
+            label={translate('format-label')}
             size='small'
-            name='format'
             value={format}
             onChange={(e) => setFormat(e.target.value)}
-          />
+            SelectProps={{
+              MenuProps: {
+                PaperProps: {
+                  style: {
+                    maxHeight: 200,
+                  },
+                },
+              },
+            }}
+          >
+            {formats?.map((format) => (
+              <MenuItem key={format._id} value={format._id}>
+                {format.name}
+              </MenuItem>
+            ))}
+          </TextField>
 
           <TextField
             label={translate('description')}

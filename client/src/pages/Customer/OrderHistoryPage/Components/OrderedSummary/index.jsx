@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState, } from 'react';
 import PropTypes from 'prop-types';
 import { formatCurrency, } from '~/helpers';
 
 function OrderedSummary({ order, shippingCost = 0, }) {
   const items = order.items;
+  const [showAllItems, setShowAllItems,] = useState(false);
+
   const calSubTotal = () => {
     return items.reduce((total, item) => total + item.product.price * item.quantity, 0);
   };
@@ -14,19 +16,15 @@ function OrderedSummary({ order, shippingCost = 0, }) {
   };
 
   return (
-    <div className='space-y-4 p-4 rounded-lg bg-white'>
+    <div className='space-y-4 p-4 rounded-lg bg-white border shadow-sm'>
       <h2 className='font-semibold text-lg text-left'>{order?.deliveryStatus?.name}</h2>
       <div className='border rounded p-4 flex flex-col'>
-        {/* Display only the first 2 items */}
-        {items.slice(0, 2).map((item) => (
+        {/* Conditionally display items based on showAllItems */}
+        {(showAllItems ? items : items.slice(0, 2)).map((item) => (
           <div key={item._id} className='flex gap-4 border-b-[1px] py-3'>
-            {/* <img*/}
-            {/*  src={`${process.env.REACT_APP_HOST_IP}/${item.product.images[0]}`}*/}
-            {/*  alt='Product'*/}
-            {/*  className='w-20 h-24 object-cover'*/}
-            {/* />*/}
             {item?.product?.images[0] ? (
-              <img src={`${process.env.REACT_APP_HOST_IP}/${item.product.images[0]}`}
+              <img
+                src={`${process.env.REACT_APP_HOST_IP}/${item.product.images[0]}`}
                 alt='Product'
                 className='w-20 h-24 object-cover'
               />
@@ -49,42 +47,38 @@ function OrderedSummary({ order, shippingCost = 0, }) {
           </div>
         ))}
 
-        {/* Show a message if there are more than 2 items */}
+        {/* Toggle message for displaying more or fewer items */}
         {items.length > 2 && (
-          <div className='text-gray-500 text-sm mt-2 text-left'>
-                        ...and {items.length - 2} more items
+          <div
+            className='text-gray-500 text-sm mt-2 text-left p-2 border rounded w-fit cursor-pointer'
+            onClick={() => setShowAllItems(!showAllItems)}
+          >
+            {showAllItems ? `Ẩn bớt ${items.length - 2} sản phẩm` : `Xem thêm ${items.length - 2} sản phẩm`}
           </div>
         )}
 
         {/* Order Total */}
-        {/* <div className='mt-6 space-y-2'>*/}
-        {/*  <div className={'flex justify-end font-semibold'}>*/}
-        {/*    <span>Phí vận chuyển</span>*/}
-        {/*    <span className='ml-2 text-orange-500'>{formatCurrency(shippingCost)}</span>*/}
-        {/*  </div>*/}
-        {/*  <div className='flex justify-end font-semibold'>*/}
-        {/*    <span>Tổng Tiền</span>*/}
-        {/*    <span className='ml-2 text-orange-500'>{formatCurrency(calculateTotal())}</span>*/}
-        {/*  </div>*/}
-        {/* </div>*/}
-        <div className='mt-6 flex flex-col gap-2 items-end'>
-          <div className='grid grid-cols-2 gap-2 w-fit'>
-            <span className='text-right'>Phí vận chuyển</span>
-            <span className='text-right'>{formatCurrency(shippingCost)}</span>
-          </div>
-          <div className='grid grid-cols-2 gap-2 w-fit font-semibold'>
-            <span className='text-right'>Tổng Tiền</span>
-            <span className='text-right text-orange-500'>{formatCurrency(calculateTotal())}</span>
-          </div>
+        <div className={'flex justify-end'}>
+          <table className='border-collapse w-fit '>
+            <tbody className={'w-max'}>
+              <tr className='pr-4 py-0.5 sm:grid sm:grid-cols-2 sm:px-0'>
+                <td className='text-right text-base text-gray-500'>Phí vận chuyển</td>
+                <td className='text-right text-base text-gray-500'>{formatCurrency(shippingCost)}</td>
+              </tr>
+              <tr className='pr-4 py-0.5 sm:grid sm:grid-cols-2 sm:px-0 font-semibold'>
+                <td className='text-right'>Tổng Tiền</td>
+                <td className='text-right text-orange-500'>{formatCurrency(calculateTotal())}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-
       </div>
     </div>
   );
 }
 
 OrderedSummary.propTypes = {
-  order: PropTypes.array.isRequired,
+  order: PropTypes.object.isRequired,
   shippingCost: PropTypes.number.isRequired,
 };
 

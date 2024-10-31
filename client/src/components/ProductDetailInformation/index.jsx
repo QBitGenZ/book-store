@@ -9,6 +9,7 @@ import { useDispatch, useSelector, } from 'react-redux';
 import { formatDate, } from 'src/helpers';
 import DescriptionList from '~/components/DescriptionList';
 import { getUserAllRequestStart, } from '~/redux/user/slice';
+import { getAllFormatsRequestStart, } from '~/redux/format/slice';
 
 const ProductDetailInformation = ({ product, hiddenFields, }) => {
 
@@ -16,23 +17,38 @@ const ProductDetailInformation = ({ product, hiddenFields, }) => {
   const { types, } = useSelector((state) => state.type);
   const { authors, } = useSelector((state) => state.author);
   const { users, } = useSelector(state => state.user);
+  const { formats, } = useSelector(state => state.format);
 
   const dispatch = useDispatch();
 
   const getTypes = () => {
-    dispatch(getTypesByAdminRequestStart());
+    dispatch(getTypesByAdminRequestStart({
+      limit: 1000,
+    }));
   };
 
   const getPublishers = () => {
-    dispatch(getPublishersByAdminRequestStart());
+    dispatch(getPublishersByAdminRequestStart({
+      limit: 1000,
+    }));
   };
 
   const getAuthors = () => {
-    dispatch(getAuthorsByAdminRequestStart());
+    dispatch(getAuthorsByAdminRequestStart({
+      limit: 1000,
+    }));
   };
 
   const getDonor = () => {
-    dispatch(getUserAllRequestStart());
+    dispatch(getUserAllRequestStart({
+      limit: 1000,
+    }));
+  };
+
+  const getFormat = () => {
+    dispatch(getAllFormatsRequestStart({
+      limit: 1000,
+    }));
   };
 
   React.useEffect(() => {
@@ -40,6 +56,7 @@ const ProductDetailInformation = ({ product, hiddenFields, }) => {
     getTypes();
     getPublishers();
     getDonor();
+    getFormat();
   }, []);
 
   const formatProductData = (product) => {
@@ -65,6 +82,10 @@ const ProductDetailInformation = ({ product, hiddenFields, }) => {
     const donor = users.find((user) => user._id === product?.donor);
     if (donor)
       formattedProduct.donor = donor.fullname;
+
+    const format = formats.find(a => a._id === product?.format);
+    if (format)
+      formattedProduct.format = format.name;
 
     if (product?.pubDate)
       formattedProduct.pubDate = formatDate(product?.pubDate);
