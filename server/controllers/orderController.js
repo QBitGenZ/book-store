@@ -1,5 +1,6 @@
 const Cart = require('../models/Cart');
 const Order = require('../models/Order');
+const Book = require('../models/Book')
 const {getAllDocuments} = require("../utils/querryDocument");
 
 exports.getAllByAdmin = async (req, res) => {
@@ -35,7 +36,13 @@ exports.createOne = async (req, res) => {
 
         const orderItems = cart.items.filter(value => value.checked === true).map(item => ({
             product: item.product._id,
-            quantity: item.quantity,
+            quantity: async () => {
+                const book = await Book.findById(item?.product._id);
+                const quantity = book.stockQuantity - item?.quantity
+                book.stockQuantity = quantity > 0 ? quantity : 0;
+                book?.save();
+                return quantity >= 0 ? item?.quantity : book.stockQuantity + item?.quantity;
+            },
             totalPrice: item.quantity * item.product.price,
         }));
 
@@ -54,7 +61,7 @@ exports.createOne = async (req, res) => {
 
         await newOrder.save();
 
-        cart.items = [];
+        cart.items = cart.items.filter(value => value !== true);
         await cart.save();
 
         res.status(201).json({data: newOrder});
