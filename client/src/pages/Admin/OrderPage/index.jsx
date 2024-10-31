@@ -40,6 +40,7 @@ const OrderPage = () => {
 
   const updateOrder = (value) => {
     setSelectedObj(value);
+
     setShowUpdate(true);
   };
 
@@ -55,16 +56,16 @@ const OrderPage = () => {
 
   const updateOrderRequest = (id, orderData) => {
     const data = {
-
     };
 
-    if(orderData?.deliveryStatus) {
+    if (orderData?.deliveryStatus) {
       data.deliveryStatus = orderData?.deliveryStatus;
     }
-    if(orderData?.paymentStatus) {
+    if (orderData?.paymentStatus) {
       data.paymentStatus = orderData?.paymentStatus;
     }
 
+    console.log(data);
     dispatch(
       updateOrderRequestStart({
         id,

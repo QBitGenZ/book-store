@@ -189,7 +189,7 @@ const OneStepCheckOutPage = () => {
     if (selectedAddress && selectedPaymentMethod && selectedDeliveryMethods) {
       await requestCreateOrder(selectedPaymentMethod);
       if (selectedPaymentMethod.name === 'Thanh toán trực tuyến') {
-        handlePayment(order._id, order.totalPrice + selectedDeliveryMethods?.cost);
+        handlePayment(order._id);
       } else {
         navigate(clientRoutes.orderSuccess);
         // console.log(order);
@@ -198,7 +198,7 @@ const OneStepCheckOutPage = () => {
 
   };
 
-  const handlePayment = (orderId, totalPrice) => {
+  const handlePayment = (orderId) => {
     fetch(`${process.env.REACT_APP_HOST_IP}/vnpay/create_payment_url`, {
       method: 'POST',
       headers: {
@@ -207,7 +207,6 @@ const OneStepCheckOutPage = () => {
       },
       body: JSON.stringify({
         order: orderId,
-        amount: totalPrice,
         language: 'vn',
       }),
     })

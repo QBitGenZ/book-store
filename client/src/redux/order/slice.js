@@ -36,6 +36,7 @@ const orderSlice = createSlice({
     getAllByAdminRequestSuccess: (state, action) => {
       state.loading = false;
       state.orders = action.payload.data;
+      state.meta = action.payload.meta;
     },
     getAllByAdminRequestFailure: (state, action) => {
       state.loading = false;

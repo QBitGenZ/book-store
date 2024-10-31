@@ -49,18 +49,18 @@ function UpdateEventModal({ event, show, setShow, updateEvent, }) {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
-          <TextField
-            className='w-full'
-            id='outlined-multiline-flexible'
-            label={translate('description-label')}
-            multiline
-            maxRows={4}
-            size='small'
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
+          {/* <TextField*/}
+          {/*    className='w-full'*/}
+          {/*    id='outlined-multiline-flexible'*/}
+          {/*    label={translate('description-label')}*/}
+          {/*    multiline*/}
+          {/*    maxRows={4}*/}
+          {/*    size='small'*/}
+          {/*    value={description}*/}
+          {/*    onChange={(e) => setDescription(e.target.value)}*/}
+          {/* />*/}
         </div>
-        <div className='flex justify-between gap-3'>
+        <div className='flex justify-between gap-3 mb-3'>
           <TextField
             className='w-full'
             id='birthday-required'
@@ -84,6 +84,17 @@ function UpdateEventModal({ event, show, setShow, updateEvent, }) {
             }}
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
+          />
+        </div>
+        <div className='flex justify-between gap-3'>
+          <TextField
+            className='w-full'
+            label={translate('description-label')}
+            size='small'
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            multiline
+            rows={5}
           />
         </div>
         {/* <div className='flex justify-between gap-3'>*/}

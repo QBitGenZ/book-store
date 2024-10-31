@@ -18,6 +18,7 @@ import cartReducer from './cart/slice';
 import orderReducer from './order/slice';
 import addressReducer from './address/slice';
 import eventReducer from './event/slice';
+import formatReducer from './format/slice';
 import rootSaga from './sagas';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -40,6 +41,7 @@ const store = configureStore({
     order: orderReducer,
     address: addressReducer,
     event: eventReducer,
+    format: formatReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(sagaMiddleware),

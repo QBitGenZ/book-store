@@ -2,9 +2,6 @@ import React from 'react';
 import { useNavigate, useParams, } from 'react-router-dom';
 import { useDispatch, useSelector, } from 'react-redux';
 import { getProductRequestStart, } from '~/redux/product/slice';
-import { getPublishersByAdminRequestStart, } from '~/redux/publisher/slice';
-import { getTypesByAdminRequestStart, } from '~/redux/productType/slice';
-import { getAuthorsByAdminRequestStart, } from '~/redux/author/slice';
 import { adminRoutes, } from '~/configs/routes';
 import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, } from '@fortawesome/free-solid-svg-icons';
@@ -31,9 +28,18 @@ const ProductDetailPage = () => {
 
   React.useEffect(() => {
     getProduct();
-    dispatch(getPublishersByAdminRequestStart());
-    dispatch(getTypesByAdminRequestStart());
-    dispatch(getAuthorsByAdminRequestStart());
+    // dispatch(getPublishersByAdminRequestStart({
+    //   limit: 1000,
+    // }));
+    // dispatch(getTypesByAdminRequestStart({
+    //   limit: 1000,
+    // }));
+    // dispatch(getAuthorsByAdminRequestStart({
+    //   limit: 1000,
+    // }));
+    // dispatch(getAllFormatsRequestStart({
+    //   limit: 1000,
+    // }));
   }, []);
 
   const render = () => <>

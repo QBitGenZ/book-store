@@ -50,7 +50,7 @@ function OrderSummary({ items, shippingCost = 0, }) {
             <span>{formatCurrency(calSubTotal())}</span>
           </div>
           <div className='flex justify-between'>
-            <span>Phí vận chuyển (Giao hàng tiêu chuẩn)</span>
+            <span>Phí vận chuyển</span>
             <span>{formatCurrency(shippingCost)}</span>
           </div>
           <div className='flex justify-between font-semibold pt-2 border-t'>
