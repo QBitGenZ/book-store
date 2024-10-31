@@ -28,7 +28,7 @@ function Categories() {
   return (
 
     <div className='p-4 rounded-lg shadow-sm bg-white'>
-      <h2 className='text-lg text-left font-bold pb-2 mb-4 border-b'>Danh mục sản phẩm</h2>
+      <h2 className='text-lg text-left font-bold pb-2 mb-4 border-b'>Danh mục</h2>
       <div className='flex flex-row flex-wrap gap-3'>
         {types?.map((category, index) => (
           <div key={index}

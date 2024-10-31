@@ -7,19 +7,35 @@ import { Avatar, Box, IconButton, Menu, MenuItem, Paper, Tooltip, Typography, } 
 import { logout, } from '~/redux/auth/slice';
 import { faCartShopping, } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
-import { SearchBar, } from '~/components';
+import { DropdownCategories, SearchBar, } from '~/components';
+import { getTypesByAdminRequestStart, } from '~/redux/productType/slice';
 
 const CustomerHeader = () => {
   const [anchorElUser, setAnchorElUser,] = React.useState(null);
   const { user, } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { types, } = useSelector(state => state.type);
+  const [orderBy,] = React.useState('');
+  const [descending,] = React.useState(true);
+  const [page,] = React.useState(1);
+  const [limit,] = React.useState(200);
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const getTypes = () => {
+    dispatch(getTypesByAdminRequestStart({
+      orderBy,
+      page,
+      limit,
+      descending,
+    }));
   };
 
   const settings = [
@@ -49,7 +65,6 @@ const CustomerHeader = () => {
       },
       label: translate('logout'),
     },
-
   ];
 
   const handleChangeCartPage = () => {
@@ -58,15 +73,34 @@ const CustomerHeader = () => {
   const goToHome = () => {
     navigate(clientRoutes.home);
   };
+  React.useEffect(() => {
+    getTypes();
+  }, [dispatch,]);
 
   return (
     <Paper className='mx-auto w-full px-16 py-2 sticky top-0 z-40'>
 
       <div className='flex justify-end items-center space-x-2 gap-3'>
-        <div onClick={goToHome}>
-          <img className='h-10' src={`${process.env.PUBLIC_URL}/assets/pages/other/bookStore.png`}
-            alt='Home'/>
+        <div className={'flex flex-row w-full gap-24'}>
+          <div onClick={goToHome}>
+            <img className='h-12' src={`${process.env.PUBLIC_URL}/assets/pages/other/bookStore.png`}
+              alt='Home'/>
+          </div>
+          <div className={'ml-6 self-center'}>
+            <div className={'flex flex-row gap-3'}>
+              <div>
+                <button
+                  onClick={goToHome}
+                  className='inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900  hover:bg-gray-50'
+                >
+                                    Trang chủ
+                </button>
+              </div>
+              <DropdownCategories items={types} name={'Danh mục'}/>
+            </div>
+          </div>
         </div>
+
         {/* Search Bar*/}
         <SearchBar></SearchBar>
 

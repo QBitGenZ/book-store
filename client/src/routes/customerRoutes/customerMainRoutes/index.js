@@ -3,12 +3,13 @@ import { clientRoutes, } from '~/configs/routes';
 import React from 'react';
 import { CartPage,
   CategoriesPage,
+  CheckOutSuccessPage,
   HomePage,
   OneStepCheckOutPage,
   OrderHistoryPage,
   ProductInfoPage,
-  SearchResultPage, } from '~/pages';
-import UserInfoPage from '~/pages/Customer/UserInfoPage';
+  SearchResultPage,
+  UserInfoPage, } from '~/pages';
 
 export default [
   {
@@ -50,5 +51,10 @@ export default [
     id: `client-${uuid4()}`,
     path: clientRoutes.userInfo,
     element: <UserInfoPage/>,
+  },
+  {
+    id: `client-${uuid4}`,
+    path: clientRoutes.orderSuccess,
+    element: <CheckOutSuccessPage/>,
   },
 ];

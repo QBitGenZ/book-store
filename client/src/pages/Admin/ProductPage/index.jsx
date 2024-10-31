@@ -176,14 +176,18 @@ const ProductPage = () => {
               ]}
               data={products?.map((item) => ({
                 ...item,
-                image: item?.images ? (
+                image: item?.images[0] ? (
                   <img
                     className='h-20 inline-block'
                     src={`${process.env.REACT_APP_HOST_IP}/${item?.images[0]}`}
                     alt={item?.name}
                   />
                 ) : (
-                  ''
+                  <img
+                    src={`${process.env.PUBLIC_URL}/assets/pages/other/noImageItem.jpg`}
+                    alt='Product'
+                    className='h-20 inline-block'
+                  />
                 ),
                 pubDate: formatDate(item?.pubDate),
                 author: authors?.find((author) => item.author === author._id)?.fullname,

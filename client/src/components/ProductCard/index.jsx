@@ -14,7 +14,7 @@ const ProductCard = ({ product, }) => {
 
   return (
     <div
-      className='relative flex w-full max-w-56 max-h-[360px] flex-col overflow-hidden bg-white hover:shadow-xl transition-shadow duration-200'>
+      className='relative flex  w-full max-w-56 h-[320px] flex-col overflow-hidden bg-white hover:shadow-xl transition-shadow duration-200 rounded'>
 
       <div className='relative mx-3 mt-3 flex justify-center overflow-hidden rounded-xl cursor-pointer'
         onClick={handleNavigate}>
@@ -25,18 +25,22 @@ const ProductCard = ({ product, }) => {
             className='size-48 object-fit-contain aspect-square'
           />
         ) : (
-          <span>No Image Available</span>
+          <img
+            src={`${process.env.PUBLIC_URL}/assets/pages/other/noImageItem.jpg`}
+            alt='Product'
+            className='size-48 object-fit-contain aspect-square'
+          />
         )}
       </div>
       <div className='flex flex-col justify-start mt-2 mx-2 px-2 pb-2'>
         <div onClick={handleNavigate} className='cursor-pointer'>
           <div
-            className='text-pretty text-start text-sm md:text-base truncate font-normal line-clamp-2'>
+            className='text-pretty text-start text-sm  truncate font-normal line-clamp-2'>
             {product?.name}
           </div>
         </div>
-        <div className='mt-2 mb-5 flex items-center justify-between'>
-          <div className='font-semibold text-base md:text-lg text-red-500'>
+        <div className='mb-3 flex items-center justify-between'>
+          <div className='font-semibold text-base text-red-500'>
             {formatCurrency(product?.price)}
           </div>
         </div>

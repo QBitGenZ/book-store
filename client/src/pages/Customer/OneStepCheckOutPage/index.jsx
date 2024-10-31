@@ -2,6 +2,7 @@ import React, { useEffect, useState, } from 'react';
 import { useDispatch, useSelector, } from 'react-redux';
 import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faPlus, } from '@fortawesome/free-solid-svg-icons';
+
 import ShippingMethod from './Components/ShippingMethod';
 import PaymentMethod from '~/pages/Customer/OneStepCheckOutPage/Components/PaymentMethod';
 import AddNewAddressModal from '~/pages/Customer/OneStepCheckOutPage/Components/AddNewAddressModal';
@@ -18,15 +19,19 @@ import { getCartRequestStart, } from '~/redux/cart/slice';
 import OrderSummary from '~/pages/Customer/OneStepCheckOutPage/Components/OrderSummary';
 import { getShopRequestStart, } from '~/redux/config/slice';
 import { createOrderRequestStart, } from '~/redux/order/slice';
+import { useNavigate, } from 'react-router-dom';
+import { clientRoutes, } from '~/configs/routes';
 
 const OneStepCheckOutPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { user, } = useSelector((state) => state.auth);
   const { createSuccess, updateSuccess, deleteSuccess, } = useSelector((state) => state.address);
   const { deliveryMethods, } = useSelector((state) => state.deliveryMethod);
   const { paymentMethods, } = useSelector(state => state.paymentMethod);
   const { cart, } = useSelector(state => state.cart);
   const { shop, } = useSelector(state => state.config);
+  const { order, } = useSelector(state => state.order);
 
   const [selectedAddress, setSelectedAddress,] = useState(null);
   const [selectedDeliveryMethods, setSelectedDeliveryMethods,] = useState(null);
@@ -76,12 +81,12 @@ const OneStepCheckOutPage = () => {
     return () => {
       dispatch(resetSuccessStates());
     };
-  }, [dispatch,]);
+  }, [dispatch, order,]);
 
   useEffect(() => {
-    if (selectedDeliveryMethods) {
-      dispatch(getCartRequestStart()); // Re-fetch the cart data or perform other updates
-    }
+    // if (selectedDeliveryMethods) {
+    //   dispatch(getCartRequestStart()); // Re-fetch the cart data or perform other updates
+    // }
   }, [selectedDeliveryMethods, dispatch,]);
 
   const formatAddress = (address) => {
@@ -141,12 +146,78 @@ const OneStepCheckOutPage = () => {
     }));
   };
 
-  const createOrder = () => {
+  const requestCreateOrder = () => {
     dispatch(createOrderRequestStart(JSON.stringify({
       address: selectedAddress?.addressDetail,
       delivery: selectedDeliveryMethods?._id,
       payment: selectedPaymentMethod?._id,
     })));
+  };
+
+  const createOrder = async () => {
+    // {user: '66e1988bd476c35adb7745cf', address: 'Long Phu, Soc Trang', items: Array(2), delivery: '66e9bec495cd5b622dda0606', totalPrice: 818000, …}
+    // address
+    //     :
+    //     "Long Phu, Soc Trang"
+    // createdAt
+    //     :
+    //     "2024-10-29T14:31:26.267Z"
+    // delivery
+    //     :
+    //     "66e9bec495cd5b622dda0606"
+    // items
+    //     :
+    //     (2) [{…}, {…}]
+    // payment
+    //     :
+    //     "66e9bc2695cd5b622dda05cc"
+    // paymentDate
+    //     :
+    //     null
+    // totalPrice
+    //     :
+    //     818000
+    // user
+    //     :
+    //     "66e1988bd476c35adb7745cf"
+    // __v
+    //     :
+    //     0
+    // _id
+    //     :
+    //     "6720f1be67b4df2c0e3a5387"
+    if (selectedAddress && selectedPaymentMethod && selectedDeliveryMethods) {
+      await requestCreateOrder(selectedPaymentMethod);
+      if (selectedPaymentMethod.name === 'Thanh toán trực tuyến') {
+        handlePayment(order._id, order.totalPrice + selectedDeliveryMethods?.cost);
+      } else {
+        navigate(clientRoutes.orderSuccess);
+        // console.log(order);
+      }
+    }
+
+  };
+
+  const handlePayment = (orderId, totalPrice) => {
+    fetch(`${process.env.REACT_APP_HOST_IP}/vnpay/create_payment_url`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        order: orderId,
+        amount: totalPrice,
+        language: 'vn',
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        window.open(data?.vnpUrl, '_self');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -245,8 +316,11 @@ const OneStepCheckOutPage = () => {
           setSelectedPaymentMethod={setSelectedPaymentMethod}
         />
         <OrderSummary items={getItems(cart)} shippingCost={selectedDeliveryMethods?.cost}/>
+        {/* <FontAwesomeIcon icon={faCircleCheck}/>*/}
+
         <div className='flex flex-col gap-4 p-4 rounded-lg bg-white'>
-          <button onClick={createOrder} className='w-full bg-red-600 text-white py-3 rounded font-medium hover:bg-red-700'>
+          <button onClick={createOrder}
+            className='w-full bg-red-600 text-white py-3 rounded font-medium hover:bg-red-700'>
                         Xác nhận thanh toán
           </button>
         </div>
