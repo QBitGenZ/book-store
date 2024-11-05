@@ -14,7 +14,7 @@ export const getAllRequestApi = (query) => {
 
 export const getAllAdminRequestApi = (query) => {
   return apiFetch({
-    url: 'accounts/admins',
+    url: 'accounts/admin',
     queryParams: query,
     options: {
       headers: {
@@ -25,7 +25,7 @@ export const getAllAdminRequestApi = (query) => {
 };
 
 export const createOneByAdminRequestApi = (data) => apiFetch({
-  url: 'accounts/admins',
+  url: 'accounts/admin',
   options: {
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -36,7 +36,7 @@ export const createOneByAdminRequestApi = (data) => apiFetch({
 });
 
 export const getOneByAdminRequestApi = (id) => apiFetch({
-  url: `accounts/admins/${id}`,
+  url: `accounts/admin/${id}`,
   options: {
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -45,7 +45,7 @@ export const getOneByAdminRequestApi = (id) => apiFetch({
 });
 
 export const updateOneByAdminApi = (id, data) => apiFetch({
-  url: `accounts/admins/${id}`,
+  url: `accounts/admin/${id}`,
   options: {
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -56,7 +56,7 @@ export const updateOneByAdminApi = (id, data) => apiFetch({
 });
 
 export const deleteOneByAdminApi = (id) => apiFetch({
-  url: `accounts/admins/${id}`,
+  url: `accounts/admin/${id}`,
   options: {
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('token')}`,

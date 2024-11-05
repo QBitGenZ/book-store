@@ -1,6 +1,7 @@
 import { v4 as uuid4, } from 'uuid';
 import { adminRoutes, } from '~/configs/routes';
 import { AdminProfilePage,
+  AuthorDetailPage,
   AuthorPage,
   ConfigPage,
   CreateProductPage,
@@ -15,7 +16,8 @@ import { AdminProfilePage,
   ProductPage,
   ProductTypePage,
   PublisherPage,
-  UpdateProductPage, } from '~/pages';
+  UpdateProductPage,
+  UserPage, } from '~/pages';
 import React from 'react';
 import DetailOrderPage from '~/pages/Admin/DetailOrderPage';
 
@@ -104,5 +106,15 @@ export default [
     id: `admin-${uuid4}`,
     path: adminRoutes.detailOrder,
     element: <DetailOrderPage/>,
+  },
+  {
+    id: `admin-${uuid4}`,
+    path: adminRoutes.user,
+    element: <UserPage/>,
+  },
+  {
+    id: `admin-${uuid4}`,
+    path: adminRoutes.authorDetail,
+    element: <AuthorDetailPage/>,
   },
 ];

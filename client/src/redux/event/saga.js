@@ -1,37 +1,53 @@
-import { getAllEventsApi, 
-  getAllEventsByAdminApi, 
-  createEventApi, 
-  updateEventApi, 
-  deleteEventApi, 
-  donateBookApi, 
-  updateDonationStatusApi, 
-  getEventStatisticsApi, } from './api';
+import { createEventApi,
+  deleteEventApi,
+  donateBookApi,
+  getAllEventsApi,
+  getAllEventsByAdminApi,
+  getEventStatisticsApi,
+  updateDonationStatusApi,
+  updateEventApi, } from './api';
 
-import { put, takeLatest, call, } from 'redux-saga/effects';
+import { call, put, takeLatest, } from 'redux-saga/effects';
 import { showSnackbar, } from '../snackbar/slice';
-import { getAllEventsRequestStart, getAllEventsRequestSuccess, getAllEventsRequestFailure,
-  getAllEventsByAdminRequestStart, getAllEventsByAdminRequestSuccess, getAllEventsByAdminRequestFailure,
-  createEventRequestStart, createEventRequestSuccess, createEventRequestFailure,
-  updateEventRequestStart, updateEventRequestSuccess, updateEventRequestFailure,
-  deleteEventRequestStart, deleteEventRequestSuccess, deleteEventRequestFailure,
-  donateBookRequestStart, donateBookRequestSuccess, donateBookRequestFailure,
-  updateDonationStatusRequestStart, updateDonationStatusRequestSuccess, updateDonationStatusRequestFailure,
-  getEventStatisticsRequestStart, getEventStatisticsRequestSuccess, getEventStatisticsRequestFailure, } from './slice';
+import { createEventRequestFailure,
+  createEventRequestStart,
+  createEventRequestSuccess,
+  deleteEventRequestFailure,
+  deleteEventRequestStart,
+  deleteEventRequestSuccess,
+  donateBookRequestFailure,
+  donateBookRequestStart,
+  donateBookRequestSuccess,
+  getAllEventsByAdminRequestFailure,
+  getAllEventsByAdminRequestStart,
+  getAllEventsByAdminRequestSuccess,
+  getAllEventsRequestFailure,
+  getAllEventsRequestStart,
+  getAllEventsRequestSuccess,
+  getEventStatisticsRequestFailure,
+  getEventStatisticsRequestStart,
+  getEventStatisticsRequestSuccess,
+  updateDonationStatusRequestFailure,
+  updateDonationStatusRequestStart,
+  updateDonationStatusRequestSuccess,
+  updateEventRequestFailure,
+  updateEventRequestStart,
+  updateEventRequestSuccess, } from './slice';
 
 function* handleGetAllEventsRequest(action) {
   try {
     const response = yield call(getAllEventsApi, action.payload);
     const { data, meta, } = response;
     yield put(getAllEventsRequestSuccess({
-      data, meta, 
+      data, meta,
     }));
     yield put(showSnackbar({
-      message: 'Events fetched successfully!', severity: 'success', 
+      message: 'Events fetched successfully!', severity: 'success',
     }));
   } catch (err) {
     yield put(getAllEventsRequestFailure(err.message));
     yield put(showSnackbar({
-      message: `Failed to fetch events: ${err.message}`, severity: 'error', 
+      message: `Failed to fetch events: ${err.message}`, severity: 'error',
     }));
   }
 }
@@ -41,15 +57,15 @@ function* handleGetAllEventsByAdminRequest(action) {
     const response = yield call(getAllEventsByAdminApi, action.payload);
     const { data, meta, } = response;
     yield put(getAllEventsByAdminRequestSuccess({
-      data, meta, 
+      data, meta,
     }));
     yield put(showSnackbar({
-      message: 'Admin events fetched successfully!', severity: 'success', 
+      message: 'Admin events fetched successfully!', severity: 'success',
     }));
   } catch (err) {
     yield put(getAllEventsByAdminRequestFailure(err.message));
     yield put(showSnackbar({
-      message: `Admin events fetch failed: ${err.message}`, severity: 'error', 
+      message: `Admin events fetch failed: ${err.message}`, severity: 'error',
     }));
   }
 }
@@ -60,12 +76,12 @@ function* handleCreateEventRequest(action) {
     const { data, } = response;
     yield put(createEventRequestSuccess(data));
     yield put(showSnackbar({
-      message: 'Event created successfully!', severity: 'success', 
+      message: 'Event created successfully!', severity: 'success',
     }));
   } catch (err) {
     yield put(createEventRequestFailure(err.message));
     yield put(showSnackbar({
-      message: `Event creation failed: ${err.message}`, severity: 'error', 
+      message: `Event creation failed: ${err.message}`, severity: 'error',
     }));
   }
 }
@@ -76,12 +92,12 @@ function* handleUpdateEventRequest(action) {
     const { data, } = response;
     yield put(updateEventRequestSuccess(data));
     yield put(showSnackbar({
-      message: 'Event updated successfully!', severity: 'success', 
+      message: 'Event updated successfully!', severity: 'success',
     }));
   } catch (err) {
     yield put(updateEventRequestFailure(err.message));
     yield put(showSnackbar({
-      message: `Event update failed: ${err.message}`, severity: 'error', 
+      message: `Event update failed: ${err.message}`, severity: 'error',
     }));
   }
 }
@@ -91,12 +107,12 @@ function* handleDeleteEventRequest(action) {
     yield call(deleteEventApi, action.payload);
     yield put(deleteEventRequestSuccess());
     yield put(showSnackbar({
-      message: 'Event deleted successfully!', severity: 'success', 
+      message: 'Event deleted successfully!', severity: 'success',
     }));
   } catch (err) {
     yield put(deleteEventRequestFailure(err.message));
     yield put(showSnackbar({
-      message: `Event deletion failed: ${err.message}`, severity: 'error', 
+      message: `Event deletion failed: ${err.message}`, severity: 'error',
     }));
   }
 }
@@ -107,12 +123,12 @@ function* handleDonateBookRequest(action) {
     const { data, } = response;
     yield put(donateBookRequestSuccess(data));
     yield put(showSnackbar({
-      message: 'Donation successful!', severity: 'success', 
+      message: 'Donation successful!', severity: 'success',
     }));
   } catch (err) {
     yield put(donateBookRequestFailure(err.message));
     yield put(showSnackbar({
-      message: `Donation failed: ${err.message}`, severity: 'error', 
+      message: `Donation failed: ${err.message}`, severity: 'error',
     }));
   }
 }
@@ -123,12 +139,12 @@ function* handleUpdateDonationStatusRequest(action) {
     const { data, } = response;
     yield put(updateDonationStatusRequestSuccess(data));
     yield put(showSnackbar({
-      message: 'Donation status updated successfully!', severity: 'success', 
+      message: 'Donation status updated successfully!', severity: 'success',
     }));
   } catch (err) {
     yield put(updateDonationStatusRequestFailure(err.message));
     yield put(showSnackbar({
-      message: `Donation status update failed: ${err.message}`, severity: 'error', 
+      message: `Donation status update failed: ${err.message}`, severity: 'error',
     }));
   }
 }
@@ -139,12 +155,12 @@ function* handleGetEventStatisticsRequest(action) {
     const { data, } = response;
     yield put(getEventStatisticsRequestSuccess(data));
     yield put(showSnackbar({
-      message: 'Event statistics fetched successfully!', severity: 'success', 
+      message: 'Event statistic fetched successfully!', severity: 'success',
     }));
   } catch (err) {
     yield put(getEventStatisticsRequestFailure(err.message));
     yield put(showSnackbar({
-      message: `Failed to fetch event statistics: ${err.message}`, severity: 'error', 
+      message: `Failed to fetch event statistics: ${err.message}`, severity: 'error',
     }));
   }
 }

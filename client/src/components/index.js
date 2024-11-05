@@ -24,6 +24,7 @@ import DropdownCategories from './DropdownCategories';
 import Dropdown from './Dropdown';
 import CustomCarousel from './CustomCarousel';
 import AuthorList from './AuthorList';
+import AuthorDetail from './AuthorDetail';
 
 export {
   CustomSnackbar,
@@ -51,4 +52,5 @@ export {
   Dropdown,
   CustomCarousel,
   AuthorList,
+  AuthorDetail,
 };

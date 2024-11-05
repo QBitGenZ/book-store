@@ -66,6 +66,11 @@ const sidebar = [
   },
   {
     key: `side-bar-${uuid4()}`,
+    label: translate('user-management'),
+    path: adminRoutes.user,
+  },
+  {
+    key: `side-bar-${uuid4()}`,
     label: translate('settings'),
     path: adminRoutes.config,
   },

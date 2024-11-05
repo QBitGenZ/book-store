@@ -18,7 +18,7 @@ const CustomerAccount = () => {
   const [birthday, setBirthday,] = React.useState(dayjs(user?.birthday));
   const [phone, setPhone,] = React.useState((user?.phone));
   const [email, setEmail,] = React.useState((user?.email));
-  const [address, setAddress,] = React.useState((user?.address));
+  const [localAddress, setLocalAddress,] = React.useState((user?.address[0].addressDetail));
 
   const handleChangeSource = (selectedFile) => {
     setImageSource(selectedFile);
@@ -57,8 +57,8 @@ const CustomerAccount = () => {
       form.append('phone', phone);
     if (birthday !== user?.birthday)
       form.append('birthday', birthday);
-    if (address !== user?.address)
-      form.append('address', address);
+    if (localAddress !== user?.address)
+      form.append('address', localAddress);
 
     dispatch(updateUserRequestStart(form));
   };
@@ -85,6 +85,9 @@ const CustomerAccount = () => {
                 style={{
                   width: '120px', height: '120px',
                   transform: 'translateY(-20px) translateX(-30px)',
+                  '& img': {
+                    objectFit: 'cover', // Applies object-fit specifically to the img inside Avatar
+                  },
                 }}
               />
             </div>
@@ -97,7 +100,7 @@ const CustomerAccount = () => {
       </div>
       <div className='rounded-xl p-3 bg-white'>
         <div className='text-left text-gray-500 font-bold mb-10'>{translate('contact-info')}</div>
-        <div className='flex flex-col gap-3 w-2/3'>
+        <div className='flex flex-col gap-3 w-full'>
           <div className='flex flex-row justify-between gap-3'>
             <TextField className='w-full' type='text' value={email} onChange={e => setEmail(e.target.value)}
               size='small' placeholder={translate('email')} label={translate('email')}/>
@@ -111,8 +114,10 @@ const CustomerAccount = () => {
                 size: 'small',
               },
             }}/>
-          <TextField type='text' multiline value={address} onChange={e => setAddress(e.target.value)}
-            size='small' placeholder={translate('address')} label={translate('address')}/>
+          <TextField type='text' multiline value={localAddress}
+            onChange={e => setLocalAddress(e.target.value)}
+            size='small' placeholder={translate('address[0].addressDetail')}
+            label={translate('address')}/>
         </div>
         <div className='text-left mt-4'>
           <Button onClick={handleSaveContactInfo} variant='contained'>{translate('save')}</Button>

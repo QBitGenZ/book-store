@@ -8,7 +8,7 @@ import { logout, } from '~/redux/auth/slice';
 import { faCartShopping, } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
 import { DropdownCategories, SearchBar, } from '~/components';
-import { getTypesByAdminRequestStart, } from '~/redux/productType/slice';
+import { getTypesRequestStart, } from '~/redux/productType/slice';
 
 const CustomerHeader = () => {
   const [anchorElUser, setAnchorElUser,] = React.useState(null);
@@ -30,7 +30,7 @@ const CustomerHeader = () => {
   };
 
   const getTypes = () => {
-    dispatch(getTypesByAdminRequestStart({
+    dispatch(getTypesRequestStart({
       orderBy,
       page,
       limit,
@@ -39,12 +39,12 @@ const CustomerHeader = () => {
   };
 
   const settings = [
-    {
-      handle: () => {
-        navigate(clientRoutes.home);
-      },
-      label: translate('home'),
-    },
+    // {
+    //   handle: () => {
+    //     navigate(clientRoutes.home);
+    //   },
+    //   label: translate('home'),
+    // },
     {
       handle: () => {
         navigate(clientRoutes.userInfo);
@@ -73,6 +73,9 @@ const CustomerHeader = () => {
   const goToHome = () => {
     navigate(clientRoutes.home);
   };
+  const goToEvent = () => {
+    navigate(clientRoutes.event);
+  };
   React.useEffect(() => {
     getTypes();
   }, [dispatch,]);
@@ -97,6 +100,14 @@ const CustomerHeader = () => {
                 </button>
               </div>
               <DropdownCategories items={types} name={'Danh mục'}/>
+              <div>
+                <button
+                  onClick={goToEvent}
+                  className='inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900  hover:bg-gray-50'
+                >
+                                    Sự kiện
+                </button>
+              </div>
             </div>
           </div>
         </div>

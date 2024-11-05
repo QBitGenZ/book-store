@@ -4,7 +4,7 @@ import { formatCurrency, } from '~/helpers';
 
 function OrderSummary({ items, shippingCost = 0, }) {
   const calSubTotal = () => {
-    return items.reduce((total, item) => total + item.product.price * item.quantity, 0);
+    return items?.reduce((total, item) => total + item.product.price * item.quantity, 0);
   };
   const calculateTotal = () => {
     const subtotal = calSubTotal();
@@ -15,9 +15,8 @@ function OrderSummary({ items, shippingCost = 0, }) {
     <div className='space-y-4 p-4 rounded-lg bg-white'>
       <h2 className='font-semibold text-lg text-left'>KIỂM TRA LẠI ĐƠN HÀNG</h2>
       <div className='border rounded p-4 flex flex-col'>
-        {items.map((item) => (
+        {items?.map((item) => (
           <div key={item._id} className='flex gap-4 border-b-[1px] py-3'>
-            {/* <img src={item.product.image[0]} alt={item.name} className='w-20'/>*/}
             {item.product.images[0] ? (
               <img src={`${process.env.REACT_APP_HOST_IP}/${item.product.images[0]}`}
                 alt='Product'

@@ -4,6 +4,7 @@ import React from 'react';
 import { CartPage,
   CategoriesPage,
   CheckOutSuccessPage,
+  CustomerEventPage,
   HomePage,
   OneStepCheckOutPage,
   OrderHistoryPage,
@@ -56,5 +57,10 @@ export default [
     id: `client-${uuid4}`,
     path: clientRoutes.orderSuccess,
     element: <CheckOutSuccessPage/>,
+  },
+  {
+    id: `client-${uuid4}`,
+    path: clientRoutes.event,
+    element: <CustomerEventPage/>,
   },
 ];

@@ -38,9 +38,7 @@ const EventPage = () => {
   };
 
   React.useEffect(() => {
-    if (!events || events.length === 0 || events.length !== limit) {
-      getEvents();
-    }
+    getEvents();
   }, [orderBy, descending, page, limit, dispatch, event, selectedObj, updateSuccess, deleteSuccess, createSuccess,]);
 
   const updateEvent = (id, eventData) => {

@@ -160,7 +160,7 @@ const PublisherPage = () => {
           {translate('publisher')}
         </div>
         <div className='flex flex-row w-full justify-between gap-3'>
-          <div className='rounded-xl p-3 bg-white w-full'>
+          <div className='rounded-xl p-3 bg-white w-fit'>
             <div className='text-right mb-3'>
               <Button onClick={() => setShowCreate(true)} variant='contained'>
                 {translate('create')}

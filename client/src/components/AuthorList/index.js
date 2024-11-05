@@ -9,7 +9,7 @@ function AuthorList() {
   const [orderBy,] = React.useState('');
   const [descending,] = React.useState(true);
   const [page,] = React.useState(1);
-  const [limit,] = React.useState(6);
+  const [limit,] = React.useState(5);
   React.useEffect(() => {
     dispatch(getAuthorsRequestStart({
       orderBy,

@@ -20,6 +20,7 @@ export const adminRoutes = {
 
   event: '/admin/events',
   order: '/admin/order',
+  user: '/admin/user',
   detailOrder: '/admin/order/:id',
   config: '/admin/configs',
 
@@ -28,6 +29,7 @@ export const adminRoutes = {
   productDetail: '/admin/product/:id',
   createProduct: '/admin/create-product',
   updateProduct: '/admin/update-product/:id',
+  authorDetail: '/admin/categories/authors/:id',
 };
 
 export const clientRoutes = {
@@ -40,4 +42,5 @@ export const clientRoutes = {
   orderHistory: '/order-history',
   userInfo: '/userInfo',
   orderSuccess: '/orderSuccess',
+  event: '/events',
 };
