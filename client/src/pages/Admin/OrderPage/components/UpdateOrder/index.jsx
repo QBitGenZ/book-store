@@ -55,6 +55,10 @@ function UpdateOrder({
     }));
   };
 
+  console.log(
+    deliveryStatus, paymentStatus
+  );
+
   return (
     <BModal
       aria-labelledby='contained-modal-title-vcenter'
@@ -76,15 +80,13 @@ function UpdateOrder({
             <TextField
               select
               label={translate('delivery-status-label')}
-              value={deliveryStatus.name}
+              value={deliveryStatus}
               onChange={(e) => setDeliveryStatus(e.target.value)}
               fullWidth
               variant='outlined'
             >
-              {
-                deliveryStatuses?.map(value => (
-                  <MenuItem key={value?._id} value={value?._id}>{value?.name}</MenuItem>))
-              }
+              {deliveryStatuses?.map(value => (
+                <MenuItem key={value?._id} value={value?._id}>{value?.name}</MenuItem>))}
             </TextField>
           </div>
           <div

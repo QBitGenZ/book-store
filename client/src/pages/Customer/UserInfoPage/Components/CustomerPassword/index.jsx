@@ -52,7 +52,7 @@ const CustomerPassword = () => {
 
     </div>
   );
-
+  
   return render();
 };
 

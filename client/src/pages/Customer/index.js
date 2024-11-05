@@ -9,6 +9,7 @@ import SearchResultPage from './SearchResultPage';
 import OrderHistoryPage from './OrderHistoryPage';
 import CheckOutSuccessPage from '~/pages/Customer/CheckOutSuccessPage';
 import UserInfoPage from './UserInfoPage';
+import CustomerEventPage from './CustomerEventPage';
 
 export {
   LoginPage,
@@ -22,4 +23,5 @@ export {
   OrderHistoryPage,
   CheckOutSuccessPage,
   UserInfoPage,
+  CustomerEventPage,
 };

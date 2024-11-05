@@ -10,9 +10,12 @@ import CreateAuthorModal from './components/CreateAuthorModal';
 import UpdateAuthorModal from './components/UpdateAuthorModal';
 import { Button, } from '@mui/material';
 import { formatDate, } from 'src/helpers';
+import { adminRoutes, } from '~/configs/routes';
+import { useNavigate, } from 'react-router-dom';
 
 const AuthorPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { authors, meta, author, updateSuccess, deleteSuccess, createSuccess, } =
         useSelector((state) => state.author);
 
@@ -29,6 +32,10 @@ const AuthorPage = () => {
   });
   const [confirmMessage, setConfirmMessage,] = React.useState('');
 
+  const handleDetail = (value) => {
+    navigate(adminRoutes.authorDetail.replace(':id', value._id));
+  };
+
   const getAuthors = () => {
     dispatch(
       getAuthorsByAdminRequestStart({
@@ -41,9 +48,7 @@ const AuthorPage = () => {
   };
 
   React.useEffect(() => {
-    if (!authors || authors.length === 0 || authors.length !== limit) {
-      getAuthors();
-    }
+    getAuthors();
   }, [
     orderBy,
     descending,
@@ -156,6 +161,10 @@ const AuthorPage = () => {
             <DataTable
               actions={[
                 {
+                  label: translate('detail'),
+                  handler: handleDetail,
+                },
+                {
                   label: translate('update'),
                   handler: handleUpdate,
                 },
@@ -163,6 +172,7 @@ const AuthorPage = () => {
                   label: translate('delete'),
                   handler: handleDelete,
                 },
+
               ]}
               columns={[
                 {
@@ -215,13 +225,8 @@ const AuthorPage = () => {
                 setDescending(des === 'desc');
               }}
             />
-            <Pagination
-              count={meta?.totalPage}
-              page={page}
-              rowsPerPage={limit}
-              setPage={setPage}
-              setRowsPerPage={setLimit}
-            />
+            <Pagination count={meta?.totalPage} page={page} rowsPerPage={limit} setPage={setPage}
+              setRowsPerPage={setLimit}/>
           </div>
         </div>
       </div>

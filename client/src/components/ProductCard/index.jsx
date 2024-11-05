@@ -14,7 +14,7 @@ const ProductCard = ({ product, }) => {
 
   return (
     <div
-      className='relative flex  w-full max-w-56 h-[320px] flex-col overflow-hidden bg-white hover:shadow-xl transition-shadow duration-200 rounded'>
+      className='relative flex w-full max-w-56 h-[320px] flex-col overflow-hidden bg-white hover:shadow-xl transition-shadow duration-200 rounded'>
 
       <div className='relative mx-3 mt-3 flex justify-center overflow-hidden rounded-xl cursor-pointer'
         onClick={handleNavigate}>
@@ -39,8 +39,8 @@ const ProductCard = ({ product, }) => {
             {product?.name}
           </div>
         </div>
-        <div className='mb-3 flex items-center justify-between'>
-          <div className='font-semibold text-base text-red-500'>
+        <div className='mb-3 mt-1 flex items-center justify-between'>
+          <div className='font-bold text-base text-red-500'>
             {formatCurrency(product?.price)}
           </div>
         </div>

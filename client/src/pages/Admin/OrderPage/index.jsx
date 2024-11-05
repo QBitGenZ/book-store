@@ -147,7 +147,7 @@ const OrderPage = () => {
               data={orders?.map((order) => ({
                 ...order,
                 'id': order._id,
-                'user': order.user.fullname, // Assuming this will map to a user ID or name
+                'user': order.user?.fullname || '', // Assuming this will map to a user ID or name
                 'address': order.address,
                 'totalPrice': `${formatCurrency(order.totalPrice)}`, // Formatting currency
                 'payment': order.payment.name, // Payment ID or method

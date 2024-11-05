@@ -130,6 +130,37 @@ function* handleDeleteUserByAdminRequest(action) {
   }
 }
 
+// function* handleUpdateUserRequest(action) {
+//   try {
+//     const response = yield call(updateOneApi, action.payload.id, action.payload.data);
+//     const { data, } = response;
+//     yield put(updateUserRequestSuccess(data));
+//     yield put(showSnackbar({
+//       message: 'User updated successfully!', severity: 'success',
+//     }));
+//   } catch (err) {
+//     yield put(updateUserRequestFailure(err.message));
+//     yield put(showSnackbar({
+//       message: `Request failed: ${err.message}`, severity: 'error',
+//     }));
+//   }
+// }
+//
+// function* handleDeleteUserRequest(action) {
+//   try {
+//     yield call(deleteOneApi, action.payload);
+//     yield put(deleteUserRequestSuccess());
+//     yield put(showSnackbar({
+//       message: 'User deleted successfully!', severity: 'success',
+//     }));
+//   } catch (err) {
+//     yield put(deleteUserRequestFailure(err.message));
+//     yield put(showSnackbar({
+//       message: `Request failed: ${err.message}`, severity: 'error',
+//     }));
+//   }
+// }
+
 export default function* watchUserActions() {
   yield takeLatest(getUserAllRequestStart.type, handleGetUserAllRequest);
   yield takeLatest(getAllAdminRequestsStart.type, handleGetAllAdminRequests);

@@ -43,33 +43,9 @@ function DropdownCategories({ name, items, }) {
           </svg>
         </button>
       </div>
-
-      {/* {show && (*/}
-      {/*  <div*/}
-      {/*    className='absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'*/}
-      {/*    role='menu'*/}
-      {/*    aria-orientation='vertical'*/}
-      {/*    aria-labelledby='menu-button'*/}
-      {/*    tabIndex='-1'*/}
-      {/*  >*/}
-      {/*    <div className='py-1' role='none'>*/}
-      {/*      {items?.map((item, index) => (*/}
-      {/*        <div*/}
-      {/*          key={index}*/}
-      {/*          onClick={() => handleNav(item._id)}*/}
-      {/*          className='block px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100'*/}
-      {/*          role='menuitem'*/}
-      {/*          tabIndex='-1'*/}
-      {/*        >*/}
-      {/*          {item.name}*/}
-      {/*        </div>*/}
-      {/*      ))}*/}
-      {/*    </div>*/}
-      {/*  </div>*/}
-      {/* )}*/}
       {show && (
         <div
-          className='absolute left-1/2 z-10 mt-1 px-4 py-2 w-80 origin-top transform -translate-x-1/2 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'
+          className='absolute left-1/2 z-10 mt-1 px-4 py-2 w-[500px] origin-top transform -translate-x-1/2 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'
           // className='absolute right-0 z-10 mt-2.5 w-80 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'
           role='menu'
           aria-orientation='vertical'
@@ -81,7 +57,7 @@ function DropdownCategories({ name, items, }) {
               <div
                 key={index}
                 onClick={() => handleNav(item._id)}
-                className='block px-2 py-1 text-sm text-gray-700 cursor-pointer hover:bg-gray-50'
+                className='block px-2 py-1 text-sm text-gray-700 cursor-pointer hover:bg-gray-50 w-full'
                 role='menuitem'
                 tabIndex='-1'
               >

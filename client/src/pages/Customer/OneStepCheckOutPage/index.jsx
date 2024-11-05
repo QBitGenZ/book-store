@@ -146,13 +146,13 @@ const OneStepCheckOutPage = () => {
     }));
   };
 
-  const requestCreateOrder = () => {
-    dispatch(createOrderRequestStart(JSON.stringify({
-      address: selectedAddress?.addressDetail,
-      delivery: selectedDeliveryMethods?._id,
-      payment: selectedPaymentMethod?._id,
-    })));
-  };
+  // const requestCreateOrder = () => {
+  //   dispatch(createOrderRequestStart(JSON.stringify({
+  //     address: selectedAddress?.addressDetail,
+  //     delivery: selectedDeliveryMethods?._id,
+  //     payment: selectedPaymentMethod?._id,
+  //   })));
+  // };
 
   const createOrder = async () => {
     // {user: '66e1988bd476c35adb7745cf', address: 'Long Phu, Soc Trang', items: Array(2), delivery: '66e9bec495cd5b622dda0606', totalPrice: 818000, …}
@@ -187,13 +187,20 @@ const OneStepCheckOutPage = () => {
     //     :
     //     "6720f1be67b4df2c0e3a5387"
     if (selectedAddress && selectedPaymentMethod && selectedDeliveryMethods) {
-      await requestCreateOrder(selectedPaymentMethod);
-      if (selectedPaymentMethod.name === 'Thanh toán trực tuyến') {
-        handlePayment(order._id);
-      } else {
-        navigate(clientRoutes.orderSuccess);
-        // console.log(order);
+      await dispatch(createOrderRequestStart(JSON.stringify({
+        address: selectedAddress?.addressDetail,
+        delivery: selectedDeliveryMethods?._id,
+        payment: selectedPaymentMethod?._id,
+      }))).then(() => {
+        if (selectedPaymentMethod.name === 'Thanh toán trực tuyến') {
+          handlePayment(order._id);
+        } else {
+          navigate(clientRoutes.orderSuccess);
+        }
       }
+      );
+      // Check payment method and handle payment accordingly
+
     }
 
   };
@@ -257,7 +264,7 @@ const OneStepCheckOutPage = () => {
             {user?.address?.map((address, index) => (
               <div key={address._id || index}
                 className='flex items-center justify-between gap-3 p-3 border rounded'>
-                <div className='flex items-center flex-1'>
+                <div className='flex items-center flex-1 text-left'>
                   <input
                     type='radio'
                     name='selectedAddress'
@@ -329,3 +336,4 @@ const OneStepCheckOutPage = () => {
 };
 
 export default OneStepCheckOutPage;
+
