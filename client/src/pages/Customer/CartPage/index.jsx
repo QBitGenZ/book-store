@@ -42,25 +42,6 @@ const CartPage = () => {
     dispatch(deleteCartRequestStart(JSON.stringify(data)));
   };
 
-  // const calTotalPrice = () => {
-  //   let totalPrice = 0;
-  //   selected?.map(item => {
-  //     if (item.product && item.product.price) {
-  //       totalPrice += item.quantity * item.product.price;
-  //     }
-  //   });
-  //   setTotalPrice(totalPrice);
-  // };
-
-  // const calTotalPrice = () => {
-  //   const total = selected.reduce((acc, item) => {
-  //     return item.product && item.product.price
-  //       ? acc + item.quantity * item.product.price
-  //       : acc;
-  //   }, 0);
-  //   setTotalPrice(total);
-  // };
-
   const calTotalPrice = () => {
     const total = cart?.cart?.items.reduce((acc, item) => {
       return item.checked && item.product.price
