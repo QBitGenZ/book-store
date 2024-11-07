@@ -166,7 +166,7 @@ const OneStepCheckOutPage = () => {
   };
 
   React.useEffect(() => {
-    if (order) {
+    if (order && selectedPaymentMethod) {
       if (selectedPaymentMethod.name === 'Thanh toán trực tuyến') {
         handlePayment(order._id);
       } else {

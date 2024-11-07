@@ -28,7 +28,7 @@ const ProductNameCard = ({ product, }) => {
         <div>
           {translate('remaining-quantity')}
         </div>
-        <div className={'text-red-500'}>{product?.quantity}</div>
+        <div className={'text-red-500'}>{product?.stockQuantity}</div>
       </div>
 
       <div>
