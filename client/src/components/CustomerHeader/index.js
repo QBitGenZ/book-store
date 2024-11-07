@@ -76,6 +76,9 @@ const CustomerHeader = () => {
   const goToEvent = () => {
     navigate(clientRoutes.event);
   };
+  const goToBook = () => {
+    navigate(clientRoutes.book);
+  };
   React.useEffect(() => {
     getTypes();
   }, [dispatch,]);
@@ -108,12 +111,22 @@ const CustomerHeader = () => {
                                     Sự kiện
                 </button>
               </div>
+              <div>
+                <button
+                  onClick={goToBook}
+                  className='inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900  hover:bg-gray-50'
+                >
+                                    Sách
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Search Bar*/}
-        <SearchBar></SearchBar>
+        <div className={'mr-2 w-full'}>
+          <SearchBar></SearchBar>
+        </div>
 
         {/* Cart Icon*/}
         <div onClick={handleChangeCartPage}>
@@ -153,7 +166,7 @@ const CustomerHeader = () => {
                 handleCloseUserMenu();
               }}>
                 <Typography textAlign='center'>
-                  <div className='no-underline text-black'>{setting?.label}</div>
+                  <div className='no-underline text-sm text-gray-700'>{setting?.label}</div>
                 </Typography>
               </MenuItem>
             ))}

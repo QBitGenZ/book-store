@@ -37,7 +37,7 @@ exports.getAllBySelf = async (req, res) => {
 //         const orderItems = cart.items.filter(value => value.checked === true).map(item => ({
 //             product: item.product._id,
 //             quantity: async () => {
-//                 const book = await Book.findById(item?.product._id);
+//                 const book = await BookPage.findById(item?.product._id);
 //                 const quantity = book.stockQuantity - item?.quantity
 //                 book.stockQuantity = quantity > 0 ? quantity : 0;
 //                 book?.save();

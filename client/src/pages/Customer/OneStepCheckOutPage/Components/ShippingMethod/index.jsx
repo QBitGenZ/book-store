@@ -7,10 +7,11 @@ function ShippingMethod({ deliveryMethods, selectedDeliveryMethod, setSelectedDe
   const { shop, } = useSelector((state) => state.config);
   return (
     <div className='p-4 rounded-lg bg-white'>
-      <h2 className='font-semibold text-lg mb-4 text-left'>PHƯƠNG THỨC VẬN CHUYỂN</h2>
+      <h2 className='font-semibold text-lg mb-4 text-left'>Phương thức vận chuyển</h2>
       <div className='space-y-4'>
         {deliveryMethods.map((method) => (
-          <div key={method._id} className='flex items-center gap-3 p-3 border rounded'>
+          <div key={method._id} className='flex items-center gap-3 p-3 border rounded'
+            onClick={() => setSelectedDeliveryMethod(method)}>
             <input
               type='radio'
               id={method._id}

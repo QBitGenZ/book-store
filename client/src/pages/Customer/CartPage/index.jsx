@@ -17,6 +17,7 @@ const CartPage = () => {
   const { cart, } = useSelector(state => state.cart);
   const [allCheck, setAllCheck,] = React.useState(false);
   const [totalPrice, setTotalPrice,] = React.useState(0);
+  const [totalProduct, setTotalProduct,] = React.useState(0);
   // const [selected, setSelected,] = React.useState([]);
 
   const dispatch = useDispatch();
@@ -51,6 +52,8 @@ const CartPage = () => {
     setTotalPrice(total);
   };
 
+  // Initial value set to 0
+
   // const selectItem = (selectedItem, isCheck) => {
   //   if (isCheck) {
   //     setSelected(prev => [...prev, selectedItem,]);
@@ -58,6 +61,12 @@ const CartPage = () => {
   //     setSelected(prev => prev.filter(item => item.product._id !== selectedItem.product._id));
   //   }
   // };
+  const calTotalProduct = () => {
+    const total = cart?.cart?.items.reduce((acc, item) => {
+      return item.checked ? acc + 1 : acc;
+    }, 0);
+    setTotalProduct(total);
+  };
 
   const selectAllItem = (e) => {
     const isChecked = e.target.checked;
@@ -88,6 +97,7 @@ const CartPage = () => {
 
   React.useEffect(() => {
     calTotalPrice();
+    calTotalProduct();
     isAllCheck();
   }, [totalPrice, cart, allCheck, dispatch,]);
 
@@ -143,6 +153,7 @@ const CartPage = () => {
         <div className={'w-1/3'}>
           <TotalCart
             totalPrice={totalPrice}
+            totalProduct={totalProduct}
           >
           </TotalCart>
         </div>

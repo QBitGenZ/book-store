@@ -228,14 +228,15 @@ const OneStepCheckOutPage = () => {
         {/* Delivery Address */}
         <div className='space-y-4 p-4 rounded-lg bg-white'>
           <h2 className='font-semibold text-lg text-left'>
-            <FontAwesomeIcon icon={faLocationDot}/> ĐỊA CHỈ GIAO HÀNG
+            <FontAwesomeIcon icon={faLocationDot}/> Địa chỉ giao hàng
           </h2>
 
           <div className='space-y-2'>
             {user?.address?.map((address, index) => (
               <div key={address._id || index}
                 className='flex items-center justify-between gap-3 p-3 border rounded'>
-                <div className='flex items-center flex-1 text-left'>
+                <div className='flex items-center flex-1 text-left'
+                  onClick={() => setSelectedAddress(address)}>
                   <input
                     type='radio'
                     name='selectedAddress'
@@ -295,10 +296,10 @@ const OneStepCheckOutPage = () => {
         <OrderSummary items={getItems(cart)} shippingCost={selectedDeliveryMethods?.cost}/>
         {/* <FontAwesomeIcon icon={faCircleCheck}/>*/}
 
-        <div className='flex flex-col gap-4 p-4 rounded-lg bg-white'>
+        <div className='flex flex-col gap-4 '>
           <button onClick={createOrder}
             className='w-full bg-red-600 text-white py-3 rounded font-medium hover:bg-red-700'>
-                        Xác nhận thanh toán
+                        Xác nhận đặt hàng
           </button>
         </div>
       </div>
