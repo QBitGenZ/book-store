@@ -70,6 +70,11 @@ const orderSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    resetOrderRequest: (state) => {
+      state.loading = false;
+      state.error = null;
+      state.order = null;
+    },
   },
 });
 
@@ -86,6 +91,7 @@ export const {
   updateOrderRequestStart,
   updateOrderRequestSuccess,
   updateOrderRequestFailure,
+  resetOrderRequest,
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

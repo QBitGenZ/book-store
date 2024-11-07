@@ -17,7 +17,7 @@ function* handleGetAllOrderRequest(action) {
       data, meta,
     }));
     yield put(showSnackbar({
-      message: 'Order request successful!', severity: 'success',
+      message: 'Types request successful!', severity: 'success',
     }));
   } catch (err) {
     yield put(getAllOrderRequestFailure(err.message));
@@ -51,7 +51,7 @@ function* handleCreateOrderRequest(action) {
     const { data, } = response;
     yield put(createOrderRequestSuccess(data));
     yield put(showSnackbar({
-      message: 'Order created successfully!', severity: 'success',
+      message: 'Types created successfully!', severity: 'success',
     }));
   } catch (err) {
     yield put(createOrderRequestFailure(err.message));
@@ -67,7 +67,7 @@ function* handleUpdateOrderRequest(action) {
     const { data, } = response;
     yield put(updateOrderRequestSuccess(data));
     yield put(showSnackbar({
-      message: 'Order updated successfully!', severity: 'success',
+      message: 'Types updated successfully!', severity: 'success',
     }));
   } catch (err) {
     yield put(updateOrderRequestFailure(err.message));

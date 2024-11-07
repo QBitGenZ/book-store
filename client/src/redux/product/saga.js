@@ -1,10 +1,13 @@
 import { deleteImageRequestFailure,
   deleteImageRequestStart,
   deleteImageRequestSuccess,
+  getProductsByAuthorRequestFailure,
+  getProductsByAuthorRequestStart,
+  getProductsByAuthorRequestSuccess,
   getProductsByTypeRequestFailure,
   getProductsByTypeRequestStart,
   getProductsByTypeRequestSuccess, } from '~/redux/product/slice';
-import { deleteImageApi, getProductByType, } from '~/redux/product/api';
+import { deleteImageApi, getProductsByAuthorApi, getProductsByType, } from '~/redux/product/api';
 
 const { put, takeLatest, call, } = require('redux-saga/effects');
 const { showSnackbar, } = require('../snackbar/slice');
@@ -168,7 +171,7 @@ function* handleDeleteProductImageRequest(action) {
 
 function* handleGetProductsByTypesRequest(action) {
   try {
-    const response = yield call(getProductByType, action.payload.id, action.payload.meta);
+    const response = yield call(getProductsByType, action.payload.id, action.payload.meta);
     const { data, meta, } = response;
     yield put(getProductsByTypeRequestSuccess({
       data, meta,
@@ -185,6 +188,25 @@ function* handleGetProductsByTypesRequest(action) {
   }
 }
 
+function* handleGetProductsByAuthorRequest(action) {
+  try {
+    const response = yield call(getProductsByAuthorApi, action.payload.id, action.payload.meta);
+    const { data, meta, } = response;
+    yield put(getProductsByAuthorRequestSuccess({
+      data, meta,
+    }));
+    yield put(showSnackbar({
+      message: 'Product list successfully!',
+    }));
+
+  } catch (err) {
+    yield put(getProductsByAuthorRequestFailure(err.message));
+    yield put(showSnackbar({
+      message: `Request failed: ${err.message}`, severity: 'error',
+    }));
+  }
+}
+
 export default function* watchProductActions() {
   yield takeLatest(getProductsRequestStart.type, handleGetProductsRequest);
   yield takeLatest(getProductRequestStart.type, handleGetProductRequest);
@@ -193,4 +215,5 @@ export default function* watchProductActions() {
   yield takeLatest(deleteProductRequestStart.type, handleDeleteProductRequest);
   yield takeLatest(deleteImageRequestStart.type, handleDeleteProductImageRequest);
   yield takeLatest(getProductsByTypeRequestStart.type, handleGetProductsByTypesRequest);
+  yield takeLatest(getProductsByAuthorRequestStart.type, handleGetProductsByAuthorRequest);
 }

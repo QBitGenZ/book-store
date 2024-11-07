@@ -57,7 +57,7 @@ function OrderedSummary({ order, shippingCost = 0, }) {
           </div>
         )}
 
-        {/* Order Total */}
+        {/* Types Total */}
         <div className={'flex justify-end'}>
           <table className='border-collapse w-fit '>
             <tbody className={'w-max'}>

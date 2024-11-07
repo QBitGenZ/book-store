@@ -65,9 +65,21 @@ export const deleteImageApi = (productId, imageId) => {
   });
 };
 
-export const getProductByType = (id, query) => {
+export const getProductsByType = (id, query) => {
   return apiFetch({
     url: `types/${id}/products`,
     queryParams: query,
+  });
+};
+
+export const getProductsByAuthorApi = (id, data) => {
+  return apiFetch({
+    url: `authors/${id}/products`,
+    options: {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+      body: data,
+    },
   });
 };

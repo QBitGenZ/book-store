@@ -81,7 +81,7 @@ exports.updateDeliveryStatus = async (req, res) => {
         let order = await Order.findById(orderId);
 
         if (!order) {
-            return res.status(404).json({error: 'Order not found'});
+            return res.status(404).json({error: 'Types not found'});
         }
 
         order.deliveryStatus = deliveryStatus || order.deliveryStatus;

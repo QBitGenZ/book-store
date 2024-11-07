@@ -18,7 +18,7 @@ import { getPaymentMethodsRequestStart, } from '~/redux/paymentMethod/slice';
 import { getCartRequestStart, } from '~/redux/cart/slice';
 import OrderSummary from '~/pages/Customer/OneStepCheckOutPage/Components/OrderSummary';
 import { getShopRequestStart, } from '~/redux/config/slice';
-import { createOrderRequestStart, } from '~/redux/order/slice';
+import { createOrderRequestStart, resetOrderRequest, } from '~/redux/order/slice';
 import { useNavigate, } from 'react-router-dom';
 import { clientRoutes, } from '~/configs/routes';
 
@@ -59,6 +59,7 @@ const OneStepCheckOutPage = () => {
     dispatch(getPaymentMethodsRequestStart());
     dispatch(getCartRequestStart());
     dispatch(getShopRequestStart());
+    dispatch(resetSuccessStates());
     // console.log(getItems(cart));
   }, [dispatch, user,]);
 
@@ -155,55 +156,25 @@ const OneStepCheckOutPage = () => {
   // };
 
   const createOrder = async () => {
-    // {user: '66e1988bd476c35adb7745cf', address: 'Long Phu, Soc Trang', items: Array(2), delivery: '66e9bec495cd5b622dda0606', totalPrice: 818000, …}
-    // address
-    //     :
-    //     "Long Phu, Soc Trang"
-    // createdAt
-    //     :
-    //     "2024-10-29T14:31:26.267Z"
-    // delivery
-    //     :
-    //     "66e9bec495cd5b622dda0606"
-    // items
-    //     :
-    //     (2) [{…}, {…}]
-    // payment
-    //     :
-    //     "66e9bc2695cd5b622dda05cc"
-    // paymentDate
-    //     :
-    //     null
-    // totalPrice
-    //     :
-    //     818000
-    // user
-    //     :
-    //     "66e1988bd476c35adb7745cf"
-    // __v
-    //     :
-    //     0
-    // _id
-    //     :
-    //     "6720f1be67b4df2c0e3a5387"
     if (selectedAddress && selectedPaymentMethod && selectedDeliveryMethods) {
       await dispatch(createOrderRequestStart(JSON.stringify({
         address: selectedAddress?.addressDetail,
         delivery: selectedDeliveryMethods?._id,
         payment: selectedPaymentMethod?._id,
-      }))).then(() => {
-        if (selectedPaymentMethod.name === 'Thanh toán trực tuyến') {
-          handlePayment(order._id);
-        } else {
-          navigate(clientRoutes.orderSuccess);
-        }
+      })));
+    }
+  };
+
+  React.useEffect(() => {
+    if (order) {
+      if (selectedPaymentMethod.name === 'Thanh toán trực tuyến') {
+        handlePayment(order._id);
+      } else {
+        navigate(clientRoutes.orderSuccess);
       }
-      );
-      // Check payment method and handle payment accordingly
 
     }
-
-  };
+  }, [order,]);
 
   const handlePayment = (orderId) => {
     fetch(`${process.env.REACT_APP_HOST_IP}/vnpay/create_payment_url`, {
@@ -214,12 +185,12 @@ const OneStepCheckOutPage = () => {
       },
       body: JSON.stringify({
         order: orderId,
-        language: 'vn',
       }),
     })
       .then((res) => res.json())
       .then((data) => {
         window.open(data?.vnpUrl, '_self');
+        dispatch(resetOrderRequest());
       })
       .catch((error) => {
         console.log(error);
