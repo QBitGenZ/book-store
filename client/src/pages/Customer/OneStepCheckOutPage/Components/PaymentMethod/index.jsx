@@ -6,10 +6,11 @@ function PaymentMethod({ paymentMethods, selectedPaymentMethod, setSelectedPayme
   const { shop, } = useSelector(state => state.config);
   return (
     <div className='p-4 rounded-lg bg-white'>
-      <h2 className='font-semibold text-lg text-left mb-4'>PHƯƠNG THỨC THANH TOÁN</h2>
+      <h2 className='font-semibold text-lg text-left mb-4'>Phương thức thanh toán</h2>
       <div className='space-y-3'>
         {paymentMethods.map((method) => (
-          <div key={method._id} className='flex items-center gap-3 p-3 border rounded'>
+          <div key={method._id} className='flex items-center gap-3 p-3 border rounded'
+            onClick={() => setSelectedPaymentMethod(method)}>
             <input
               type='radio'
               name='payment'

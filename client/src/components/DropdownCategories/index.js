@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate, } from 'react-router-dom';
 import { clientRoutes, } from '~/configs/routes';
@@ -6,17 +6,29 @@ import { clientRoutes, } from '~/configs/routes';
 function DropdownCategories({ name, items, }) {
   const nav = useNavigate();
   const [show, setShow,] = React.useState(false);
+  const timeoutRef = useRef(null);
 
   const handleNav = (id) => {
     nav(clientRoutes.categories.replace(':id', id));
     setShow(false); // Close dropdown after navigating
   };
 
+  const handleMouseEnter = () => {
+    clearTimeout(timeoutRef.current); // Clear any pending timeout
+    setShow(true); // Show immediately on hover
+  };
+
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setShow(false); // Delay hiding dropdown
+    }, 300); // 300ms delay
+  };
+
   return (
     <div
       className='relative inline-block text-left'
-      onMouseEnter={() => setShow(true)}
-      onMouseLeave={() => setShow(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <div>
         <button
@@ -45,14 +57,14 @@ function DropdownCategories({ name, items, }) {
       </div>
       {show && (
         <div
-          className='absolute left-1/2 z-10 mt-1 px-4 py-2 w-[500px] origin-top transform -translate-x-1/2 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'
+          className='absolute left-1/2 z-10 mt-2.5 px-4 py-2 w-[500px] origin-top transform -translate-x-1/2 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'
           // className='absolute right-0 z-10 mt-2.5 w-80 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'
           role='menu'
           aria-orientation='vertical'
           aria-labelledby='menu-button'
           tabIndex='-1'
         >
-          <div className='grid grid-cols-2 gap-2 py-1' role='none'>
+          <div className='grid grid-cols-2 gap-2 py-2' role='none'>
             {items?.map((item, index) => (
               <div
                 key={index}

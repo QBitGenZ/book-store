@@ -44,4 +44,5 @@ export const clientRoutes = {
   orderSuccess: '/checkout/success',
   event: '/events',
   authorDetail: '/author/:id',
+  book: '/books',
 };

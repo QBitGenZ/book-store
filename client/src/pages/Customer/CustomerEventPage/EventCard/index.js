@@ -4,7 +4,7 @@ import { formatDateDMY, } from '~/helpers';
 
 function EventCard({ event, }) {
   return (
-    <div className={'flex flex-col gap-2 mx-3 my-2 text-left'}>
+    <div className={'flex flex-col gap-2 mx-3 my-2 text-left border-b'}>
       <div className={' text-2xl font-bold'}>
         {event.title}
       </div>

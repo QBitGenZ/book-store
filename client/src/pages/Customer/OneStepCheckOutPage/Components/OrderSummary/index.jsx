@@ -13,7 +13,7 @@ function OrderSummary({ items, shippingCost = 0, }) {
 
   return (
     <div className='space-y-4 p-4 rounded-lg bg-white'>
-      <h2 className='font-semibold text-lg text-left'>KIỂM TRA LẠI ĐƠN HÀNG</h2>
+      <h2 className='font-semibold text-lg text-left'>Thông tin đơn hàng</h2>
       <div className='border rounded p-4 flex flex-col'>
         {items?.map((item) => (
           <div key={item._id} className='flex gap-4 border-b-[1px] py-3'>
