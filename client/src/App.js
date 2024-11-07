@@ -4,7 +4,7 @@ import Router from './components/router';
 import { CustomSnackbar, } from './components';
 import { useSnackbar, } from './helpers/utils/provider';
 
-const App = () => {  
+const App = () => {
   const { snackbar, closeSnackbar, } = useSnackbar();
 
   return (

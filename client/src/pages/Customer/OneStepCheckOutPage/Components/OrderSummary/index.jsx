@@ -42,7 +42,7 @@ function OrderSummary({ items, shippingCost = 0, }) {
           </div>
         ))}
 
-        {/* Order Total */}
+        {/* Types Total */}
         <div className='mt-6 space-y-2'>
           <div className='flex justify-between'>
             <span>Thành tiền</span>
