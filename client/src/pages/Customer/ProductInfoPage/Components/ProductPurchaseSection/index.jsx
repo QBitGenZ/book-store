@@ -14,9 +14,12 @@ const ProductPurchaseSection = ({ product, handleAddToCart, }) => {
 
   const handleIncrement = () => {
     setQuantity((prevQuantity) => {
-      const newQuantity = prevQuantity + 1;
-      setPrice(product?.price * newQuantity);
-      return newQuantity;
+      if (prevQuantity < product?.stockQuantity) {
+        const newQuantity = prevQuantity + 1;
+        setPrice(product?.price * newQuantity);
+        return newQuantity;
+      }
+      return prevQuantity;
     });
   };
 
