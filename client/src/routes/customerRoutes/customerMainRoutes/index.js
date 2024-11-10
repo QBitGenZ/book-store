@@ -12,6 +12,7 @@ import { BookPage,
   OrderHistoryPage,
   ProductInfoPage,
   SearchResultPage,
+  ShareBookPage,
   UserInfoPage, } from '~/pages';
 
 export default [
@@ -74,6 +75,11 @@ export default [
     id: `client-${uuid4}`,
     path: clientRoutes.book,
     element: <BookPage/>,
+  },
+  {
+    id: `client-${uuid4}`,
+    path: clientRoutes.shareBook,
+    element: <ShareBookPage/>,
   },
 
 ];

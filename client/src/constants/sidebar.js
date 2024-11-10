@@ -56,6 +56,11 @@ const sidebar = [
   },
   {
     key: `side-bar-${uuid4()}`,
+    label: translate('ebook'),
+    path: adminRoutes.ebook,
+  },
+  {
+    key: `side-bar-${uuid4()}`,
     label: translate('event'),
     path: adminRoutes.event,
   },

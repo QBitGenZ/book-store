@@ -8,6 +8,8 @@ import { AdminProfilePage,
   DashboardPage,
   DeliveryMethodPage,
   DeliveryStatusPage,
+  DetailOrderPage,
+  EBookPage,
   EventPage,
   OrderPage,
   PaymentMethodPage,
@@ -19,7 +21,6 @@ import { AdminProfilePage,
   UpdateProductPage,
   UserPage, } from '~/pages';
 import React from 'react';
-import DetailOrderPage from '~/pages/Admin/DetailOrderPage';
 
 export default [
   {
@@ -117,4 +118,10 @@ export default [
     path: adminRoutes.authorDetail,
     element: <AuthorDetailPage/>,
   },
+  {
+    id: `admin-${uuid4}`,
+    path: adminRoutes.ebook,
+    element: <EBookPage/>,
+  },
+
 ];

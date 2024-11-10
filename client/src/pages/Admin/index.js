@@ -20,6 +20,7 @@ import UpdateProductPage from './UpdateProductPage';
 import DetailOrderPage from './DetailOrderPage';
 import UserPage from './UserPage';
 import AuthorDetailPage from './AuthorDetailPage';
+import EBookPage from './EBookPage';
 
 export {
   LoginAdminPage,
@@ -44,4 +45,5 @@ export {
   DetailOrderPage,
   UserPage,
   AuthorDetailPage,
+  EBookPage,
 };
