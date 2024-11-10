@@ -4,20 +4,21 @@ import { MenuItem, Pagination as MuiPagination, Select, } from '@mui/material';
 import { translate, } from '~/helpers';
 
 const Pagination = ({ count, page, setPage, rowsPerPage, setRowsPerPage, }) => {
-  if(count <= 0)
-    return (<></>);
+  if (count <= 0) return <></>;
 
   return (
     <div className='flex justify-between items-center'>
       <div className='flex-1 flex justify-center'>
-        <MuiPagination 
-          count={count} 
-          page={page} 
-          onChange={(e, value) => setPage(value)} 
+        <MuiPagination
+          count={count}
+          page={page}
+          onChange={(e, value) => setPage(value)}
         />
       </div>
       <span className='ml-auto'>
-        <label className='mr-2 text-gray-900 text-base  font-medium'>{translate('rows-per-page-label')}</label>
+        <label className='mr-2 text-gray-900 text-base  font-medium'>
+          {translate('rows-per-page-label')}
+        </label>
         <Select
           size='small'
           labelId='demo-simple-select-disabled-label bg-'

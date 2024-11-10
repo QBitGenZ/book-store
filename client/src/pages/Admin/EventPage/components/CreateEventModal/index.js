@@ -25,7 +25,12 @@ function CreateEventModal({ show, setShow, createEvent, }) {
   };
 
   return (
-    <BModal aria-labelledby='contained-modal-title-vcenter' centered show={show} onHide={handleClose}>
+    <BModal
+      aria-labelledby='contained-modal-title-vcenter'
+      centered
+      show={show}
+      onHide={handleClose}
+    >
       <BModal.Header closeButton>
         <BModal.Title>{translate('create-event-label')}</BModal.Title>
       </BModal.Header>

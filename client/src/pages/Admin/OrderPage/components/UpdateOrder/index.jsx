@@ -8,17 +8,16 @@ import { useDispatch, useSelector, } from 'react-redux';
 import { getDeliveryStatusesRequestStart, } from '~/redux/deliveryStatus/slice';
 import { getPaymentStatusesRequestStart, } from '~/redux/paymentStatus/slice';
 
-function UpdateOrder({
-  show,
-  setShow,
-  updateOrder,
-  order,
-}) {
-  const [deliveryStatus, setDeliveryStatus,] = useState(order?.deliveryStatus || '');
-  const [paymentStatus, setPaymentStatus,] = useState(order?.paymentStatus || '');
+function UpdateOrder({ show, setShow, updateOrder, order, }) {
+  const [deliveryStatus, setDeliveryStatus,] = useState(
+    order?.deliveryStatus || ''
+  );
+  const [paymentStatus, setPaymentStatus,] = useState(
+    order?.paymentStatus || ''
+  );
   const dispatch = useDispatch();
-  const { deliveryStatuses, } = useSelector(state => state.deliveryStatus);
-  const { paymentStatuses, } = useSelector(state => state.paymentStatus);
+  const { deliveryStatuses, } = useSelector((state) => state.deliveryStatus);
+  const { paymentStatuses, } = useSelector((state) => state.paymentStatus);
 
   const handleClose = () => setShow(false);
 
@@ -38,26 +37,27 @@ function UpdateOrder({
     }
     getDeliveryStatus();
     getPaymentStatus();
-
   }, [order,]);
 
   const getDeliveryStatus = () => {
-    dispatch(getDeliveryStatusesRequestStart({
-      limit: 1000,
-      page: 1,
-    }));
+    dispatch(
+      getDeliveryStatusesRequestStart({
+        limit: 1000,
+        page: 1,
+      })
+    );
   };
 
   const getPaymentStatus = () => {
-    dispatch(getPaymentStatusesRequestStart({
-      limit: 1000,
-      page: 1,
-    }));
+    dispatch(
+      getPaymentStatusesRequestStart({
+        limit: 1000,
+        page: 1,
+      })
+    );
   };
 
-  console.log(
-    deliveryStatus, paymentStatus
-  );
+  console.log(deliveryStatus, paymentStatus);
 
   return (
     <BModal
@@ -85,8 +85,11 @@ function UpdateOrder({
               fullWidth
               variant='outlined'
             >
-              {deliveryStatuses?.map(value => (
-                <MenuItem key={value?._id} value={value?._id}>{value?.name}</MenuItem>))}
+              {deliveryStatuses?.map((value) => (
+                <MenuItem key={value?._id} value={value?._id}>
+                  {value?.name}
+                </MenuItem>
+              ))}
             </TextField>
           </div>
           <div
@@ -103,8 +106,11 @@ function UpdateOrder({
               fullWidth
               variant='outlined'
             >
-              {paymentStatuses?.map(value => (
-                <MenuItem key={value?._id} value={value?._id}>{value?.name}</MenuItem>))}
+              {paymentStatuses?.map((value) => (
+                <MenuItem key={value?._id} value={value?._id}>
+                  {value?.name}
+                </MenuItem>
+              ))}
             </TextField>
           </div>
         </div>

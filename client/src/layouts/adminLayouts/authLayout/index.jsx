@@ -1,19 +1,19 @@
 import React, { useEffect, useState, } from 'react';
 import { LoadingPage, } from '~/pages';
 import { useDispatch, useSelector, } from 'react-redux';
-import { getInfoRequestStart, } from '~/redux/auth/slice';
+
 import { adminRoutes, } from '~/configs/routes';
+import { getInfoRequestStart, } from '~/redux/auth/slice';
 import { Navigate, } from 'react-router-dom';
 
 const AdminAuthLayout = ({ children, }) => {
   const [isLogin, setIsLogin,] = useState(false);
   const [isLoading, setIsLoading,] = useState(true);
-  const { user, loading, error, } = useSelector(state => state.auth);
+  const { user, loading, error, } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(!user)
-      dispatch(getInfoRequestStart());
+    if (!user) dispatch(getInfoRequestStart());
   }, []);
 
   useEffect(() => {
@@ -39,9 +39,7 @@ const AdminAuthLayout = ({ children, }) => {
 
     return (
       <div>
-        <main>
-          {children}
-        </main>
+        <main>{children}</main>
       </div>
     );
   };

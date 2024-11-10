@@ -7,7 +7,9 @@ import { deleteImageRequestFailure,
   getProductsByTypeRequestFailure,
   getProductsByTypeRequestStart,
   getProductsByTypeRequestSuccess, } from '~/redux/product/slice';
-import { deleteImageApi, getProductsByAuthorApi, getProductsByType, } from '~/redux/product/api';
+import { deleteImageApi,
+  getProductsByAuthorApi,
+  getProductsByType, } from '~/redux/product/api';
 
 const { put, takeLatest, call, } = require('redux-saga/effects');
 const { showSnackbar, } = require('../snackbar/slice');
@@ -156,54 +158,86 @@ function* handleDeleteProductRequest(action) {
 
 function* handleDeleteProductImageRequest(action) {
   try {
-    const response = yield call(deleteImageApi, action.payload.id, action.payload.imageId);
+    const response = yield call(
+      deleteImageApi,
+      action.payload.id,
+      action.payload.imageId
+    );
     yield put(deleteImageRequestSuccess(response.data));
-    yield put(showSnackbar({
-      message: 'Deleted successfully!', severity: 'success',
-    }));
+    yield put(
+      showSnackbar({
+        message: 'Deleted successfully!',
+        severity: 'success',
+      })
+    );
   } catch (err) {
     yield put(deleteImageRequestFailure(err.message));
-    yield put(showSnackbar({
-      message: `Delete failed: ${err.message}`, severity: 'error',
-    }));
+    yield put(
+      showSnackbar({
+        message: `Delete failed: ${err.message}`,
+        severity: 'error',
+      })
+    );
   }
 }
 
 function* handleGetProductsByTypesRequest(action) {
   try {
-    const response = yield call(getProductsByType, action.payload.id, action.payload.meta);
+    const response = yield call(
+      getProductsByType,
+      action.payload.id,
+      action.payload.meta
+    );
     const { data, meta, } = response;
-    yield put(getProductsByTypeRequestSuccess({
-      data, meta,
-    }));
-    yield put(showSnackbar({
-      message: 'Product list successfully!',
-    }));
-
+    yield put(
+      getProductsByTypeRequestSuccess({
+        data,
+        meta,
+      })
+    );
+    yield put(
+      showSnackbar({
+        message: 'Product list successfully!',
+      })
+    );
   } catch (err) {
     yield put(getProductsByTypeRequestFailure(err.message));
-    yield put(showSnackbar({
-      message: `Request failed: ${err.message}`, severity: 'error',
-    }));
+    yield put(
+      showSnackbar({
+        message: `Request failed: ${err.message}`,
+        severity: 'error',
+      })
+    );
   }
 }
 
 function* handleGetProductsByAuthorRequest(action) {
   try {
-    const response = yield call(getProductsByAuthorApi, action.payload.id, action.payload.meta);
+    const response = yield call(
+      getProductsByAuthorApi,
+      action.payload.id,
+      action.payload.meta
+    );
     const { data, meta, } = response;
-    yield put(getProductsByAuthorRequestSuccess({
-      data, meta,
-    }));
-    yield put(showSnackbar({
-      message: 'Product list successfully!',
-    }));
-
+    yield put(
+      getProductsByAuthorRequestSuccess({
+        data,
+        meta,
+      })
+    );
+    yield put(
+      showSnackbar({
+        message: 'Product list successfully!',
+      })
+    );
   } catch (err) {
     yield put(getProductsByAuthorRequestFailure(err.message));
-    yield put(showSnackbar({
-      message: `Request failed: ${err.message}`, severity: 'error',
-    }));
+    yield put(
+      showSnackbar({
+        message: `Request failed: ${err.message}`,
+        severity: 'error',
+      })
+    );
   }
 }
 
@@ -213,7 +247,16 @@ export default function* watchProductActions() {
   yield takeLatest(createProductRequestStart.type, handleCreateProductRequest);
   yield takeLatest(updateProductRequestStart.type, handleUpdateProductRequest);
   yield takeLatest(deleteProductRequestStart.type, handleDeleteProductRequest);
-  yield takeLatest(deleteImageRequestStart.type, handleDeleteProductImageRequest);
-  yield takeLatest(getProductsByTypeRequestStart.type, handleGetProductsByTypesRequest);
-  yield takeLatest(getProductsByAuthorRequestStart.type, handleGetProductsByAuthorRequest);
+  yield takeLatest(
+    deleteImageRequestStart.type,
+    handleDeleteProductImageRequest
+  );
+  yield takeLatest(
+    getProductsByTypeRequestStart.type,
+    handleGetProductsByTypesRequest
+  );
+  yield takeLatest(
+    getProductsByAuthorRequestStart.type,
+    handleGetProductsByAuthorRequest
+  );
 }

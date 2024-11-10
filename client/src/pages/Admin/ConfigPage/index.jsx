@@ -8,22 +8,26 @@ import Description from './components/Description';
 import Config from './components/Config';
 
 const ConfigPage = () => {
-  const { shop, } = useSelector(state => state.config);
+  const { shop, } = useSelector((state) => state.config);
 
   const [activeTab, setActiveTab,] = React.useState('basic-info');
 
   const items = [
     {
-      label: translate('basic-info'), value: 'basic-info', 
+      label: translate('basic-info'),
+      value: 'basic-info',
     },
     {
-      label: translate('photos'), value: 'photos', 
+      label: translate('photos'),
+      value: 'photos',
     },
     {
-      label: translate('description'), value: 'description', 
+      label: translate('description'),
+      value: 'description',
     },
     {
-      label: translate('config'), value: 'configuration', 
+      label: translate('config'),
+      value: 'configuration',
     },
   ];
 
@@ -32,11 +36,11 @@ const ConfigPage = () => {
     case 'basic-info':
       return <BasicInfo shop={shop} />;
     case 'photos':
-      return <PhotoInfo shop={shop}/>;
+      return <PhotoInfo shop={shop} />;
     case 'description':
-      return <Description shop={shop}/>;
+      return <Description shop={shop} />;
     case 'configuration':
-      return <Config shop={shop}/>;
+      return <Config shop={shop} />;
     default:
       return <BasicInfo shop={shop} />;
     }
@@ -44,15 +48,18 @@ const ConfigPage = () => {
 
   const render = () => (
     <div className='flex flex-col'>
-      <div className='leading-10 text-left py-2 mb-3 bg-gray-50 text-2xl'>{translate('settings')}</div>
+      <div className='leading-10 text-left py-2 mb-3 bg-gray-50 text-2xl'>
+        {translate('settings')}
+      </div>
       <div className='flex flex-row w-full justify-between gap-3'>
-        <MiniSidebar activeTab={activeTab} onTabChange={setActiveTab} items={items}/>
-        <div className='w-full'>
-          {renderContent()}
-        </div>
+        <MiniSidebar
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+          items={items}
+        />
+        <div className='w-full'>{renderContent()}</div>
       </div>
     </div>
-
   );
 
   return render();

@@ -13,12 +13,14 @@ const BookPage = () => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    dispatch(getProductsRequestStart({
-      orderBy,
-      page,
-      limit,
-      descending,
-    }));
+    dispatch(
+      getProductsRequestStart({
+        orderBy,
+        page,
+        limit,
+        descending,
+      })
+    );
     dispatch(getShopRequestStart());
   }, [dispatch, page, orderBy, descending, limit,]);
   return (
@@ -27,16 +29,16 @@ const BookPage = () => {
         <Filter></Filter>
       </div>
       <div>
-        {products &&
-                    <div>
-                      <ProductList products={products}/>
-                      <CustomerPagination
-                        currentPage={meta?.page ?? 1}
-                        totalPages={meta?.totalPage ?? 1}
-                        onPageChange={setPage}
-                      />
-                    </div>
-        }
+        {products && (
+          <div>
+            <ProductList products={products} />
+            <CustomerPagination
+              currentPage={meta?.page ?? 1}
+              totalPages={meta?.totalPage ?? 1}
+              onPageChange={setPage}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

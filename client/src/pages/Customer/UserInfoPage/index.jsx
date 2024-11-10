@@ -30,12 +30,11 @@ const UserInfoPage = () => {
       {/* <div className='leading-10 text-left py-2 mb-3 bg-gray-50 text-2xl'>{translate('profile')}</div>*/}
 
       <div className={'mb-3'}>
-        <CustomerAccount/>
+        <CustomerAccount />
       </div>
       <div>
-        <CustomerPassword/>
+        <CustomerPassword />
       </div>
-
     </div>
   );
 };

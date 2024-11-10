@@ -6,7 +6,7 @@ import { faArrowLeft, } from '@fortawesome/free-solid-svg-icons';
 import { useSelector, } from 'react-redux';
 
 const DetailOrderPage = () => {
-  const { shop, } = useSelector(state => state.config);
+  const { shop, } = useSelector((state) => state.config);
   const location = useLocation();
   const navigate = useNavigate();
   const cart = location.state || {
@@ -16,16 +16,19 @@ const DetailOrderPage = () => {
   };
   return (
     <div className={'flex flex-col gap-3'}>
-      <div className='left-0 flex justify-start' onClick={handleBack} style={{
-        color: shop?.accentColor,
-      }}>
-        <FontAwesomeIcon className='left-0 inset-y-0' icon={faArrowLeft}/>
+      <div
+        className='left-0 flex justify-start'
+        onClick={handleBack}
+        style={{
+          color: shop?.accentColor,
+        }}
+      >
+        <FontAwesomeIcon className='left-0 inset-y-0' icon={faArrowLeft} />
       </div>
-        
-      <OrderSummary items={cart?.items} shippingCost={cart?.delivery?.cost}/>
+
+      <OrderSummary items={cart?.items} shippingCost={cart?.delivery?.cost} />
     </div>
-  )
-  ;
+  );
 };
 
 export default DetailOrderPage;

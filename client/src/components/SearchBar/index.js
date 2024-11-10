@@ -32,7 +32,7 @@ const SearchBar = () => {
       />
       {/* Search Icon */}
       <div className='px-3' onClick={handleSearch}>
-        <FontAwesomeIcon icon={faMagnifyingGlass}/>
+        <FontAwesomeIcon icon={faMagnifyingGlass} />
       </div>
     </div>
   );

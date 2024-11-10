@@ -13,7 +13,7 @@ const getAllEventsByAdminApi = (query) => {
     queryParams: query,
     options: {
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     },
   });
@@ -30,7 +30,7 @@ const getEventByAdminApi = (id) => {
     url: `events/admin/${id}`,
     options: {
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     },
   });
@@ -42,7 +42,7 @@ const createEventApi = (event) => {
     options: {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       },
       body: event,
@@ -56,7 +56,7 @@ const updateEventApi = (id, event) => {
     options: {
       method: 'PUT',
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       },
       body: event,
@@ -70,7 +70,7 @@ const deleteEventApi = (id) => {
     options: {
       method: 'DELETE',
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     },
   });
@@ -82,7 +82,7 @@ const donateBookApi = (eventId, donation) => {
     options: {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       },
       body: donation,
@@ -96,7 +96,7 @@ const updateDonationStatusApi = (eventId, donationId, body) => {
     options: {
       method: 'PUT',
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       },
       body: body,
@@ -109,7 +109,7 @@ const getEventStatisticsApi = (id) => {
     url: `events/${id}/statistics`,
     options: {
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     },
   });

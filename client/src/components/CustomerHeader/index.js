@@ -114,7 +114,7 @@ const CustomerHeader = () => {
             <img className='h-12' src={`${process.env.PUBLIC_URL}/assets/pages/other/bookStore.png`}
               alt='Home'/>
           </div>
-          <div className={'ml-6 self-center'}>
+          <div className={'ml-6 self-center w-'}>
             <div className={'flex flex-row gap-3'}>
               <HeaderItem
                 route={clientRoutes.home}
@@ -137,9 +137,9 @@ const CustomerHeader = () => {
             </div>
           </div>
         </div>
-        <div className={'w-full flex flex-row justify-end  items-center space-x-2 gap-3'}>
+        <div className={'max-w-fit flex flex-row justify-end  items-center space-x-2 gap-3'}>
           {/* Search Bar*/}
-          <div className={'mr-2 w-full'}>
+          <div className={'mr-2 max-w-fit'}>
             <SearchBar></SearchBar>
           </div>
 

@@ -5,28 +5,24 @@ import Inventory from './components/Inventory';
 import Revenue from './components/Revenue';
 
 const DashboardPage = () => {
-  const { allStatistics, } = useSelector(state => state.statistic);
+  const { allStatistics, } = useSelector((state) => state.statistic);
   const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch(getAllStatisticsRequestStart());
-  }, [dispatch,]
-  );
+  }, [dispatch,]);
   const render = () => (
     <>
       {allStatistics && (
         <>
           <div className={'flex flex-row gap-3 '}>
-            <Inventory productStatistics={allStatistics?.productStatistics}/>
-            <Revenue productStatistics={allStatistics?.productStatistics}/>
-            <Inventory productStatistics={allStatistics?.productStatistics}/>
-
+            <Inventory productStatistics={allStatistics?.productStatistics} />
+            <Revenue productStatistics={allStatistics?.productStatistics} />
+            <Inventory productStatistics={allStatistics?.productStatistics} />
           </div>
 
           {/* <Types typesStatistics={allStatistics?.typeStatistics}/>*/}
         </>
-
       )}
-
     </>
   );
 

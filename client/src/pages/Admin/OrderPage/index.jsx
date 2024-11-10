@@ -1,7 +1,8 @@
 import React, { useState, } from 'react';
 import { useDispatch, useSelector, } from 'react-redux';
 import { ConfirmationModal, DataTable, Pagination, } from '~/components'; // Assuming you have these components like in ProductTypePage
-import { getAllByAdminRequestStart, updateOrderRequestStart, } from '~/redux/order/slice';
+import { getAllByAdminRequestStart,
+  updateOrderRequestStart, } from '~/redux/order/slice';
 import { formatCurrency, translate, } from '~/helpers';
 import { useNavigate, } from 'react-router-dom';
 import { adminRoutes, } from '~/configs/routes';
@@ -16,8 +17,7 @@ const OrderPage = () => {
   const [page, setPage,] = React.useState(1);
   const [limit, setLimit,] = React.useState(5);
   const [showConfirm, setShowConfirm,] = useState(false);
-  const [confirmAction, setConfirmAction,] = useState(() => () => {
-  });
+  const [confirmAction, setConfirmAction,] = useState(() => () => {});
   const [confirmMessage, setConfirmMessage,] = useState('');
   const navigate = useNavigate();
   const [selectedObj, setSelectedObj,] = useState(null);
@@ -30,12 +30,14 @@ const OrderPage = () => {
   };
 
   React.useEffect(() => {
-    dispatch(getAllByAdminRequestStart({
-      orderBy,
-      page,
-      limit,
-      descending,
-    }));
+    dispatch(
+      getAllByAdminRequestStart({
+        orderBy,
+        page,
+        limit,
+        descending,
+      })
+    );
   }, [dispatch, orderBy, page, limit, descending, updateSuccess,]);
 
   const updateOrder = (value) => {
@@ -105,7 +107,6 @@ const OrderPage = () => {
                   label: translate('update-order'),
                   handler: updateOrder,
                 },
-
               ]}
               columns={[
                 {
@@ -146,13 +147,15 @@ const OrderPage = () => {
               ]}
               data={orders?.map((order) => ({
                 ...order,
-                'id': order._id,
-                'user': order.user?.fullname || '', // Assuming this will map to a user ID or name
-                'address': order.address,
-                'totalPrice': `${formatCurrency(order.totalPrice)}`, // Formatting currency
-                'payment': order.payment.name, // Payment ID or method
-                'paymentDate': order.paymentDate ? new Date(order.paymentDate).toLocaleDateString() : '',
-                'createdAt': new Date(order.createdAt).toLocaleDateString(),
+                id: order._id,
+                user: order.user?.fullname || '', // Assuming this will map to a user ID or name
+                address: order.address,
+                totalPrice: `${formatCurrency(order.totalPrice)}`, // Formatting currency
+                payment: order.payment.name, // Payment ID or method
+                paymentDate: order.paymentDate
+                  ? new Date(order.paymentDate).toLocaleDateString()
+                  : '',
+                createdAt: new Date(order.createdAt).toLocaleDateString(),
               }))}
               keyField='_id'
               onSort={(field, des) => {

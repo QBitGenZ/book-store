@@ -70,7 +70,10 @@ function OTP({ separator, length, value, onChange, }) {
     let indexToEnter = 0;
 
     while (indexToEnter <= currentIndex) {
-      if (inputRefs.current[indexToEnter].value && indexToEnter < currentIndex) {
+      if (
+        inputRefs.current[indexToEnter].value &&
+        indexToEnter < currentIndex
+      ) {
         indexToEnter += 1;
       } else {
         break;
@@ -104,7 +107,10 @@ function OTP({ separator, length, value, onChange, }) {
       let indexToEnter = 0;
 
       while (indexToEnter <= currentIndex) {
-        if (inputRefs.current[indexToEnter].value && indexToEnter < currentIndex) {
+        if (
+          inputRefs.current[indexToEnter].value &&
+          indexToEnter < currentIndex
+        ) {
           indexToEnter += 1;
         } else {
           break;
@@ -123,9 +129,13 @@ function OTP({ separator, length, value, onChange, }) {
   };
 
   return (
-    <Box sx={{
-      display: 'flex', gap: 1, alignItems: 'center', 
-    }}>
+    <Box
+      sx={{
+        display: 'flex',
+        gap: 1,
+        alignItems: 'center',
+      }}
+    >
       {new Array(length).fill(null).map((_, index) => (
         <React.Fragment key={index}>
           <BaseInput
@@ -160,7 +170,7 @@ OTP.propTypes = {
   value: PropTypes.string.isRequired,
 };
 
-export default function OTPInput( { value, setValue, }) {
+export default function OTPInput({ value, setValue, }) {
   return (
     <Box
       sx={{
@@ -169,7 +179,12 @@ export default function OTPInput( { value, setValue, }) {
         gap: 2,
       }}
     >
-      <OTP separator={<span>-</span>} value={value} onChange={setValue} length={6} />
+      <OTP
+        separator={<span>-</span>}
+        value={value}
+        onChange={setValue}
+        length={6}
+      />
     </Box>
   );
 }

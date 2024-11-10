@@ -3,7 +3,8 @@ import { useDispatch, useSelector, } from 'react-redux';
 import { useNavigate, } from 'react-router-dom';
 import { ConfirmationModal, DataTable, Pagination, } from '~/components';
 import { formatCurrency, translate, } from '~/helpers';
-import { deleteProductRequestStart, getProductsRequestStart, } from '~/redux/product/slice';
+import { deleteProductRequestStart,
+  getProductsRequestStart, } from '~/redux/product/slice';
 
 import { Button, } from '@mui/material';
 import { adminRoutes, } from '~/configs/routes';
@@ -14,8 +15,9 @@ import { formatDate, } from 'src/helpers';
 const ProductPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { products, meta, updateSuccess, deleteSuccess, createSuccess, } = useSelector((state) => state.product);
-  const { authors, } = useSelector(state => state.author);
+  const { products, meta, updateSuccess, deleteSuccess, createSuccess, } =
+    useSelector((state) => state.product);
+  const { authors, } = useSelector((state) => state.author);
   const { publishers, } = useSelector((state) => state.publisher);
   // const { users, } = useSelector(state => state.user);
 
@@ -26,8 +28,7 @@ const ProductPage = () => {
   const [selectedObj, setSelectedObj,] = React.useState(null);
 
   const [showConfirm, setShowConfirm,] = React.useState(false);
-  const [confirmAction, setConfirmAction,] = React.useState(() => () => {
-  });
+  const [confirmAction, setConfirmAction,] = React.useState(() => () => {});
   const [confirmMessage, setConfirmMessage,] = React.useState('');
 
   const getProducts = () => {
@@ -66,7 +67,17 @@ const ProductPage = () => {
     getAuthors();
     getPublishers();
     // getUsers();
-  }, [orderBy, descending, page, limit, dispatch, selectedObj, updateSuccess, deleteSuccess, createSuccess,]);
+  }, [
+    orderBy,
+    descending,
+    page,
+    limit,
+    dispatch,
+    selectedObj,
+    updateSuccess,
+    deleteSuccess,
+    createSuccess,
+  ]);
 
   const handleDelete = (value) => {
     setConfirmAction(() => () => {
@@ -193,11 +204,13 @@ const ProductPage = () => {
                   />
                 ),
                 pubDate: formatDate(item?.pubDate),
-                author: authors?.find((author) => item.author === author._id)?.fullname,
-                publisher: publishers?.find((publisher) => item.publisher === publisher._id)?.name,
+                author: authors?.find((author) => item.author === author._id)
+                  ?.fullname,
+                publisher: publishers?.find(
+                  (publisher) => item.publisher === publisher._id
+                )?.name,
                 price: formatCurrency(item?.price),
                 // donor: users?.find((user) => item.donor === user._id)?.fullname,
-
               }))}
               keyField='_id'
               onSort={(f, des) => {

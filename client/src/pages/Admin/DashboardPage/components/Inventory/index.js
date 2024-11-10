@@ -21,11 +21,14 @@ function Inventory({ productStatistics = [], }) {
         color={'#C0E4F8'}
         icon={
           <div
-            className={'flex items-center justify-center w-12 h-12 text-white rounded-full  bg-[#3BA3DC]'}>
-            <FontAwesomeIcon icon={faBoxesStacked} className='w-6 h-6'/>
+            className={
+              'flex items-center justify-center w-12 h-12 text-white rounded-full  bg-[#3BA3DC]'
+            }
+          >
+            <FontAwesomeIcon icon={faBoxesStacked} className='w-6 h-6' />
           </div>
-
-        }/>
+        }
+      />
     </>
   );
 }

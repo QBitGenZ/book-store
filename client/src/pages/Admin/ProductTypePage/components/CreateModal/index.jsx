@@ -14,13 +14,19 @@ function CreateModal({ show, setShow, createProductType, }) {
   const handleClose = () => setShow(false);
   const handleSave = () => {
     createProductType({
-      name, description, image: images[0],
+      name,
+      description,
+      image: images[0],
     });
   };
 
   return (
-    <BModal aria-labelledby='contained-modal-title-vcenter'
-      centered show={show} onHide={handleClose}>
+    <BModal
+      aria-labelledby='contained-modal-title-vcenter'
+      centered
+      show={show}
+      onHide={handleClose}
+    >
       <BModal.Header closeButton>
         <BModal.Title>{translate('create-product-type-label')}</BModal.Title>
       </BModal.Header>
@@ -46,7 +52,7 @@ function CreateModal({ show, setShow, createProductType, }) {
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
-        <DropImagesInput files={images} setFiles={setImages} multiple={false}/>
+        <DropImagesInput files={images} setFiles={setImages} multiple={false} />
       </BModal.Body>
       <BModal.Footer>
         <Button variant='secondary' onClick={handleClose}>

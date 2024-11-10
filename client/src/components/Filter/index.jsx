@@ -1,6 +1,7 @@
 import React, { useState, } from 'react';
 import { useDispatch, useSelector, } from 'react-redux';
-import { getProductsByTypeRequestStart, getProductsRequestStart, } from '~/redux/product/slice';
+import { getProductsByTypeRequestStart,
+  getProductsRequestStart, } from '~/redux/product/slice';
 import { getTypesRequestStart, } from '~/redux/productType/slice';
 import PropTypes from 'prop-types';
 import { translate, } from '~/helpers';
@@ -12,8 +13,8 @@ function FilterSidebar({ idCategory, }) {
   const dispatch = useDispatch();
   const [orderBy, setOrderBy,] = React.useState('');
   const [descending, setDescending,] = React.useState(true);
-  const [page, ,] = React.useState(1);
-  const [limit, ,] = React.useState(20);
+  const [page,] = React.useState(1);
+  const [limit,] = React.useState(20);
   const [selectedCategory, setSelectedCategory,] = useState(idCategory || null);
 
   const [minPrice, setMinPrice,] = useState();
@@ -82,7 +83,10 @@ function FilterSidebar({ idCategory, }) {
           }}
           style={{
             fontWeight: selectedCategory === null ? 'bold' : 'lighter',
-            color: selectedCategory === null ? shop?.accentColor || 'red' : 'inherit',
+            color:
+              selectedCategory === null
+                ? shop?.accentColor || 'red'
+                : 'inherit',
           }}
         >
           {translate('all-types')}
@@ -99,10 +103,15 @@ function FilterSidebar({ idCategory, }) {
                   setSelectedCategory(item._id);
                 }}
                 style={{
-                  fontWeight: selectedCategory === item._id ? 'bold' : 'lighter',
-                  color: selectedCategory === item._id ? shop?.accentColor || 'red' : 'inherit',
+                  fontWeight:
+                    selectedCategory === item._id ? 'bold' : 'lighter',
+                  color:
+                    selectedCategory === item._id
+                      ? shop?.accentColor || 'red'
+                      : 'inherit',
                 }}
-                className='ml-1'>
+                className='ml-1'
+              >
                 {item.name}
               </div>
             </li>
@@ -112,14 +121,8 @@ function FilterSidebar({ idCategory, }) {
 
       {/* Order By */}
       <div className='mb-6'>
-        <h6
-          className='font-normal mb-3'
-        >
-          {translate('price')}
-        </h6>
-        <div>
-                    Nhập khoảng giá
-        </div>
+        <h6 className='font-normal mb-3'>{translate('price')}</h6>
+        <div>Nhập khoảng giá</div>
         <div>
           <input onChange={(e) => setMinPrice(e.target.value)}></input>
         </div>
@@ -128,10 +131,12 @@ function FilterSidebar({ idCategory, }) {
         </div>
         <div onClick={getProducts}> Loc</div>
 
-        <div onClick={() => {
-          setOrderBy('price');
-          setDescending(false);
-        }}>
+        <div
+          onClick={() => {
+            setOrderBy('price');
+            setDescending(false);
+          }}
+        >
           {translate('price-increase')}
         </div>
       </div>

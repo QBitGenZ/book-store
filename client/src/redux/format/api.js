@@ -6,7 +6,7 @@ const getAllFormatsApi = (query) => {
     queryParams: query,
     options: {
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     },
   });

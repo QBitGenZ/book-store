@@ -34,7 +34,12 @@ function UpdateEventModal({ event, show, setShow, updateEvent, }) {
   }, [event,]);
 
   return (
-    <BModal aria-labelledby='contained-modal-title-vcenter' centered show={show} onHide={handleClose}>
+    <BModal
+      aria-labelledby='contained-modal-title-vcenter'
+      centered
+      show={show}
+      onHide={handleClose}
+    >
       <BModal.Header closeButton>
         <BModal.Title>{translate('update-event-label')}</BModal.Title>
       </BModal.Header>

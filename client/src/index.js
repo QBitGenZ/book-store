@@ -40,7 +40,7 @@ root.render(
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <SnackbarProvider>
             <FilesUiProvider>
-              <App/>
+              <App />
             </FilesUiProvider>
           </SnackbarProvider>
         </LocalizationProvider>

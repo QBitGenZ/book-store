@@ -6,7 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { Modal as BModal, Button as BButton, } from 'react-bootstrap';
+import { Button as BButton, Modal as BModal, } from 'react-bootstrap';
 import { translate, } from '~/helpers';
 import { DropImagesInput, } from '~/components';
 
@@ -96,7 +96,7 @@ export default function QuiltedImageList({
             aria-label='add an image'
             onClick={handleDialogOpen}
           >
-            <AddIcon/>
+            <AddIcon />
           </IconButton>
         </ImageListItem>
         {itemData?.map((item) => (
@@ -156,7 +156,7 @@ export default function QuiltedImageList({
             overflowY: 'auto',
           }}
         >
-          <DropImagesInput files={newImages} multiple setFiles={setNewImages}/>
+          <DropImagesInput files={newImages} multiple setFiles={setNewImages} />
         </BModal.Body>
         <BModal.Footer>
           <BButton variant='secondary' onClick={handleDialogClose}>

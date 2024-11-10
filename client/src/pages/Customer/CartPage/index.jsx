@@ -13,8 +13,7 @@ import { useNavigate, } from 'react-router-dom';
 import { clientRoutes, } from '~/configs/routes';
 
 const CartPage = () => {
-
-  const { cart, } = useSelector(state => state.cart);
+  const { cart, } = useSelector((state) => state.cart);
   const [allCheck, setAllCheck,] = React.useState(false);
   const [totalPrice, setTotalPrice,] = React.useState(0);
   const [totalProduct, setTotalProduct,] = React.useState(0);
@@ -101,12 +100,12 @@ const CartPage = () => {
     isAllCheck();
   }, [totalPrice, cart, allCheck, dispatch,]);
 
-  return (
-    cart?.cart?.items.length !== 0 ? (<>
-      <div className={'flex flex-row gap-4'}>
+  return cart?.cart?.items.length !== 0 ? (
+    <>
+      <div className={'flex flex-row gap-3'}>
         <div className='flex flex-col  p-4 bg-white rounded-lg shadow-md w-full'>
           <div className='flex justify-between items-center pb-4 pt-2 border-b w-full text-gray-500'>
-            <div className='flex items-start gap-4 w-2/5'>
+            <div className='flex items-start gap-3 w-2/5'>
               <div className='flex content-center'>
                 <input
                   type='checkbox'
@@ -118,25 +117,33 @@ const CartPage = () => {
 
               <div>
                 <div className='flex items-center'>
-                  <span className='font-normal break-all text-left'>{translate('All')}</span>
+                  <span className='font-normal break-all text-left'>
+                    {translate('All')}
+                  </span>
                 </div>
               </div>
             </div>
 
             <div className={'w-1/2 flex justify-between '}>
               {/* Price */}
-              <div className='w-full content-center'>{translate('Unit-price')}</div>
+              <div className='w-full content-center'>
+                {translate('Unit-price')}
+              </div>
 
               {/* Quantity Selector */}
               <div className='w-full content-center'>{translate('Amount')}</div>
 
               {/* total Price */}
-              <div className='w-full content-center'>{translate('becoming-price')}</div>
+              <div className='w-full content-center'>
+                {translate('becoming-price')}
+              </div>
 
               {/* Delete Icon */}
               <button
-                className='hover:text-red-500 w-full content-center' onClick={deleteAllItem}>
-                <FontAwesomeIcon icon={faTrash}/>
+                className='hover:text-red-500 w-full content-center'
+                onClick={deleteAllItem}
+              >
+                <FontAwesomeIcon icon={faTrash} />
               </button>
             </div>
           </div>
@@ -147,32 +154,37 @@ const CartPage = () => {
                 handleUpdateItem={handleUpdateItem}
                 handleDeleteItem={handleDeleteItem}
               />
-            </div>))}
+            </div>
+          ))}
         </div>
 
         <div className={'w-1/3'}>
           <TotalCart
             totalPrice={totalPrice}
             totalProduct={totalProduct}
-          >
-          </TotalCart>
+          ></TotalCart>
         </div>
-
       </div>
     </>
-    )
-      :
-      <div className={'rounded shadow-sm bg-white w-full flex flex-col items-center p-16'}>
-        <img className='mb-4' src={`${process.env.PUBLIC_URL}/assets/pages/other/ico_emptycart.svg`}
-          alt='Empty Cart'/>
-        <p>{translate('There are no products in your shopping cart.')}</p>
-        <button
-          className='w-fit py-2 px-4 rounded shadow-md bg-red-600 text-white font-semibold mt-4'
-          onClick={goToHome}>
-          {translate('Về Trang chủ')}
-        </button>
-      </div>
-
+  ) : (
+    <div
+      className={
+        'rounded shadow-sm bg-white w-full flex flex-col items-center p-16'
+      }
+    >
+      <img
+        className='mb-4'
+        src={`${process.env.PUBLIC_URL}/assets/pages/other/ico_emptycart.svg`}
+        alt='Empty Cart'
+      />
+      <p>{translate('There are no products in your shopping cart.')}</p>
+      <button
+        className='w-fit py-2 px-4 rounded shadow-md bg-red-600 text-white font-semibold mt-4'
+        onClick={goToHome}
+      >
+        {translate('Về Trang chủ')}
+      </button>
+    </div>
   );
 };
 

@@ -33,7 +33,7 @@ const vi = {
   login: 'Đăng nhập',
   'LOGIN-WITH-GOOGLE': 'Đăng nhập bằng tài khoản Google',
   'forgot-password': 'Quên mật khẩu',
-  'or': 'Hoặc',
+  or: 'Hoặc',
   'dont-have-account?': 'Bạn chưa có tài khoản ?',
   'have-account?': 'Đã có tài khoản ?',
   'sign-up': 'Đăng ký',
