@@ -1,28 +1,30 @@
 import { apiFetch, } from '~/helpers/utils/api';
 
-export const registerApi = (userData) => apiFetch({
-  url: 'auth/register',
-  options: {
-    method: 'POST',
-    headers: {
-      Accept: '*/*',
-      'Content-Type': 'application/json',
+export const registerApi = (userData) =>
+  apiFetch({
+    url: 'auth/register',
+    options: {
+      method: 'POST',
+      headers: {
+        Accept: '*/*',
+        'Content-Type': 'application/json',
+      },
+      body: userData,
     },
-    body: userData,
-  },
-});
+  });
 
-export const loginApi = credentials => apiFetch({
-  url: 'auth/login',
-  options: {
-    method: 'POST',
-    headers: {
-      Accept: '*/*',
-      'Content-Type': 'application/json',
+export const loginApi = (credentials) =>
+  apiFetch({
+    url: 'auth/login',
+    options: {
+      method: 'POST',
+      headers: {
+        Accept: '*/*',
+        'Content-Type': 'application/json',
+      },
+      body: credentials,
     },
-    body: credentials,
-  },
-});
+  });
 
 export const updateUserApi = (data) => {
   const token = localStorage.getItem('token');
@@ -31,9 +33,9 @@ export const updateUserApi = (data) => {
     options: {
       method: 'PUT',
       headers: {
-        'Authorization': `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
-      body: (data),
+      body: data,
     },
   });
 };
@@ -45,10 +47,10 @@ export const updatePasswordApi = (data) => {
     options: {
       method: 'PUT',
       headers: {
-        'Authorization': `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      body: (data),
+      body: data,
     },
   });
 };
@@ -60,43 +62,45 @@ export const deleteUserApi = () => {
     options: {
       method: 'DELETE',
       headers: {
-        'Authorization': `Bearer ${token}`, 
+        Authorization: `Bearer ${token}`,
       },
     },
   });
 };
 
-export const forgotPasswordApi = (email) => apiFetch({
-  url: 'auth/forgot-password',
-  options: {
-    headers: {
-      'Content-Type': 'application/json',
+export const forgotPasswordApi = (email) =>
+  apiFetch({
+    url: 'auth/forgot-password',
+    options: {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: email,
     },
-    method: 'POST',
-    body: (email),
-  },
-});
+  });
 
-export const resetPasswordApi = (data) => apiFetch({
-  url: 'auth/reset-password',
-  options: {
-    headers: {
-      'Content-Type': 'application/json',
+export const resetPasswordApi = (data) =>
+  apiFetch({
+    url: 'auth/reset-password',
+    options: {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: data,
     },
-    method: 'POST',
-    body: (data),
-  },
-});
+  });
 
 export const deletePhotoApi = (photoId) => {
   const token = localStorage.getItem('token');
-  
+
   return apiFetch({
     url: `auth/photos/${photoId}`,
     options: {
       method: 'DELETE',
       headers: {
-        'Authorization': `Bearer ${token}`, 
+        Authorization: `Bearer ${token}`,
       },
     },
   });
@@ -109,13 +113,14 @@ export const getInfoApi = () => {
     options: {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${token}`, 
+        Authorization: `Bearer ${token}`,
       },
     },
   });
 };
 
-export const googleApi = (data) => apiFetch({
-  url: 'auth/google',
-  queryParams: data,
-});
+export const googleApi = (data) =>
+  apiFetch({
+    url: 'auth/google',
+    queryParams: data,
+  });

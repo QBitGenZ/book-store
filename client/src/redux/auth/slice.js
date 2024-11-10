@@ -13,7 +13,7 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    registerRequestStart: state => {
+    registerRequestStart: (state) => {
       state.loading = true;
       state.error = null;
     },
@@ -27,7 +27,7 @@ const authSlice = createSlice({
       state.error = action.payload;
     },
 
-    loginRequestStart: state => {
+    loginRequestStart: (state) => {
       state.loading = true;
       state.error = null;
     },
@@ -40,11 +40,11 @@ const authSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    logout: state => {
+    logout: (state) => {
       state.token = null;
       state.user = null;
     },
-    updateUserRequestStart: state => {
+    updateUserRequestStart: (state) => {
       state.loading = true;
       state.error = null;
     },
@@ -56,7 +56,7 @@ const authSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    updatePasswordRequestStart: state => {
+    updatePasswordRequestStart: (state) => {
       state.loading = true;
       state.error = null;
     },
@@ -69,11 +69,11 @@ const authSlice = createSlice({
       state.error = action.payload;
     },
 
-    deleteUserRequestStart: state => {
+    deleteUserRequestStart: (state) => {
       state.loading = true;
       state.error = null;
     },
-    deleteUserRequestSuccess: state => {
+    deleteUserRequestSuccess: (state) => {
       state.loading = false;
       state.user = null;
     },
@@ -82,7 +82,7 @@ const authSlice = createSlice({
       state.error = action.payload;
     },
 
-    forgotPasswordRequestStart: state => {
+    forgotPasswordRequestStart: (state) => {
       state.loading = true;
       state.error = null;
     },
@@ -96,7 +96,7 @@ const authSlice = createSlice({
       state.error = action.payload;
     },
 
-    resetPasswordRequestStart: state => {
+    resetPasswordRequestStart: (state) => {
       state.loading = true;
       state.error = null;
       state.resetPasswordSuccess = null;
@@ -112,7 +112,7 @@ const authSlice = createSlice({
       state.resetPasswordSuccess = false;
     },
 
-    deletePhotoRequestStart: state => {
+    deletePhotoRequestStart: (state) => {
       state.loading = true;
       state.error = null;
     },
@@ -125,7 +125,7 @@ const authSlice = createSlice({
       state.error = action.payload;
     },
 
-    getInfoRequestStart: state => {
+    getInfoRequestStart: (state) => {
       state.loading = true;
       state.error = null;
     },
@@ -145,14 +145,35 @@ const authSlice = createSlice({
 });
 
 export const {
-  registerRequestStart, registerRequestSuccess, registerRequestFailure,
-  loginRequestStart, loginRequestSuccess, loginRequestFailure, logout,
-  updateUserRequestStart, updateUserRequestSuccess, updateUserRequestFailure,
-  deleteUserRequestStart, deleteUserRequestSuccess, deleteUserRequestFailure,
-  forgotPasswordRequestStart, forgotPasswordRequestSuccess, forgotPasswordRequestFailure,
-  resetPasswordRequestStart, resetPasswordRequestSuccess, resetPasswordRequestFailure,
-  deletePhotoRequestStart, deletePhotoRequestSuccess, deletePhotoRequestFailure,
-  getInfoRequestStart, getInfoRequestSuccess, getInfoRequestFailure, googleStart, updatePasswordRequestFailure, updatePasswordRequestStart, updatePasswordRequestSuccess,
+  registerRequestStart,
+  registerRequestSuccess,
+  registerRequestFailure,
+  loginRequestStart,
+  loginRequestSuccess,
+  loginRequestFailure,
+  logout,
+  updateUserRequestStart,
+  updateUserRequestSuccess,
+  updateUserRequestFailure,
+  deleteUserRequestStart,
+  deleteUserRequestSuccess,
+  deleteUserRequestFailure,
+  forgotPasswordRequestStart,
+  forgotPasswordRequestSuccess,
+  forgotPasswordRequestFailure,
+  resetPasswordRequestStart,
+  resetPasswordRequestSuccess,
+  resetPasswordRequestFailure,
+  deletePhotoRequestStart,
+  deletePhotoRequestSuccess,
+  deletePhotoRequestFailure,
+  getInfoRequestStart,
+  getInfoRequestSuccess,
+  getInfoRequestFailure,
+  googleStart,
+  updatePasswordRequestFailure,
+  updatePasswordRequestStart,
+  updatePasswordRequestSuccess,
 } = authSlice.actions;
 
 export default authSlice.reducer;

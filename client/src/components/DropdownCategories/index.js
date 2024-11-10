@@ -79,7 +79,6 @@ function DropdownCategories({ name, items, }) {
           </div>
         </div>
       )}
-
     </div>
   );
 }

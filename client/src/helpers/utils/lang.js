@@ -1,12 +1,11 @@
-import { vi, en, } from '~/languages';
+import { en, vi, } from '~/languages';
 
 export const translate = (str) => {
   let translation;
   const lang = getLang() || 'vi';
-  if(lang === 'en') {
+  if (lang === 'en') {
     translation = en[str];
-  }
-  else {
+  } else {
     translation = vi[str];
   }
   return translation !== undefined ? translation : str;

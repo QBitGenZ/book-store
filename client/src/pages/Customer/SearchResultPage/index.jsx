@@ -23,38 +23,49 @@ const SearchResultPage = () => {
   };
 
   React.useEffect(() => {
-    dispatch(getProductsRequestStart({
-      search: query,
-      orderBy,
-      page,
-      limit,
-      descending,
-    }));
+    dispatch(
+      getProductsRequestStart({
+        search: query,
+        orderBy,
+        page,
+        limit,
+        descending,
+      })
+    );
     console.log(products, meta);
   }, [query, dispatch, page, orderBy, descending, limit,]);
 
   return (
     <>
-      {products.length > 0 && <div>
-        <ProductList title={'Kết quả tìm kiếm'} products={products}/>
-        <CustomerPagination
-          currentPage={meta?.page ?? 1}
-          totalPages={meta?.totalPage ?? 1}
-          onPageChange={setPage}
-        />
-      </div>}
-      {products?.length === 0 && <div>
-        <div className={'rounded shadow-sm bg-white w-full flex flex-col items-center p-16'}>
-          {/* <img className='mb-4' src={`${process.env.PUBLIC_URL}/assets/pages/other/ico_emptycart.svg`}*/}
-          {/*  alt='Empty Cart'/>*/}
-          <p>{translate('There are no products.')}</p>
-          <button
-            className='w-fit py-2 px-4 rounded shadow-md bg-red-600 text-white font-semibold mt-4'
-            onClick={goToHome}>
-            {translate('Về Trang chủ')}
-          </button>
+      {products.length > 0 && (
+        <div>
+          <ProductList title={'Kết quả tìm kiếm'} products={products} />
+          <CustomerPagination
+            currentPage={meta?.page ?? 1}
+            totalPages={meta?.totalPage ?? 1}
+            onPageChange={setPage}
+          />
         </div>
-      </div>}
+      )}
+      {products?.length === 0 && (
+        <div>
+          <div
+            className={
+              'rounded shadow-sm bg-white w-full flex flex-col items-center p-16'
+            }
+          >
+            {/* <img className='mb-4' src={`${process.env.PUBLIC_URL}/assets/pages/other/ico_emptycart.svg`}*/}
+            {/*  alt='Empty Cart'/>*/}
+            <p>{translate('There are no products.')}</p>
+            <button
+              className='w-fit py-2 px-4 rounded shadow-md bg-red-600 text-white font-semibold mt-4'
+              onClick={goToHome}
+            >
+              {translate('Về Trang chủ')}
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 };

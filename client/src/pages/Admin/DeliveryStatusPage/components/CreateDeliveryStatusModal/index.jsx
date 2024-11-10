@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import { Modal as BModal, } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { translate, } from '~/helpers';
-import { TextField, MenuItem, } from '@mui/material';
+import { MenuItem, TextField, } from '@mui/material';
 
 function CreateDeliveryStatusModal({
   show,

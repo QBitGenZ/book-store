@@ -18,61 +18,66 @@ export const getAllByAdminRequestApi = (query) => {
     queryParams: query,
     options: {
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     },
   });
 };
 
-export const getOneRequestApi = (id) => apiFetch({
-  url: `types/${id}`,
-  options: {
-    headers: {
-      'Authorization': `Bearer ${localStorage.getItem('token')}`,
+export const getOneRequestApi = (id) =>
+  apiFetch({
+    url: `types/${id}`,
+    options: {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
     },
-  },
-});
+  });
 
-export const getOneByAdminRequestApi = (id) => apiFetch({
-  url: `types/admin/${id}`,
-  options: {
-    headers: {
-      'Authorization': `Bearer ${localStorage.getItem('token')}`,
+export const getOneByAdminRequestApi = (id) =>
+  apiFetch({
+    url: `types/admin/${id}`,
+    options: {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
     },
-  },
-});
+  });
 
-export const createOneByAdminApi = (data) => apiFetch({
-  url: 'types/admin',
-  options: {
-    headers: {
-      'Authorization': `Bearer ${localStorage.getItem('token')}`,
+export const createOneByAdminApi = (data) =>
+  apiFetch({
+    url: 'types/admin',
+    options: {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+      method: 'POST',
+      body: data,
     },
-    method: 'POST',
-    body: data,
-  },
-});
+  });
 
-export const updateOneByAdminApi = (id, data) => apiFetch({
-  url: `types/admin/${id}`,
-  options: {
-    headers: {
-      'Authorization': `Bearer ${localStorage.getItem('token')}`,
+export const updateOneByAdminApi = (id, data) =>
+  apiFetch({
+    url: `types/admin/${id}`,
+    options: {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+      method: 'PUT',
+      body: data,
     },
-    method: 'PUT',
-    body: data,
-  },
-});
+  });
 
-export const deleteOneByAdminApi = (id) => apiFetch({
-  url: `types/admin/${id}`,
-  options: {
-    headers: {
-      'Authorization': `Bearer ${localStorage.getItem('token')}`,
+export const deleteOneByAdminApi = (id) =>
+  apiFetch({
+    url: `types/admin/${id}`,
+    options: {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+      method: 'DELETE',
     },
-    method: 'DELETE',
-  },
-});
+  });
 
 // export const getProductsByTypeApi = (id) => apiFetch({
 //   url: `types/${id}/products`,

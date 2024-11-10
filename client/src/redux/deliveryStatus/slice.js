@@ -84,6 +84,22 @@ const deliveryStatuesSlice = createSlice({
   },
 });
 
-export const { createDeliveryStatusRequestFailure, createDeliveryStatusRequestStart, createDeliveryStatusRequestSuccess, deleteDeliveryStatusRequestFailure, deleteDeliveryStatusRequestStart, deleteDeliveryStatusRequestSuccess, getDeliveryStatusRequestFailure, getDeliveryStatusRequestStart, getDeliveryStatusRequestSuccess, getDeliveryStatusesRequestFailure, getDeliveryStatusesRequestStart, getDeliveryStatusesRequestSuccess, updateDeliveryStatusRequestFailure, updateDeliveryStatusRequestStart, updateDeliveryStatusRequestSuccess, } = deliveryStatuesSlice.actions;
+export const {
+  createDeliveryStatusRequestFailure,
+  createDeliveryStatusRequestStart,
+  createDeliveryStatusRequestSuccess,
+  deleteDeliveryStatusRequestFailure,
+  deleteDeliveryStatusRequestStart,
+  deleteDeliveryStatusRequestSuccess,
+  getDeliveryStatusRequestFailure,
+  getDeliveryStatusRequestStart,
+  getDeliveryStatusRequestSuccess,
+  getDeliveryStatusesRequestFailure,
+  getDeliveryStatusesRequestStart,
+  getDeliveryStatusesRequestSuccess,
+  updateDeliveryStatusRequestFailure,
+  updateDeliveryStatusRequestStart,
+  updateDeliveryStatusRequestSuccess,
+} = deliveryStatuesSlice.actions;
 
 export default deliveryStatuesSlice.reducer;

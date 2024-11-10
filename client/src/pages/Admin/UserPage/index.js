@@ -2,12 +2,14 @@ import React from 'react';
 import { useDispatch, useSelector, } from 'react-redux';
 import { ConfirmationModal, DataTable, Pagination, } from '~/components';
 import { translate, } from '~/helpers';
-import { deleteUserByAdminRequestStart, getUserAllRequestStart, } from '~/redux/user/slice';
+import { deleteUserByAdminRequestStart,
+  getUserAllRequestStart, } from '~/redux/user/slice';
 
 const UserPage = () => {
   const dispatch = useDispatch();
   // const navigate = useNavigate();
-  const { users, meta, user, updateSuccess, deleteSuccess, createSuccess, } = useSelector(state => state.user);
+  const { users, meta, user, updateSuccess, deleteSuccess, createSuccess, } =
+    useSelector((state) => state.user);
 
   const [orderBy, setOrderBy,] = React.useState('');
   const [descending, setDescending,] = React.useState(true);
@@ -18,24 +20,36 @@ const UserPage = () => {
   // const [showCreate, setShowCreate,] = React.useState(false);
   // const [setShowUpdate,] = React.useState(false);
   const [showConfirm, setShowConfirm,] = React.useState(false);
-  const [confirmAction, setConfirmAction,] = React.useState(() => () => {
-  });
+  const [confirmAction, setConfirmAction,] = React.useState(() => () => {});
   const [confirmMessage, setConfirmMessage,] = React.useState('');
 
   const getUsers = () => {
-    dispatch(getUserAllRequestStart({
-      orderBy,
-      page,
-      limit,
-      descending,
-    }));
+    dispatch(
+      getUserAllRequestStart({
+        orderBy,
+        page,
+        limit,
+        descending,
+      })
+    );
   };
 
   React.useEffect(() => {
     if (!users || users.length === 0 || users.length !== limit) {
       getUsers();
     }
-  }, [orderBy, descending, page, limit, dispatch, user, selectedObj, updateSuccess, deleteSuccess, createSuccess,]);
+  }, [
+    orderBy,
+    descending,
+    page,
+    limit,
+    dispatch,
+    user,
+    selectedObj,
+    updateSuccess,
+    deleteSuccess,
+    createSuccess,
+  ]);
 
   // const handleDetail = (value) => {
   //   console.log('detail', value);
@@ -132,7 +146,7 @@ const UserPage = () => {
                   label: translate('admin'),
                 },
               ]}
-              data={users?.map(item => ({
+              data={users?.map((item) => ({
                 ...item,
                 // id: item._id,
                 displayAvatar: item?.avatar ? (
@@ -141,8 +155,12 @@ const UserPage = () => {
                     src={`${process.env.REACT_APP_HOST_IP}/${item?.avatar}`}
                     alt={item?.username}
                   />
-                ) : '',
-                formattedBirthday: item?.birthday ? new Date(item.birthday).toLocaleDateString() : '',
+                ) : (
+                  ''
+                ),
+                formattedBirthday: item?.birthday
+                  ? new Date(item.birthday).toLocaleDateString()
+                  : '',
                 isAdmin: item?.isAdmin ? 'Yes' : 'No',
               }))}
               keyField='_id'

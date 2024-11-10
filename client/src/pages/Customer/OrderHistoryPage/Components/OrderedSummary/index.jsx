@@ -7,7 +7,10 @@ function OrderedSummary({ order, shippingCost = 0, }) {
   const [showAllItems, setShowAllItems,] = useState(false);
 
   const calSubTotal = () => {
-    return items.reduce((total, item) => total + item.product.price * item.quantity, 0);
+    return items.reduce(
+      (total, item) => total + item.product.price * item.quantity,
+      0
+    );
   };
 
   const calculateTotal = () => {
@@ -17,11 +20,13 @@ function OrderedSummary({ order, shippingCost = 0, }) {
 
   return (
     <div className='space-y-4 p-4 rounded-lg bg-white border shadow-sm'>
-      <h2 className='font-semibold text-lg text-left'>{order?.deliveryStatus?.name}</h2>
+      <h2 className='font-semibold text-lg text-left'>
+        {order?.deliveryStatus?.name}
+      </h2>
       <div className='border rounded p-4 flex flex-col'>
         {/* Conditionally display items based on showAllItems */}
         {(showAllItems ? items : items.slice(0, 2)).map((item) => (
-          <div key={item._id} className='flex gap-4 border-b-[1px] py-3'>
+          <div key={item._id} className='flex gap-3 border-b-[1px] py-3'>
             {item?.product?.images[0] ? (
               <img
                 src={`${process.env.REACT_APP_HOST_IP}/${item.product.images[0]}`}
@@ -39,7 +44,9 @@ function OrderedSummary({ order, shippingCost = 0, }) {
               <h6 className='text-left'>{item.product.name}</h6>
               <div className='flex justify-between items-center mt-2'>
                 <div className='space-y-1'>
-                  <p className='text-red-500'>{formatCurrency(item.product.price)}</p>
+                  <p className='text-red-500'>
+                    {formatCurrency(item.product.price)}
+                  </p>
                 </div>
                 <span>x {item.quantity}</span>
               </div>
@@ -53,7 +60,9 @@ function OrderedSummary({ order, shippingCost = 0, }) {
             className='text-gray-500 text-sm mt-2 text-left p-2 border rounded w-fit cursor-pointer'
             onClick={() => setShowAllItems(!showAllItems)}
           >
-            {showAllItems ? `Ẩn bớt ${items.length - 2} sản phẩm` : `Xem thêm ${items.length - 2} sản phẩm`}
+            {showAllItems
+              ? `Ẩn bớt ${items.length - 2} sản phẩm`
+              : `Xem thêm ${items.length - 2} sản phẩm`}
           </div>
         )}
 
@@ -62,12 +71,18 @@ function OrderedSummary({ order, shippingCost = 0, }) {
           <table className='border-collapse w-fit '>
             <tbody className={'w-max'}>
               <tr className='pr-4 py-0.5 sm:grid sm:grid-cols-2 sm:px-0'>
-                <td className='text-right text-base text-gray-500'>Phí vận chuyển</td>
-                <td className='text-right text-base text-gray-500'>{formatCurrency(shippingCost)}</td>
+                <td className='text-right text-base text-gray-500'>
+                  Phí vận chuyển
+                </td>
+                <td className='text-right text-base text-gray-500'>
+                  {formatCurrency(shippingCost)}
+                </td>
               </tr>
               <tr className='pr-4 py-0.5 sm:grid sm:grid-cols-2 sm:px-0 font-semibold'>
                 <td className='text-right'>Tổng Tiền</td>
-                <td className='text-right text-orange-500'>{formatCurrency(calculateTotal())}</td>
+                <td className='text-right text-orange-500'>
+                  {formatCurrency(calculateTotal())}
+                </td>
               </tr>
             </tbody>
           </table>

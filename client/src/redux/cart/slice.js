@@ -85,7 +85,6 @@ const cartSlice = createSlice({
           items: [],
         },
       };
-            
     },
     deleteAllCartRequestFailure: (state, action) => {
       state.loading = false;
@@ -95,11 +94,21 @@ const cartSlice = createSlice({
 });
 
 export const {
-  getCartRequestStart, getCartRequestSuccess, getCartRequestFailure,
-  createCartRequestStart, createCartRequestSuccess, createCartRequestFailure,
-  updateCartRequestStart, updateCartRequestSuccess, updateCartRequestFailure,
-  deleteCartRequestStart, deleteCartRequestSuccess, deleteCartRequestFailure,
-  deleteAllCartRequestStart, deleteAllCartRequestSuccess, deleteAllCartRequestFailure,
+  getCartRequestStart,
+  getCartRequestSuccess,
+  getCartRequestFailure,
+  createCartRequestStart,
+  createCartRequestSuccess,
+  createCartRequestFailure,
+  updateCartRequestStart,
+  updateCartRequestSuccess,
+  updateCartRequestFailure,
+  deleteCartRequestStart,
+  deleteCartRequestSuccess,
+  deleteCartRequestFailure,
+  deleteAllCartRequestStart,
+  deleteAllCartRequestSuccess,
+  deleteAllCartRequestFailure,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

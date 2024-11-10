@@ -11,7 +11,6 @@ const TotalCart = ({ totalPrice, totalProduct, }) => {
     if (totalProduct) {
       nav(clientRoutes.oneStepCheckOut);
     }
-
   };
   const safeHandlePurchase = () => {
     if (typeof handlePurchase === 'function') {
@@ -22,14 +21,14 @@ const TotalCart = ({ totalPrice, totalProduct, }) => {
   };
   return (
     <>
-      <div className={'flex flex-col gap-3 rounded bg-white shadow-md p-3 divide-gray-200 divide-y'}>
+      <div
+        className={
+          'flex flex-col gap-3 rounded bg-white shadow-md p-3 divide-gray-200 divide-y'
+        }
+      >
         <div className={'flex flex-row justify-between '}>
-          <div>
-                        Thành tiền
-          </div>
-          <div className={'flex'}>
-            {formatCurrency(totalPrice ?? 0)}
-          </div>
+          <div>Thành tiền</div>
+          <div className={'flex'}>{formatCurrency(totalPrice ?? 0)}</div>
         </div>
         <div className={'flex flex-col gap-3 pt-3'}>
           <div className={'flex flex-row justify-between content-center'}>
@@ -43,14 +42,15 @@ const TotalCart = ({ totalPrice, totalProduct, }) => {
           <div className={'w-full'}>
             <button
               className={`w-full py-2 rounded font-semibold ${
-                totalProduct === 0 ? 'bg-gray-200 text-white' : 'bg-red-500 text-white'
+                totalProduct === 0
+                  ? 'bg-gray-200 text-white'
+                  : 'bg-red-500 text-white'
               }`}
               onClick={safeHandlePurchase}
               disabled={totalProduct === 0} // Disable when totalProduct is 0
             >
               {translate('Purchase')}
             </button>
-
           </div>
         </div>
       </div>

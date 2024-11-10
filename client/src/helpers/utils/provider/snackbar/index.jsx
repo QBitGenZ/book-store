@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, } from 'react';
+import React, { createContext, useContext, useState, } from 'react';
 import PropTypes from 'prop-types';
 
 const SnackbarContext = createContext();
@@ -30,9 +30,13 @@ export const SnackbarProvider = ({ children, }) => {
   };
 
   return (
-    <SnackbarContext.Provider value={{
-      snackbar, showSnackbar, closeSnackbar, 
-    }}>
+    <SnackbarContext.Provider
+      value={{
+        snackbar,
+        showSnackbar,
+        closeSnackbar,
+      }}
+    >
       {children}
     </SnackbarContext.Provider>
   );

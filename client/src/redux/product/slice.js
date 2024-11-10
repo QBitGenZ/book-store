@@ -81,7 +81,7 @@ const productSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    deleteImageRequestStart: state => {
+    deleteImageRequestStart: (state) => {
       state.loading = true;
       state.error = null;
     },

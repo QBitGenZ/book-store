@@ -8,11 +8,11 @@ import { clientRoutes, } from '~/configs/routes';
 import { useNavigate, } from 'react-router-dom';
 
 const OrderHistoryPage = () => {
-  const { orders, meta, } = useSelector(state => state.order);
-  const [orderBy, ,] = React.useState('');
-  const [descending, ,] = React.useState(true);
+  const { orders, meta, } = useSelector((state) => state.order);
+  const [orderBy,] = React.useState('');
+  const [descending,] = React.useState(true);
   const [page, setPage,] = React.useState(1);
-  const [limit, ,] = React.useState(5);
+  const [limit,] = React.useState(5);
 
   const dispatch = useDispatch();
   const nav = useNavigate();
@@ -22,26 +22,22 @@ const OrderHistoryPage = () => {
   };
 
   React.useEffect(() => {
-    dispatch(getAllOrderRequestStart({
-      orderBy,
-      page,
-      limit,
-      descending,
-    }));
+    dispatch(
+      getAllOrderRequestStart({
+        orderBy,
+        page,
+        limit,
+        descending,
+      })
+    );
     // console.log(orders, meta);
   }, [dispatch, page,]);
 
   return (
     <>
       {orders?.map((order, index) => (
-        <div
-          className={'mb-3'}
-          key={index}>
-
-          <OrderedSummary
-            order={order}
-            shippingCost={order?.delivery?.cost}
-          />
+        <div className={'mb-3'} key={index}>
+          <OrderedSummary order={order} shippingCost={order?.delivery?.cost} />
         </div>
       ))}
       {orders.length > 0 ? (
@@ -50,19 +46,21 @@ const OrderHistoryPage = () => {
           totalPages={meta?.totalPage ?? 1}
           onPageChange={setPage}
         />
-      ) :
-        (
-          <div className={'rounded shadow-sm bg-white w-full flex flex-col items-center p-16'}>
-            <p>{translate('Không có đơn hàng trước đó')}</p>
-            <button
-              className='w-fit py-2 px-4 rounded shadow-md bg-red-600 text-white font-semibold mt-4'
-              onClick={goToHome}>
-              {translate('Về Trang chủ')}
-            </button>
-          </div>
-        )
-      }
-
+      ) : (
+        <div
+          className={
+            'rounded shadow-sm bg-white w-full flex flex-col items-center p-16'
+          }
+        >
+          <p>{translate('Không có đơn hàng trước đó')}</p>
+          <button
+            className='w-fit py-2 px-4 rounded shadow-md bg-red-600 text-white font-semibold mt-4'
+            onClick={goToHome}
+          >
+            {translate('Về Trang chủ')}
+          </button>
+        </div>
+      )}
     </>
   );
 };

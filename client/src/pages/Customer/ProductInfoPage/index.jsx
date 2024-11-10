@@ -17,9 +17,7 @@ const ProductInfoPage = () => {
   const { id, } = useParams();
   const { product, } = useSelector((state) => state.product);
   const getProduct = () => {
-    dispatch(getProductRequestStart(
-      id
-    ));
+    dispatch(getProductRequestStart(id));
   };
 
   const handleAddToCart = (product, quantity) => {
@@ -33,49 +31,67 @@ const ProductInfoPage = () => {
 
   React.useEffect(() => {
     getProduct();
-    dispatch(getPublishersByAdminRequestStart({
-      limit: 1000,
-    }));
-    dispatch(getTypesByAdminRequestStart({
-      limit: 1000,
-    }));
-    dispatch(getAuthorsByAdminRequestStart({
-      limit: 1000,
-    }));
-    dispatch(getAllFormatsRequestStart({
-      limit: 1000,
-    }));
+    dispatch(
+      getPublishersByAdminRequestStart({
+        limit: 1000,
+      })
+    );
+    dispatch(
+      getTypesByAdminRequestStart({
+        limit: 1000,
+      })
+    );
+    dispatch(
+      getAuthorsByAdminRequestStart({
+        limit: 1000,
+      })
+    );
+    dispatch(
+      getAllFormatsRequestStart({
+        limit: 1000,
+      })
+    );
   }, []);
   const render = () => (
     <>
-
-      <div className={'relative flex flex-col gap-4 m-2'}>
+      <div className={'relative flex flex-col gap-3 m-2'}>
         {/* <div className='flex justify-start' onClick={handleBack} style={{*/}
         {/*  color: shop?.accentColor,*/}
         {/* }}>*/}
         {/*  <FontAwesomeIcon icon={faArrowLeft}/>*/}
         {/* </div>*/}
 
-        <div className='overflow-y-auto flex flex-row gap-4'>
-
-          <div className={'sticky top-0'}>
-            <ProductImage
-              product={product}
-            />
+        <div className='overflow-y-auto flex flex-row gap-3'>
+          <div className={'flex flex-col gap-3 sticky top-0'}>
+            <div className={'sticky top-0 flex flex-col gap-3'}>
+              <ProductImage product={product} />
+            </div>
+            <div>
+              <ProductPurchaseSection
+                product={product}
+                handleAddToCart={handleAddToCart}
+              ></ProductPurchaseSection>
+            </div>
           </div>
-          <div className={'flex flex-col gap-4 w-full'}>
+          <div className={'flex flex-col gap-3 w-full'}>
             <ProductNameCard product={product}></ProductNameCard>
-            <ProductDetailInformation product={product}
-              hiddenFields={['_id', '__v', 'images', 'description', 'donor', 'cost', 'price', 'stockQuantity', 'quantity', 'name',]}
+            <ProductDetailInformation
+              product={product}
+              hiddenFields={[
+                '_id',
+                '__v',
+                'images',
+                'description',
+                'donor',
+                'cost',
+                'price',
+                'stockQuantity',
+                'quantity',
+                'name',
+              ]}
             />
           </div>
-          <div>
-            <ProductPurchaseSection product={product}
-              handleAddToCart={handleAddToCart}></ProductPurchaseSection>
-          </div>
-
         </div>
-
       </div>
     </>
   );

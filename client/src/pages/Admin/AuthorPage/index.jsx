@@ -17,7 +17,7 @@ const AuthorPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { authors, meta, author, updateSuccess, deleteSuccess, createSuccess, } =
-        useSelector((state) => state.author);
+    useSelector((state) => state.author);
 
   const [orderBy, setOrderBy,] = React.useState('');
   const [descending, setDescending,] = React.useState(true);
@@ -28,8 +28,7 @@ const AuthorPage = () => {
   const [showCreate, setShowCreate,] = React.useState(false);
   const [showUpdate, setShowUpdate,] = React.useState(false);
   const [showConfirm, setShowConfirm,] = React.useState(false);
-  const [confirmAction, setConfirmAction,] = React.useState(() => () => {
-  });
+  const [confirmAction, setConfirmAction,] = React.useState(() => () => {});
   const [confirmMessage, setConfirmMessage,] = React.useState('');
 
   const handleDetail = (value) => {
@@ -172,7 +171,6 @@ const AuthorPage = () => {
                   label: translate('delete'),
                   handler: handleDelete,
                 },
-
               ]}
               columns={[
                 {
@@ -225,8 +223,13 @@ const AuthorPage = () => {
                 setDescending(des === 'desc');
               }}
             />
-            <Pagination count={meta?.totalPage} page={page} rowsPerPage={limit} setPage={setPage}
-              setRowsPerPage={setLimit}/>
+            <Pagination
+              count={meta?.totalPage}
+              page={page}
+              rowsPerPage={limit}
+              setPage={setPage}
+              setRowsPerPage={setLimit}
+            />
           </div>
         </div>
       </div>

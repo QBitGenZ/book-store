@@ -6,18 +6,20 @@ import EventCard from '~/pages/Customer/CustomerEventPage/EventCard';
 
 const CustomerEventPage = () => {
   const dispatch = useDispatch();
-  const { events, meta, } = useSelector(state => state.event);
+  const { events, meta, } = useSelector((state) => state.event);
   const [orderBy,] = React.useState('');
   const [descending,] = React.useState(true);
   const [page, setPage,] = React.useState(1);
   const [limit,] = React.useState(5);
   const getEvents = () => {
-    dispatch(getAllEventsRequestStart({
-      orderBy,
-      page,
-      limit,
-      descending,
-    }));
+    dispatch(
+      getAllEventsRequestStart({
+        orderBy,
+        page,
+        limit,
+        descending,
+      })
+    );
   };
 
   React.useEffect(() => {
@@ -28,7 +30,9 @@ const CustomerEventPage = () => {
     <>
       <div className={'bg-white rounded shadow-sm p-4'}>
         {events.map((event) => (
-          <div key={event._id}><EventCard event={event}/></div>
+          <div key={event._id}>
+            <EventCard event={event} />
+          </div>
         ))}
       </div>
 
@@ -38,16 +42,8 @@ const CustomerEventPage = () => {
         onPageChange={setPage}
       />
     </>
-
   );
-  return (
-    <>
-      {events ? (
-        render()
-      ) : (<div>Không có sự kiện</div>)}
-
-    </>
-  );
+  return <>{events ? render() : <div>Không có sự kiện</div>}</>;
 };
 
 export default CustomerEventPage;

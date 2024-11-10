@@ -5,7 +5,6 @@ import { faBoxesStacked, } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 
 function Revenue({ productStatistics, }) {
-
   const calTotalProductRevenue = () => {
     return productStatistics.reduce((total, item) => {
       return total + item.revenue;
@@ -20,11 +19,14 @@ function Revenue({ productStatistics, }) {
         color={'#D7EECC'}
         icon={
           <div
-            className={'flex items-center justify-center w-12 h-12 text-white rounded-full  bg-[#51C952]'}>
-            <FontAwesomeIcon icon={faBoxesStacked} className='w-6 h-6'/>
+            className={
+              'flex items-center justify-center w-12 h-12 text-white rounded-full  bg-[#51C952]'
+            }
+          >
+            <FontAwesomeIcon icon={faBoxesStacked} className='w-6 h-6' />
           </div>
-
-        }/>
+        }
+      />
     </>
   );
 }

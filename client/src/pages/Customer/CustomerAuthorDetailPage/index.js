@@ -11,7 +11,7 @@ const CustomerAuthorDetailPage = () => {
   const { id, } = useParams();
   const { author, } = useSelector((state) => state.author);
   const { products, } = useSelector((state) => state.product);
-  const { shop, } = useSelector(state => state.config);
+  const { shop, } = useSelector((state) => state.config);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -20,9 +20,11 @@ const CustomerAuthorDetailPage = () => {
   };
 
   const getProducts = (id) => {
-    dispatch(getProductsByAuthorRequestStart({
-      id,
-    }));
+    dispatch(
+      getProductsByAuthorRequestStart({
+        id,
+      })
+    );
   };
   const handleBack = () => {
     navigate(-1);
@@ -36,23 +38,25 @@ const CustomerAuthorDetailPage = () => {
   return (
     <>
       <div className={'flex flex-col gap-3 h-full'}>
-
-        <div className='left-0 justify-self-start  w-fit' onClick={handleBack} style={{
-          color: shop?.accentColor,
-        }}>
-          <FontAwesomeIcon className='left-0 inset-y-0' icon={faArrowLeft}/>
+        <div
+          className='left-0 justify-self-start  w-fit'
+          onClick={handleBack}
+          style={{
+            color: shop?.accentColor,
+          }}
+        >
+          <FontAwesomeIcon className='left-0 inset-y-0' icon={faArrowLeft} />
         </div>
         {author && (
           <div className={'h-fit px-4 py-2 bg-white rounded shadow-sm'}>
-            <AuthorDetail author={author}/>
+            <AuthorDetail author={author} />
           </div>
         )}
         {products.length > 0 && (
           <div>
-            <ProductList products={products}/>
+            <ProductList products={products} />
           </div>
         )}
-
       </div>
     </>
   );

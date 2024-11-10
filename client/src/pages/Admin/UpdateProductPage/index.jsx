@@ -10,7 +10,9 @@ import { faArrowLeft, } from '@fortawesome/free-solid-svg-icons';
 import { getPublishersByAdminRequestStart, } from '~/redux/publisher/slice';
 import { getTypesByAdminRequestStart, } from '~/redux/productType/slice';
 import { getAuthorsByAdminRequestStart, } from '~/redux/author/slice';
-import { deleteImageRequestStart, getProductRequestStart, updateProductRequestStart, } from '~/redux/product/slice';
+import { deleteImageRequestStart,
+  getProductRequestStart,
+  updateProductRequestStart, } from '~/redux/product/slice';
 import { QuiltedImageList, } from '~/components';
 import { formatDate, } from 'src/helpers';
 import { getAllFormatsRequestStart, } from '~/redux/format/slice';
@@ -41,32 +43,34 @@ const UpdateProductPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { shop, } = useSelector(state => state.config);
+  const { shop, } = useSelector((state) => state.config);
   const { publishers, } = useSelector((state) => state.publisher);
-  const { types, } = useSelector(state => state.type);
-  const { authors, } = useSelector(state => state.author);
-  const { formats, } = useSelector(state => state.format);
-  const { product, updateSuccess, } = useSelector(state => state.product);
+  const { types, } = useSelector((state) => state.type);
+  const { authors, } = useSelector((state) => state.author);
+  const { formats, } = useSelector((state) => state.format);
+  const { product, updateSuccess, } = useSelector((state) => state.product);
   // const { users, } = useSelector(state => state.user);
 
   const [limit,] = React.useState(100);
 
   const getProduct = () => {
-    dispatch(getProductRequestStart(
-      id
-    ));
+    dispatch(getProductRequestStart(id));
   };
 
   const getTypes = () => {
-    dispatch(getTypesByAdminRequestStart({
-      limit,
-    }));
+    dispatch(
+      getTypesByAdminRequestStart({
+        limit,
+      })
+    );
   };
 
   const getFormats = () => {
-    dispatch(getAllFormatsRequestStart({
-      limit: 1000,
-    }));
+    dispatch(
+      getAllFormatsRequestStart({
+        limit: 1000,
+      })
+    );
   };
 
   const getPublishers = () => {
@@ -83,7 +87,6 @@ const UpdateProductPage = () => {
         limit,
       })
     );
-
   };
 
   // const getUsers = () => {
@@ -93,10 +96,15 @@ const UpdateProductPage = () => {
   // };
 
   const handleRemovePhoto = (imageRemoved) => {
-    dispatch(deleteImageRequestStart({
-      id: product._id, imageId: imageRemoved?.img?.split('/')[4],
-    }));
-    setImages(prevImage => prevImage.filter(image => image !== imageRemoved.img.split('/')[4]));
+    dispatch(
+      deleteImageRequestStart({
+        id: product._id,
+        imageId: imageRemoved?.img?.split('/')[4],
+      })
+    );
+    setImages((prevImage) =>
+      prevImage.filter((image) => image !== imageRemoved.img.split('/')[4])
+    );
   };
 
   const handleAddImages = (images) => {
@@ -105,9 +113,12 @@ const UpdateProductPage = () => {
       images?.forEach((image) => {
         form.append('images', image.file);
       });
-    dispatch(updateProductRequestStart({
-      id: product._id, data: form,
-    }));
+    dispatch(
+      updateProductRequestStart({
+        id: product._id,
+        data: form,
+      })
+    );
   };
 
   React.useEffect(() => {
@@ -117,7 +128,6 @@ const UpdateProductPage = () => {
     getProduct();
     getFormats();
     // getUsers();
-
   }, []);
 
   React.useEffect(() => {
@@ -166,9 +176,12 @@ const UpdateProductPage = () => {
     if (description) formData.append('description', description);
     if (file) formData.append('file', file);
     formData.append('isEbook', isEbook);
-    dispatch(updateProductRequestStart({
-      id: id, data: formData,
-    }));
+    dispatch(
+      updateProductRequestStart({
+        id: id,
+        data: formData,
+      })
+    );
     navigate(adminRoutes.product);
   };
 
@@ -185,14 +198,19 @@ const UpdateProductPage = () => {
     <div className={'flex flex-col gap-3'}>
       <div className='grid grid-cols-3 gap-3'>
         <div className={'relative'}>
-          <div className='absolute inset-y-0 left-0 place-content-center' onClick={handleBack} style={{
-            color: shop?.accentColor,
-          }}>
-            <FontAwesomeIcon className='left-0 inset-y-0' icon={faArrowLeft}/>
+          <div
+            className='absolute inset-y-0 left-0 place-content-center'
+            onClick={handleBack}
+            style={{
+              color: shop?.accentColor,
+            }}
+          >
+            <FontAwesomeIcon className='left-0 inset-y-0' icon={faArrowLeft} />
           </div>
         </div>
         <div>
-          <div className={'place-content-center'}><h2>{translate('update-product')}</h2>
+          <div className={'place-content-center'}>
+            <h2>{translate('update-product')}</h2>
           </div>
         </div>
         <div></div>
@@ -395,7 +413,8 @@ const UpdateProductPage = () => {
             name='weight'
             type='number'
             inputProps={{
-              min: 0, step: 1,
+              min: 0,
+              step: 1,
             }}
             value={weight}
             onChange={(e) => setWeight(e.target.value)}
@@ -407,7 +426,8 @@ const UpdateProductPage = () => {
             name='pageNumber'
             type='number'
             inputProps={{
-              min: 1, step: 1,
+              min: 1,
+              step: 1,
             }}
             value={pageNumber}
             onChange={(e) => setPageNumber(e.target.value)}
@@ -419,7 +439,8 @@ const UpdateProductPage = () => {
             name='stockQuantity'
             type='number'
             inputProps={{
-              min: 0, step: 1,
+              min: 0,
+              step: 1,
             }}
             value={stockQuantity}
             onChange={(e) => setStockQuantity(e.target.value)}
@@ -431,7 +452,8 @@ const UpdateProductPage = () => {
             name='quantity'
             type='number'
             inputProps={{
-              min: 0, step: 1,
+              min: 0,
+              step: 1,
             }}
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
@@ -443,7 +465,8 @@ const UpdateProductPage = () => {
             name='cost'
             type='number'
             inputProps={{
-              min: 0, step: 1,
+              min: 0,
+              step: 1,
             }}
             value={cost}
             onChange={(e) => setCost(e.target.value)}
@@ -454,25 +477,27 @@ const UpdateProductPage = () => {
             name='price'
             type='number'
             inputProps={{
-              min: 0, step: 1,
+              min: 0,
+              step: 1,
             }}
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
-          <QuiltedImageList itemData={images?.map(value => (
-            {
+          <QuiltedImageList
+            itemData={images?.map((value) => ({
               img: `${process.env.REACT_APP_HOST_IP}/${value}`,
-            }
-          ))} actions={[
-            {
-              label: translate('remove-image'),
-              func: handleRemovePhoto,
-            },
-          ]} onAddImages={handleAddImages}/>
+            }))}
+            actions={[
+              {
+                label: translate('remove-image'),
+                func: handleRemovePhoto,
+              },
+            ]}
+            onAddImages={handleAddImages}
+          />
         </div>
 
         <div className='flex flex-col gap-3'>
-
           <input
             type='file'
             name='file'
@@ -480,19 +505,19 @@ const UpdateProductPage = () => {
             onChange={handleFileChange}
           />
         </div>
-
       </div>
 
       <div className='flex flex-row gap-2'>
-        <div className={'justify-center w-full flex gap-2'}><Button onClick={handleBack} variant='secondary'>
-          {translate('cancel')}
-        </Button>
-        <Button onClick={handleSubmit} variant='primary'>
-          {translate('update')}
-        </Button></div>
+        <div className={'justify-center w-full flex gap-2'}>
+          <Button onClick={handleBack} variant='secondary'>
+            {translate('cancel')}
+          </Button>
+          <Button onClick={handleSubmit} variant='primary'>
+            {translate('update')}
+          </Button>
+        </div>
       </div>
     </div>
-
   );
 };
 

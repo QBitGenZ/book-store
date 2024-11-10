@@ -48,7 +48,7 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(sagaMiddleware),
   devTools:
-        process.env.NODE_ENV !== 'production' ? composeWithDevTools() : undefined,
+    process.env.NODE_ENV !== 'production' ? composeWithDevTools() : undefined,
 });
 
 sagaMiddleware.run(rootSaga);

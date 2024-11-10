@@ -13,11 +13,11 @@ const ProductCard = ({ product, }) => {
   };
 
   return (
-    <div
-      className='relative flex w-full max-w-56 h-[320px] flex-col overflow-hidden bg-white hover:shadow-xl transition-shadow duration-200 rounded'>
-
-      <div className='relative mx-3 mt-3 flex justify-center overflow-hidden rounded-xl cursor-pointer'
-        onClick={handleNavigate}>
+    <div className='relative flex w-full max-w-56 h-[320px] flex-col overflow-hidden bg-white hover:shadow-xl transition-shadow duration-200 rounded'>
+      <div
+        className='relative mx-3 mt-3 flex justify-center overflow-hidden rounded-xl cursor-pointer'
+        onClick={handleNavigate}
+      >
         {product?.images?.length > 0 ? (
           <img
             src={`${process.env.REACT_APP_HOST_IP}/${product.images[0]}`}
@@ -34,8 +34,7 @@ const ProductCard = ({ product, }) => {
       </div>
       <div className='flex flex-col justify-start mt-2 mx-2 px-2 pb-2'>
         <div onClick={handleNavigate} className='cursor-pointer'>
-          <div
-            className='text-pretty text-start text-sm  truncate font-normal line-clamp-2'>
+          <div className='text-pretty text-start text-sm  truncate font-normal line-clamp-2'>
             {product?.name}
           </div>
         </div>
@@ -46,7 +45,6 @@ const ProductCard = ({ product, }) => {
         </div>
       </div>
     </div>
-
   );
 };
 

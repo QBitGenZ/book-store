@@ -10,6 +10,13 @@ exports.getAll = async (req, res) => {
         query.name = {$regex: req.query.search, $options: 'i'}
     }
 
+    if (req.query.minPrice && req.query.maxPrice) {
+        query.price = {
+            $gte: parseInt(req.query.minPrice, 10),
+            $lte: parseInt(req.query.maxPrice, 10)
+        };
+    }
+
     const defaultField = 'name';
     getAllDocuments(Book, query, defaultField, req, res);
 }
@@ -47,7 +54,7 @@ exports.createPBook = async (req, res) => {
             name,
             publisher,
             isEbook,
-            donor, 
+            donor,
             translator
         } = req.body;
 

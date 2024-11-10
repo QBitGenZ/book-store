@@ -28,7 +28,7 @@ function StatisticCard({ name, value, icon, color, }) {
       </div>
 
       {/* Content */}
-      <div className='relative z-10 flex items-center flex-col gap-4'>
+      <div className='relative z-10 flex items-center flex-col gap-3'>
         {icon}
         <div className='ml-2 flex flex-col gap-1'>
           <div className='text-sm'>{name}</div>
