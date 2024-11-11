@@ -5,8 +5,7 @@ import { getAuthorsRequestStart, } from '~/redux/author/slice';
 import { formatCurrency, translate, } from '~/helpers';
 
 const ProductNameCard = ({ product, }) => {
-
-  const { authors, } = useSelector(state => state.author);
+  const { authors, } = useSelector((state) => state.author);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -15,20 +14,16 @@ const ProductNameCard = ({ product, }) => {
 
   return (
     <div className='p-6 rounded max-w-full h-auto bg-white shadow-sm flex flex-col gap-2'>
-
-      <div className='text-left text-2xl font-medium'>
-        {product?.name}
-      </div>
+      <div className='text-left text-2xl font-medium'>{product?.name}</div>
 
       <div className='text-left text-sm text-gray-500'>
-        {translate('author')} : {authors.find((author) => author._id === product?.author)?.fullname}
+        {translate('author')} :{' '}
+        {authors.find((author) => author._id === product?.author)?.fullname}
       </div>
 
       <div className={'flex flex-row justify-start gap-2 '}>
-        <div>
-          {translate('remaining-quantity')}
-        </div>
-        <div className={'text-red-500'}>{product?.quantity}</div>
+        <div>{translate('remaining-quantity')}</div>
+        <div className={'text-red-500'}>{product?.stockQuantity}</div>
       </div>
 
       <div>
@@ -36,7 +31,6 @@ const ProductNameCard = ({ product, }) => {
           {formatCurrency(product?.price)}
         </span>
       </div>
-
     </div>
   );
 };

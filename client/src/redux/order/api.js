@@ -6,7 +6,7 @@ export const getAllRequestApi = (query) => {
     queryParams: query,
     options: {
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     },
   });
@@ -18,7 +18,7 @@ export const getAllByAdminRequestApi = (query) => {
     queryParams: query,
     options: {
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     },
   });
@@ -29,7 +29,7 @@ export const createOneRequestApi = (data) => {
     url: 'orders',
     options: {
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       },
       method: 'POST',
@@ -43,7 +43,7 @@ export const updateOneRequestApi = (id, data) => {
     url: `orders/admin/${id}`,
     options: {
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       },
       method: 'PUT',

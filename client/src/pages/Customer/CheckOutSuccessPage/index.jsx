@@ -11,14 +11,19 @@ const checkOutSuccessPage = () => {
     nav(clientRoutes.home);
   };
   return (
-    <div className={'rounded shadow-sm bg-white w-full flex flex-col items-center p-16'}>
+    <div
+      className={
+        'rounded shadow-sm bg-white w-full flex flex-col items-center p-16'
+      }
+    >
       <div className={'text-green-600 mb-4'}>
-        <FontAwesomeIcon icon={faCircleCheck} className={'h-32'}/>
+        <FontAwesomeIcon icon={faCircleCheck} className={'h-32'} />
       </div>
       <p>{translate('Đơn hàng của bạn đã đặt thành công.')}</p>
       <button
         className='w-fit py-2 px-4 rounded shadow-md bg-red-600 text-white font-semibold mt-4'
-        onClick={goToHome}>
+        onClick={goToHome}
+      >
         {translate('Về Trang chủ')}
       </button>
     </div>

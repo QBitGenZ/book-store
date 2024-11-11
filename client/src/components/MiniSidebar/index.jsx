@@ -14,9 +14,9 @@ const MiniSidebar = ({ items, onTabChange, activeTab, }) => {
               onClick={() => onTabChange(item.value)}
             >
               {item.label}
-            
+
             </li>
-            <Divider component='li' />
+            <Divider component='li'/>
           </>
         ))}
       </ul>

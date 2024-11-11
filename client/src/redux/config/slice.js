@@ -10,7 +10,7 @@ const configSlice = createSlice({
   name: 'config',
   initialState,
   reducers: {
-    getShopRequestStart: state => {
+    getShopRequestStart: (state) => {
       state.loading = true;
       state.error = null;
     },
@@ -22,7 +22,7 @@ const configSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    updateShopRequestStart: state => {
+    updateShopRequestStart: (state) => {
       state.loading = true;
       state.error = null;
     },
@@ -34,7 +34,7 @@ const configSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    deletePhotoRequestStart: state => {
+    deletePhotoRequestStart: (state) => {
       state.loading = true;
       state.error = null;
     },
@@ -49,6 +49,16 @@ const configSlice = createSlice({
   },
 });
 
-export const { deletePhotoRequestFailure, deletePhotoRequestStart, deletePhotoRequestSuccess, getShopRequestFailure, getShopRequestStart, getShopRequestSuccess, updateShopRequestFailure, updateShopRequestStart, updateShopRequestSuccess, } = configSlice.actions;
+export const {
+  deletePhotoRequestFailure,
+  deletePhotoRequestStart,
+  deletePhotoRequestSuccess,
+  getShopRequestFailure,
+  getShopRequestStart,
+  getShopRequestSuccess,
+  updateShopRequestFailure,
+  updateShopRequestStart,
+  updateShopRequestSuccess,
+} = configSlice.actions;
 
 export default configSlice.reducer;

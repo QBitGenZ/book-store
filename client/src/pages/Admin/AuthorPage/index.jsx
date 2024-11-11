@@ -10,11 +10,14 @@ import CreateAuthorModal from './components/CreateAuthorModal';
 import UpdateAuthorModal from './components/UpdateAuthorModal';
 import { Button, } from '@mui/material';
 import { formatDate, } from 'src/helpers';
+import { adminRoutes, } from '~/configs/routes';
+import { useNavigate, } from 'react-router-dom';
 
 const AuthorPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { authors, meta, author, updateSuccess, deleteSuccess, createSuccess, } =
-        useSelector((state) => state.author);
+    useSelector((state) => state.author);
 
   const [orderBy, setOrderBy,] = React.useState('');
   const [descending, setDescending,] = React.useState(true);
@@ -25,9 +28,12 @@ const AuthorPage = () => {
   const [showCreate, setShowCreate,] = React.useState(false);
   const [showUpdate, setShowUpdate,] = React.useState(false);
   const [showConfirm, setShowConfirm,] = React.useState(false);
-  const [confirmAction, setConfirmAction,] = React.useState(() => () => {
-  });
+  const [confirmAction, setConfirmAction,] = React.useState(() => () => {});
   const [confirmMessage, setConfirmMessage,] = React.useState('');
+
+  const handleDetail = (value) => {
+    navigate(adminRoutes.authorDetail.replace(':id', value._id));
+  };
 
   const getAuthors = () => {
     dispatch(
@@ -41,9 +47,7 @@ const AuthorPage = () => {
   };
 
   React.useEffect(() => {
-    if (!authors || authors.length === 0 || authors.length !== limit) {
-      getAuthors();
-    }
+    getAuthors();
   }, [
     orderBy,
     descending,
@@ -155,6 +159,10 @@ const AuthorPage = () => {
             </div>
             <DataTable
               actions={[
+                {
+                  label: translate('detail'),
+                  handler: handleDetail,
+                },
                 {
                   label: translate('update'),
                   handler: handleUpdate,

@@ -22,7 +22,7 @@ const CustomSnackbar = () => {
       onClose={handleClose}
     >
       <Alert onClose={handleClose} severity={snackbar.severity} sx={{
-        width: '100%', 
+        width: '100%',
       }}>
         {snackbar.message}
       </Alert>

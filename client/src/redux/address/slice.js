@@ -86,7 +86,6 @@ const addressSlice = createSlice({
       state.updateSuccess = false;
       state.deleteSuccess = false;
     },
-
   },
 });
 

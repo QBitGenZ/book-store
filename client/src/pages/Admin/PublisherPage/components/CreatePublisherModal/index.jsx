@@ -93,7 +93,7 @@ function CreatePublisherModal({ show, setShow, createPublisher, }) {
               />
             </div>
           </div>
-          <DropImagesInput files={logos} setFiles={setLogos} multiple={false}/>
+          <DropImagesInput files={logos} setFiles={setLogos} multiple={false} />
         </div>
       </BModal.Body>
       <BModal.Footer>

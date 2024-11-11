@@ -392,7 +392,13 @@ const DataTable = ({ data, columns, onSort, actions, keyField, }) => {
         />
       </TableCell>
       {columns?.map((column) => (
-        <TableCell key={column.field} align={column.numeric ? 'right' : 'left'}>
+        <TableCell
+          key={column.field}
+          align={column.numeric ? 'right' : 'left'}
+          sx={{
+            wordWrap: 'break-word', maxWidth: 150,
+          }}
+        >
           {Array.isArray(row[column.field]) ? (
             <IconButton>
               <MoreVertIcon/>
@@ -507,7 +513,9 @@ const DataTable = ({ data, columns, onSort, actions, keyField, }) => {
           overflowY: 'auto',
         }}
       >
-        <TableContainer>
+        <TableContainer sx={{
+          maxWidth: '100%',
+        }}>
           <Table
             sx={{
               minWidth: 750,

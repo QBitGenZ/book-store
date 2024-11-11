@@ -25,7 +25,12 @@ function CreateEventModal({ show, setShow, createEvent, }) {
   };
 
   return (
-    <BModal aria-labelledby='contained-modal-title-vcenter' centered show={show} onHide={handleClose}>
+    <BModal
+      aria-labelledby='contained-modal-title-vcenter'
+      centered
+      show={show}
+      onHide={handleClose}
+    >
       <BModal.Header closeButton>
         <BModal.Title>{translate('create-event-label')}</BModal.Title>
       </BModal.Header>
@@ -34,21 +39,10 @@ function CreateEventModal({ show, setShow, createEvent, }) {
           <TextField
             className='w-full'
             required
-            id='outlined-required'
             label={translate('event-title-label')}
             size='small'
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-          />
-          <TextField
-            className='w-full'
-            id='outlined-multiline-flexible'
-            label={translate('description-label')}
-            multiline
-            maxRows={4}
-            size='small'
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
           />
         </div>
         {/* <div className='flex justify-between gap-3'>*/}
@@ -66,7 +60,7 @@ function CreateEventModal({ show, setShow, createEvent, }) {
         {/*  />*/}
         {/* </div>*/}
         {/* <DropImagesInput files={images} setFiles={setImages} multiple={false}/>*/}
-        <div className='flex justify-between gap-3'>
+        <div className='flex justify-between gap-3 mb-3'>
           <TextField
             className='w-full'
             id='birthday-required'
@@ -90,6 +84,17 @@ function CreateEventModal({ show, setShow, createEvent, }) {
             }}
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
+          />
+        </div>
+        <div className='flex justify-between gap-3'>
+          <TextField
+            className='w-full'
+            label={translate('description-label')}
+            size='small'
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            multiline
+            rows={5}
           />
         </div>
       </BModal.Body>

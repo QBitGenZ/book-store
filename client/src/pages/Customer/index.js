@@ -9,6 +9,10 @@ import SearchResultPage from './SearchResultPage';
 import OrderHistoryPage from './OrderHistoryPage';
 import CheckOutSuccessPage from '~/pages/Customer/CheckOutSuccessPage';
 import UserInfoPage from './UserInfoPage';
+import CustomerEventPage from './CustomerEventPage';
+import CustomerAuthorDetailPage from './CustomerAuthorDetailPage';
+import BookPage from './BookPage';
+import ShareBookPage from './ShareBookPage';
 
 export {
   LoginPage,
@@ -22,4 +26,8 @@ export {
   OrderHistoryPage,
   CheckOutSuccessPage,
   UserInfoPage,
+  CustomerEventPage,
+  CustomerAuthorDetailPage,
+  BookPage,
+  ShareBookPage,
 };

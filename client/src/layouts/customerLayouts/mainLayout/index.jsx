@@ -14,22 +14,21 @@ const CustomerMainLayout = ({ children, }) => {
     dispatch(getInfoRequestStart());
   }, [dispatch,]);
   const render = () => {
-    if (loading) return <LoadingPage/>;
+    if (loading) return <LoadingPage />;
 
-    if (!user) return <Navigate to={authRoutes.login}/>;
+    if (!user) return <Navigate to={authRoutes.login} />;
 
     return (
       <div>
-        <main className='flex  bg-slate-50 h-screen overflow-y-auto'>
+        <main className='flex  bg-[#F5F8FA] h-screen overflow-y-auto'>
           <div className='flex flex-col flex-grow '>
-            <CustomerHeader/>
+            <CustomerHeader />
             <div className='flex-grow p-6 sm:mx-8 md:mx-8 lg:mx-12 xl:mx-28'>
               {children}
             </div>
           </div>
         </main>
       </div>
-
     );
   };
 

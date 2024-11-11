@@ -115,7 +115,7 @@ function UpdatePublisherModal({ publisher, show, setShow, updatePublisher, }) {
               />
             </div>
           </div>
-          <DropImagesInput files={logos} setFiles={setLogos} multiple={false}/>
+          <DropImagesInput files={logos} setFiles={setLogos} multiple={false} />
         </div>
       </BModal.Body>
       <BModal.Footer>

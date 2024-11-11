@@ -12,7 +12,8 @@ import { Button, } from '@mui/material';
 
 const ProductTypePage = () => {
   const dispatch = useDispatch();
-  const { types, meta, type, updateSucess, deleteSuccess, createSuccess, } = useSelector(state => state.type);
+  const { types, meta, type, updateSucess, deleteSuccess, createSuccess, } =
+    useSelector((state) => state.type);
 
   const [orderBy, setOrderBy,] = React.useState('');
   const [descending, setDescending,] = React.useState(true);
@@ -23,37 +24,48 @@ const ProductTypePage = () => {
   const [showCreate, setShowCreate,] = React.useState(false);
   const [showUpdate, setShowUpdate,] = React.useState(false);
   const [showConfirm, setShowConfirm,] = React.useState(false);
-  const [confirmAction, setConfirmAction,] = React.useState(() => () => {
-  });
+  const [confirmAction, setConfirmAction,] = React.useState(() => () => {});
   const [confirmMessage, setConfirmMessage,] = React.useState('');
 
   const getTypes = () => {
-    dispatch(getTypesByAdminRequestStart({
-      orderBy,
-      page,
-      limit,
-      descending,
-    }));
+    dispatch(
+      getTypesByAdminRequestStart({
+        orderBy,
+        page,
+        limit,
+        descending,
+      })
+    );
   };
 
   React.useEffect(() => {
-    if (!types || types.length === 0 || types.length !== limit) {
-      getTypes();
-    }
-
-  }, [orderBy, descending, page, limit, dispatch, type, selectedObj, updateSucess, deleteSuccess, createSuccess,]);
+    getTypes();
+  }, [
+    orderBy,
+    descending,
+    page,
+    limit,
+    dispatch,
+    type,
+    selectedObj,
+    updateSucess,
+    deleteSuccess,
+    createSuccess,
+  ]);
 
   const updateProductType = (id, productType) => {
     const formData = new FormData();
     formData.append('name', productType?.name);
     if (productType?.description)
       formData.append('description', productType?.description);
-    if (productType?.image)
-      formData.append('image', productType?.image?.file);
+    if (productType?.image) formData.append('image', productType?.image?.file);
 
-    dispatch(updateTypeByAdminRequestStart({
-      id: id, data: formData,
-    }));
+    dispatch(
+      updateTypeByAdminRequestStart({
+        id: id,
+        data: formData,
+      })
+    );
   };
 
   const handleUpdate = (value) => {
@@ -68,10 +80,8 @@ const ProductTypePage = () => {
   const createProductTypes = ({ name, description, image, }) => {
     const formData = new FormData();
     formData.append('name', name);
-    if (description)
-      formData.append('description', description);
-    if (image)
-      formData.append('image', image.file);
+    if (description) formData.append('description', description);
+    if (image) formData.append('image', image.file);
 
     dispatch(createTypeByAdminRequestStart(formData));
 
@@ -107,16 +117,27 @@ const ProductTypePage = () => {
         title='Xác nhận'
         show={showConfirm}
       />
-      <CreateModal setShow={setShowCreate} show={showCreate} createProductType={createProductTypes}/>
-      <UpdateModal setShow={setShowUpdate} show={showUpdate} updateProductType={confirmUpdateProductType}
-        productType={selectedObj}/>
+      <CreateModal
+        setShow={setShowCreate}
+        show={showCreate}
+        createProductType={createProductTypes}
+      />
+      <UpdateModal
+        setShow={setShowUpdate}
+        show={showUpdate}
+        updateProductType={confirmUpdateProductType}
+        productType={selectedObj}
+      />
       <div className='flex flex-col'>
-        <div className='leading-10 text-left py-2 mb-3 bg-gray-50 text-2xl'>{translate('product-type')}</div>
+        <div className='leading-10 text-left py-2 mb-3 bg-gray-50 text-2xl'>
+          {translate('product-type')}
+        </div>
         <div className='flex flex-row w-full justify-between gap-3'>
           <div className='rounded-xl p-3 bg-white w-full'>
             <div className='text-right mb-3'>
-              <Button onClick={() => setShowCreate(true)}
-                variant='contained'>{translate('create')}</Button>
+              <Button onClick={() => setShowCreate(true)} variant='contained'>
+                {translate('create')}
+              </Button>
             </div>
             <DataTable
               actions={[
@@ -150,25 +171,38 @@ const ProductTypePage = () => {
                   enableSort: false,
                   label: translate('description'),
                 },
-              ]} data={types?.map(item => ({
+              ]}
+              data={types?.map((item) => ({
                 ...item,
-                'id': item._id,
-                'displayImage': item?.image ? <img className='h-20 inline-block'
-                  src={`${process.env.REACT_APP_HOST_IP}/${item?.image}`}
-                  alt={item?.name}/> : '',
-              }))} keyField='_id' onSort={(f, des) => {
+                id: item._id,
+                displayImage: item?.image ? (
+                  <img
+                    className='h-20 inline-block'
+                    src={`${process.env.REACT_APP_HOST_IP}/${item?.image}`}
+                    alt={item?.name}
+                  />
+                ) : (
+                  ''
+                ),
+              }))}
+              keyField='_id'
+              onSort={(f, des) => {
                 setOrderBy(f);
                 setDescending(des == 'desc');
-              }}/>
+              }}
+            />
 
-            <Pagination count={meta?.totalPage} page={page} rowsPerPage={limit} setPage={setPage}
-              setRowsPerPage={setLimit}/>
+            <Pagination
+              count={meta?.totalPage}
+              page={page}
+              rowsPerPage={limit}
+              setPage={setPage}
+              setRowsPerPage={setLimit}
+            />
           </div>
-
         </div>
       </div>
     </>
-
   );
 
   return render();

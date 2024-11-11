@@ -17,22 +17,21 @@ const AdminMainLayout = ({ children, }) => {
   }, []);
 
   const render = () => {
-    if (loading) return <LoadingPage />;
+    if (loading) return <LoadingPage/>;
 
-    if (!user?.isAdmin) return <Navigate to={authRoutes.adminLogin} />;
+    if (!user?.isAdmin) return <Navigate to={authRoutes.adminLogin}/>;
 
     return (
       <div>
         <main className='flex bg-gray-50 h-screen overflow-hidden'>
-          <Sidebar className='bg-white'/>
-            
-          <div className='flex flex-col flex-grow ' >
+          <Sidebar className='bg-white shrink-0'/>
+
+          <div className='flex flex-col w-full '>
             <AdminHeader/>
-            <div className=' overflow-y-auto  p-3'>
+            <div className='overflow-y-auto  p-3'>
               {children}
             </div>
           </div>
-          
         </main>
       </div>
     );

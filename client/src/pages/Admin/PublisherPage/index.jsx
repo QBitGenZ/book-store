@@ -31,8 +31,7 @@ const PublisherPage = () => {
   const [showCreate, setShowCreate,] = React.useState(false);
   const [showUpdate, setShowUpdate,] = React.useState(false);
   const [showConfirm, setShowConfirm,] = React.useState(false);
-  const [confirmAction, setConfirmAction,] = React.useState(() => () => {
-  });
+  const [confirmAction, setConfirmAction,] = React.useState(() => () => {});
   const [confirmMessage, setConfirmMessage,] = React.useState('');
 
   const getPublishers = () => {
@@ -104,8 +103,7 @@ const PublisherPage = () => {
     if (website) formData.append('website', website);
     if (email) formData.append('email', email);
     if (phone) formData.append('phone', phone);
-    if (establishedDate)
-      formData.append('establishedDate', establishedDate);
+    if (establishedDate) formData.append('establishedDate', establishedDate);
     if (logo) {
       formData.append('logo', logo.file);
     }
@@ -160,7 +158,7 @@ const PublisherPage = () => {
           {translate('publisher')}
         </div>
         <div className='flex flex-row w-full justify-between gap-3'>
-          <div className='rounded-xl p-3 bg-white w-full'>
+          <div className='rounded-xl p-3 bg-white w-fit'>
             <div className='text-right mb-3'>
               <Button onClick={() => setShowCreate(true)} variant='contained'>
                 {translate('create')}

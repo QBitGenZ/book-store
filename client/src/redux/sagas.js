@@ -14,6 +14,8 @@ import cartSage from './cart/saga';
 import orderSaga from './order/saga';
 import addressSaga from './address/saga';
 import eventSaga from './event/saga';
+import formatSaga from './format/saga';
+import statisticsSaga from './statistic/saga';
 
 export default function* rootSaga() {
   yield all([
@@ -32,5 +34,7 @@ export default function* rootSaga() {
     orderSaga(),
     addressSaga(),
     eventSaga(),
+    formatSaga(),
+    statisticsSaga(),
   ]);
 }

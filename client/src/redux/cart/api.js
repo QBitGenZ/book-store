@@ -6,7 +6,7 @@ export const getAllRequestApi = (query) => {
     queryParams: query,
     options: {
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     },
   });
@@ -17,7 +17,7 @@ export const createOneAPi = (data) => {
     url: 'carts',
     options: {
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
         'Content-type': 'application/json',
       },
       method: 'POST',
@@ -26,36 +26,39 @@ export const createOneAPi = (data) => {
   });
 };
 
-export const updateOneApi = (data) => apiFetch({
-  url: 'carts',
-  options: {
-    headers: {
-      'Authorization': `Bearer ${localStorage.getItem('token')}`,
-      'Content-type': 'application/json',
+export const updateOneApi = (data) =>
+  apiFetch({
+    url: 'carts',
+    options: {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Content-type': 'application/json',
+      },
+      method: 'PUT',
+      body: data,
     },
-    method: 'PUT',
-    body: data,
-  },
-});
+  });
 
-export const deleteOneApi = (data) => apiFetch({
-  url: 'carts',
-  options: {
-    headers: {
-      'Authorization': `Bearer ${localStorage.getItem('token')}`,
-      'Content-type': 'application/json',
+export const deleteOneApi = (data) =>
+  apiFetch({
+    url: 'carts',
+    options: {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Content-type': 'application/json',
+      },
+      method: 'DELETE',
+      body: data,
     },
-    method: 'DELETE',
-    body: data,
-  },
-});
+  });
 
-export const deleteAllApi = () => apiFetch({
-  url: 'carts/all',
-  options: {
-    headers: {
-      'Authorization': `Bearer ${localStorage.getItem('token')}`,
+export const deleteAllApi = () =>
+  apiFetch({
+    url: 'carts/all',
+    options: {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+      method: 'DELETE',
     },
-    method: 'DELETE',
-  },
-});
+  });

@@ -6,7 +6,7 @@ const ProductDescription = ({ title, data, }) => {
 
   return (
     <>
-      <div className={'flex flex-col gap-4'}>
+      <div className={'flex flex-col gap-3'}>
         {data && (
           <div className='p-6 rounded max-w-full h-auto bg-white shadow-sm'>
             <h2 className='text-base font-semibold mb-4 text-left'>{title ? translate(title) : translate('product-description')}</h2>

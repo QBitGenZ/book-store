@@ -5,7 +5,9 @@ import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight, } from '@fortawesome/free-solid-svg-icons';
 
 const ProductImage = ({ product, }) => {
-  const [selectedImage, setSelectedImage,] = useState(product?.images[0] || null);
+  const [selectedImage, setSelectedImage,] = useState(
+    product?.images[0] || null
+  );
   const { shop, } = useSelector((state) => state.config);
 
   const [startIndex, setStartIndex,] = useState(0);
@@ -33,7 +35,11 @@ const ProductImage = ({ product, }) => {
   }, [product,]);
 
   return (
-    <div className={'flex flex-col gap-3 w-max bg-white p-4 m-auto rounded shadow-sm sticky top-0'}>
+    <div
+      className={
+        'flex flex-col gap-3 w-max bg-white p-4 m-auto rounded shadow-sm sticky top-0'
+      }
+    >
       <div className='bg-white border rounded-lg p-1'>
         {product?.images.length > 0 ? (
           <img
@@ -66,11 +72,14 @@ const ProductImage = ({ product, }) => {
             src={`${process.env.REACT_APP_HOST_IP}/${image}`}
             alt={`Thumbnail ${index + 1}`}
             className={`size-14 p-0.5 object-contain cursor-pointer rounded ${image === selectedImage ? 'border-2' : 'border'}`}
-            style={image === selectedImage ? {
-              borderColor: shop?.accentColor,
-            } : {
-            }}
-
+            style={
+              image === selectedImage
+                ? {
+                  borderColor: shop?.accentColor,
+                }
+                : {
+                }
+            }
             onClick={() => handleProductChange(image)}
           />
         ))}

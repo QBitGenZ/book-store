@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const ProductDescription = ({ title, data, }) => {
-
   // const toKebabCase = (str) => {
   //   return str
   //     .replace(/([a-z])([A-Z])/g, '$1-$2')
@@ -12,7 +11,7 @@ const ProductDescription = ({ title, data, }) => {
   // };
   return (
     <>
-      <div className={'flex flex-col gap-4'}>
+      <div className={'flex flex-col gap-3'}>
         {data && (
           <div className='p-6 rounded max-w-full h-auto bg-white shadow-sm'>
             <h2 className='text-xl font-bold mb-4 text-left'>{title}</h2>
@@ -21,12 +20,11 @@ const ProductDescription = ({ title, data, }) => {
                 {data.split('\n').map((line, index) => (
                   <span key={index}>
                     {line}
-                    <br/>
+                    <br />
                   </span>
                 ))}
               </p>
             </div>
-
           </div>
         )}
       </div>

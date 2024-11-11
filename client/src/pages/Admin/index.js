@@ -17,7 +17,10 @@ import ResetPasswordPage from './ResetPasswordPage';
 import ProductDetailPage from './ProductDetailPage';
 import CreateProductPage from './CreateProductPage';
 import UpdateProductPage from './UpdateProductPage';
-import DetailOrderPage from '~/pages/Admin/DetailOrderPage';
+import DetailOrderPage from './DetailOrderPage';
+import UserPage from './UserPage';
+import AuthorDetailPage from './AuthorDetailPage';
+import EBookPage from './EBookPage';
 
 export {
   LoginAdminPage,
@@ -40,4 +43,7 @@ export {
   CreateProductPage,
   UpdateProductPage,
   DetailOrderPage,
+  UserPage,
+  AuthorDetailPage,
+  EBookPage,
 };

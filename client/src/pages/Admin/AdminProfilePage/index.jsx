@@ -9,10 +9,12 @@ const AdminProfilePage = () => {
 
   const items = [
     {
-      label: translate('account'), value: 'account', 
+      label: translate('account'),
+      value: 'account',
     },
     {
-      label: translate('password'), value: 'password', 
+      label: translate('password'),
+      value: 'password',
     },
   ];
 
@@ -29,12 +31,16 @@ const AdminProfilePage = () => {
 
   return (
     <div className='flex flex-col'>
-      <div className='leading-10 text-left py-2 mb-3 bg-gray-50 text-2xl'>{translate('profile')}</div>
+      <div className='leading-10 text-left py-2 mb-3 bg-gray-50 text-2xl'>
+        {translate('profile')}
+      </div>
       <div className='flex flex-row gap-3 justify-between'>
-        <MiniSidebar items={items} onTabChange={setActiveTab} activeTab={activeTab} />
-        <div className='w-full'>
-          {renderContent()}
-        </div>
+        <MiniSidebar
+          items={items}
+          onTabChange={setActiveTab}
+          activeTab={activeTab}
+        />
+        <div className='w-full'>{renderContent()}</div>
       </div>
     </div>
   );

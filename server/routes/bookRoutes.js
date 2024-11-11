@@ -27,6 +27,7 @@ router.put('/admin/:id', isAuthorization, isAdmin, uploadFields([
         maxCount: 1
     }
 ]), controller.updatePBook)
+
 router.delete('/admin/:id', isAuthorization, isAdmin, controller.deleteOne)
 router.delete('/admin/:id/images/:image', isAuthorization, isAdmin, controller.deleteImage)
 router.get('/:id', controller.getOne)

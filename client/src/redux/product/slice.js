@@ -81,7 +81,7 @@ const productSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    deleteImageRequestStart: state => {
+    deleteImageRequestStart: (state) => {
       state.loading = true;
       state.error = null;
     },
@@ -103,6 +103,20 @@ const productSlice = createSlice({
       state.meta = action.payload.meta;
     },
     getProductsByTypeRequestFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+
+    getProductsByAuthorRequestStart: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    getProductsByAuthorRequestSuccess: (state, action) => {
+      state.loading = false;
+      state.products = action.payload.data;
+      state.meta = action.payload.meta;
+    },
+    getProductsByAuthorRequestFailure: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
@@ -131,6 +145,9 @@ export const {
   getProductsByTypeRequestStart,
   getProductsByTypeRequestSuccess,
   getProductsByTypeRequestFailure,
+  getProductsByAuthorRequestStart,
+  getProductsByAuthorRequestSuccess,
+  getProductsByAuthorRequestFailure,
 } = productSlice.actions;
 
 export default productSlice.reducer;

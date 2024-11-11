@@ -12,24 +12,29 @@ const Description = ({ shop, }) => {
 
   const handleSaveDescription = () => {
     const form = new FormData();
-    if(content != shop?.description)
-      form.append('description', content);
+    if (content != shop?.description) form.append('description', content);
     dispatch(updateShopRequestStart(form));
   };
 
-  return ( <div className='flex flex-col gap-3'>
-    <div className='rounded-xl p-3 bg-white w-full'>
-      <div className='text-left text-gray-500 font-bold mb-10'>{translate('description')}</div>
-      <div className='flex justify-between'>
-        <div className='w-full max-w-full'>
-          <RichTextEditor content={content} setContent={setContent}/>
+  return (
+    <div className='flex flex-col gap-3'>
+      <div className='rounded-xl p-3 bg-white w-full'>
+        <div className='text-left text-gray-500 font-bold mb-10'>
+          {translate('description')}
+        </div>
+        <div className='flex justify-between'>
+          <div className='w-full max-w-full'>
+            <RichTextEditor content={content} setContent={setContent} />
+          </div>
+        </div>
+        <div className='text-left mt-4'>
+          <Button onClick={handleSaveDescription} variant='contained'>
+            {translate('save')}
+          </Button>
         </div>
       </div>
-      <div className='text-left mt-4'>
-        <Button onClick={handleSaveDescription} variant='contained'>{translate('save')}</Button>
-      </div>
-    </div>    
-  </div>);
+    </div>
+  );
 };
 
 Description.propTypes = {

@@ -1,7 +1,29 @@
 const { put, takeLatest, call, } = require('redux-saga/effects');
 const { showSnackbar, } = require('../snackbar/slice');
-const { getDeliveryStatusesRequestSuccess, getDeliveryStatusesRequestFailure, getDeliveryStatusRequestSuccess, getDeliveryStatusRequestFailure, createDeliveryStatusRequestFailure, createDeliveryStatusRequestSuccess, updateDeliveryStatusRequestSuccess, updateDeliveryStatusRequestFailure, deleteDeliveryStatusRequestSuccess, deleteDeliveryStatusRequestFailure, getDeliveryStatusesRequestStart, getDeliveryStatusRequestStart, createDeliveryStatusRequestStart, updateDeliveryStatusRequestStart, deleteDeliveryStatusRequestStart, } = require('./slice');
-const { getAllRequestApi, getOneRequestApi, createOneRequestApi, updateOneRequestApi, deleteOneRequestApi, } = require('./api');
+const {
+  getDeliveryStatusesRequestSuccess,
+  getDeliveryStatusesRequestFailure,
+  getDeliveryStatusRequestSuccess,
+  getDeliveryStatusRequestFailure,
+  createDeliveryStatusRequestFailure,
+  createDeliveryStatusRequestSuccess,
+  updateDeliveryStatusRequestSuccess,
+  updateDeliveryStatusRequestFailure,
+  deleteDeliveryStatusRequestSuccess,
+  deleteDeliveryStatusRequestFailure,
+  getDeliveryStatusesRequestStart,
+  getDeliveryStatusRequestStart,
+  createDeliveryStatusRequestStart,
+  updateDeliveryStatusRequestStart,
+  deleteDeliveryStatusRequestStart,
+} = require('./slice');
+const {
+  getAllRequestApi,
+  getOneRequestApi,
+  createOneRequestApi,
+  updateOneRequestApi,
+  deleteOneRequestApi,
+} = require('./api');
 
 function* handleGetDeliveryStatusesRequest(action) {
   try {
@@ -122,9 +144,24 @@ function* handleDeleteDeliveryStatusRequest(action) {
 }
 
 export default function* watchDeliveryStatusActions() {
-  yield takeLatest(getDeliveryStatusesRequestStart.type, handleGetDeliveryStatusesRequest);
-  yield takeLatest(getDeliveryStatusRequestStart.type, handleGetDeliveryStatusRequest);
-  yield takeLatest(createDeliveryStatusRequestStart.type, handleCreateDeliveryStatusRequest);
-  yield takeLatest(updateDeliveryStatusRequestStart.type, handleUpdateDeliveryStatusRequest);
-  yield takeLatest(deleteDeliveryStatusRequestStart.type, handleDeleteDeliveryStatusRequest);
+  yield takeLatest(
+    getDeliveryStatusesRequestStart.type,
+    handleGetDeliveryStatusesRequest
+  );
+  yield takeLatest(
+    getDeliveryStatusRequestStart.type,
+    handleGetDeliveryStatusRequest
+  );
+  yield takeLatest(
+    createDeliveryStatusRequestStart.type,
+    handleCreateDeliveryStatusRequest
+  );
+  yield takeLatest(
+    updateDeliveryStatusRequestStart.type,
+    handleUpdateDeliveryStatusRequest
+  );
+  yield takeLatest(
+    deleteDeliveryStatusRequestStart.type,
+    handleDeleteDeliveryStatusRequest
+  );
 }

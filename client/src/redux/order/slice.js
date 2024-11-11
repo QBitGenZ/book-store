@@ -23,7 +23,6 @@ const orderSlice = createSlice({
       state.loading = false;
       state.orders = action.payload.data;
       state.meta = action.payload.meta;
-
     },
     getAllOrderRequestFailure: (state, action) => {
       state.loading = false;
@@ -36,6 +35,7 @@ const orderSlice = createSlice({
     getAllByAdminRequestSuccess: (state, action) => {
       state.loading = false;
       state.orders = action.payload.data;
+      state.meta = action.payload.meta;
     },
     getAllByAdminRequestFailure: (state, action) => {
       state.loading = false;
@@ -69,6 +69,11 @@ const orderSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    resetOrderRequest: (state) => {
+      state.loading = false;
+      state.error = null;
+      state.order = null;
+    },
   },
 });
 
@@ -85,6 +90,7 @@ export const {
   updateOrderRequestStart,
   updateOrderRequestSuccess,
   updateOrderRequestFailure,
+  resetOrderRequest,
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

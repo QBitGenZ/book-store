@@ -3,22 +3,23 @@ import { useDispatch, useSelector, } from 'react-redux';
 import { useNavigate, } from 'react-router-dom';
 import { ConfirmationModal, DataTable, Pagination, } from '~/components';
 import { formatCurrency, translate, } from '~/helpers';
-import { deleteProductRequestStart, getProductsRequestStart, } from '~/redux/product/slice';
+import { deleteProductRequestStart,
+  getProductsRequestStart, } from '~/redux/product/slice';
 
 import { Button, } from '@mui/material';
 import { adminRoutes, } from '~/configs/routes';
 import { getPublishersByAdminRequestStart, } from '~/redux/publisher/slice';
 import { getAuthorsByAdminRequestStart, } from '~/redux/author/slice';
 import { formatDate, } from 'src/helpers';
-import { getUserAllRequestStart, } from '~/redux/user/slice';
 
 const ProductPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { products, meta, updateSuccess, deleteSuccess, createSuccess, } = useSelector((state) => state.product);
-  const { authors, } = useSelector(state => state.author);
+  const { products, meta, updateSuccess, deleteSuccess, createSuccess, } =
+    useSelector((state) => state.product);
+  const { authors, } = useSelector((state) => state.author);
   const { publishers, } = useSelector((state) => state.publisher);
-  const { users, } = useSelector(state => state.user);
+  // const { users, } = useSelector(state => state.user);
 
   const [orderBy, setOrderBy,] = React.useState('');
   const [descending, setDescending,] = React.useState(true);
@@ -27,8 +28,7 @@ const ProductPage = () => {
   const [selectedObj, setSelectedObj,] = React.useState(null);
 
   const [showConfirm, setShowConfirm,] = React.useState(false);
-  const [confirmAction, setConfirmAction,] = React.useState(() => () => {
-  });
+  const [confirmAction, setConfirmAction,] = React.useState(() => () => {});
   const [confirmMessage, setConfirmMessage,] = React.useState('');
 
   const getProducts = () => {
@@ -44,26 +44,40 @@ const ProductPage = () => {
 
   const getPublishers = () => {
     dispatch(
-      getPublishersByAdminRequestStart()
+      getPublishersByAdminRequestStart({
+        limit: 1000,
+      })
     );
   };
 
   const getAuthors = () => {
     dispatch(
-      getAuthorsByAdminRequestStart()
+      getAuthorsByAdminRequestStart({
+        limit: 1000,
+      })
     );
   };
 
-  const getUsers = () => {
-    dispatch(getUserAllRequestStart());
-  };
+  // const getUsers = () => {
+  //   dispatch(getUserAllRequestStart());
+  // };
 
   React.useEffect(() => {
     getProducts();
     getAuthors();
     getPublishers();
-    getUsers();
-  }, [orderBy, descending, page, limit, dispatch, selectedObj, updateSuccess, deleteSuccess, createSuccess,]);
+    // getUsers();
+  }, [
+    orderBy,
+    descending,
+    page,
+    limit,
+    dispatch,
+    selectedObj,
+    updateSuccess,
+    deleteSuccess,
+    createSuccess,
+  ]);
 
   const handleDelete = (value) => {
     setConfirmAction(() => () => {
@@ -153,11 +167,11 @@ const ProductPage = () => {
                   enableSort: false,
                   label: translate('publisher'),
                 },
-                {
-                  field: 'donor',
-                  enableSort: false,
-                  label: translate('donor'),
-                },
+                // {
+                //   field: 'donor',
+                //   enableSort: false,
+                //   label: translate('donor'),
+                // },
                 {
                   field: 'price',
                   enableSort: true,
@@ -190,11 +204,13 @@ const ProductPage = () => {
                   />
                 ),
                 pubDate: formatDate(item?.pubDate),
-                author: authors?.find((author) => item.author === author._id)?.fullname,
-                publisher: publishers?.find((publisher) => item.publisher === publisher._id)?.name,
+                author: authors?.find((author) => item.author === author._id)
+                  ?.fullname,
+                publisher: publishers?.find(
+                  (publisher) => item.publisher === publisher._id
+                )?.name,
                 price: formatCurrency(item?.price),
-                donor: users?.find((user) => item.donor === user._id)?.fullname,
-
+                // donor: users?.find((user) => item.donor === user._id)?.fullname,
               }))}
               keyField='_id'
               onSort={(f, des) => {

@@ -10,7 +10,6 @@ import ColorSelector from './ColorSelector';
 import DataTable from './DataTable';
 import Pagination from './Pagination';
 import ConfirmationModal from './ConfirmationModal';
-
 import CustomerHeader from './CustomerHeader';
 import ProductList from './ProductList';
 import ProductDescription from './ProductDescription';
@@ -22,6 +21,10 @@ import SearchBar from './SearchBar';
 import CustomerPagination from './CustomerPagination';
 import DropdownCategories from './DropdownCategories';
 import Dropdown from './Dropdown';
+import CustomCarousel from './CustomCarousel';
+import AuthorList from './AuthorList';
+import AuthorDetail from './AuthorDetail';
+import Filter from './Filter';
 
 export {
   CustomSnackbar,
@@ -47,4 +50,8 @@ export {
   CustomerPagination,
   DropdownCategories,
   Dropdown,
+  CustomCarousel,
+  AuthorList,
+  AuthorDetail,
+  Filter,
 };

@@ -15,7 +15,11 @@ import { createAddressRequestFailure,
   updateAddressRequestFailure,
   updateAddressRequestStart,
   updateAddressRequestSuccess, } from './slice';
-import { createOneApi, deleteOneApi, getAllRequestApi, getOneRequestApi, updateOneApi, } from './api';
+import { createOneApi,
+  deleteOneApi,
+  getAllRequestApi,
+  getOneRequestApi,
+  updateOneApi, } from './api';
 
 // Handle fetching all addresses
 function* handleGetAddressesRequest(action) {
@@ -25,22 +29,29 @@ function* handleGetAddressesRequest(action) {
 
     // Check if the response is valid
     if (response && response.status === 200) {
-      yield put(getAddressesRequestSuccess({
-        data, meta,
-      }));
-      yield put(showSnackbar({
-        message: 'Addresses fetched successfully!',
-        severity: 'success',
-      }));
+      yield put(
+        getAddressesRequestSuccess({
+          data,
+          meta,
+        })
+      );
+      yield put(
+        showSnackbar({
+          message: 'Request successfully!',
+          severity: 'success',
+        })
+      );
     } else {
-      throw new Error('Failed to fetch addresses.');
+      throw new Error('Failed to fetch.');
     }
   } catch (err) {
     yield put(getAddressesRequestFailure(err.message));
-    yield put(showSnackbar({
-      message: `Failed to fetch addresses: ${err.message}`,
-      severity: 'error',
-    }));
+    yield put(
+      showSnackbar({
+        message: `Failed to request: ${err.message}`,
+        severity: 'error',
+      })
+    );
   }
 }
 
@@ -53,19 +64,23 @@ function* handleGetAddressRequest(action) {
     // Check if the response is valid
     if (response && response.status === 200) {
       yield put(getAddressRequestSuccess(data));
-      yield put(showSnackbar({
-        message: 'Address fetched successfully!',
-        severity: 'success',
-      }));
+      yield put(
+        showSnackbar({
+          message: 'Request successfully!',
+          severity: 'success',
+        })
+      );
     } else {
-      throw new Error('Failed to fetch address.');
+      throw new Error('Failed to fetch.');
     }
   } catch (err) {
     yield put(getAddressRequestFailure(err.message));
-    yield put(showSnackbar({
-      message: `Failed to fetch address: ${err.message}`,
-      severity: 'error',
-    }));
+    yield put(
+      showSnackbar({
+        message: `Failed to request: ${err.message}`,
+        severity: 'error',
+      })
+    );
   }
 }
 
@@ -76,36 +91,47 @@ function* handleCreateAddressRequest(action) {
     console.log(action.payload);
 
     yield put(createAddressRequestSuccess(response.data));
-    yield put(showSnackbar({
-      message: 'Address created successfully!',
-      severity: 'success',
-    }));
+    yield put(
+      showSnackbar({
+        message: 'Created successfully!',
+        severity: 'success',
+      })
+    );
   } catch (err) {
     yield put(createAddressRequestFailure(err.message));
-    yield put(showSnackbar({
-      message: `Failed to create address: ${err.message}`,
-      severity: 'error',
-    }));
+    yield put(
+      showSnackbar({
+        message: `Failed to create: ${err.message}`,
+        severity: 'error',
+      })
+    );
   }
 }
 
 // Handle updating an existing address
 function* handleUpdateAddressRequest(action) {
   try {
-    const response = yield call(updateOneApi, action.payload.id, action.payload.data);
+    const response = yield call(
+      updateOneApi,
+      action.payload.id,
+      action.payload.data
+    );
     console.log(action.payload);
     yield put(updateAddressRequestSuccess(response.data));
-    yield put(showSnackbar({
-      message: 'Address updated successfully!',
-      severity: 'success',
-    }));
-
+    yield put(
+      showSnackbar({
+        message: 'Updated successfully!',
+        severity: 'success',
+      })
+    );
   } catch (err) {
     yield put(updateAddressRequestFailure(err.message));
-    yield put(showSnackbar({
-      message: `Failed to update address: ${err.message}`,
-      severity: 'error',
-    }));
+    yield put(
+      showSnackbar({
+        message: `Failed to update: ${err.message}`,
+        severity: 'error',
+      })
+    );
   }
 }
 
@@ -115,17 +141,20 @@ function* handleDeleteAddressRequest(action) {
     yield call(deleteOneApi, action.payload);
 
     yield put(deleteAddressRequestSuccess());
-    yield put(showSnackbar({
-      message: 'Address deleted successfully!',
-      severity: 'success',
-    }));
-
+    yield put(
+      showSnackbar({
+        message: 'Deleted successfully!',
+        severity: 'success',
+      })
+    );
   } catch (err) {
     yield put(deleteAddressRequestFailure(err.message));
-    yield put(showSnackbar({
-      message: `Failed to delete address: ${err.message}`,
-      severity: 'error',
-    }));
+    yield put(
+      showSnackbar({
+        message: `Failed to delete: ${err.message}`,
+        severity: 'error',
+      })
+    );
   }
 }
 

@@ -20,6 +20,7 @@ export const adminRoutes = {
 
   event: '/admin/events',
   order: '/admin/order',
+  user: '/admin/user',
   detailOrder: '/admin/order/:id',
   config: '/admin/configs',
 
@@ -28,6 +29,8 @@ export const adminRoutes = {
   productDetail: '/admin/product/:id',
   createProduct: '/admin/create-product',
   updateProduct: '/admin/update-product/:id',
+  authorDetail: '/admin/categories/authors/:id',
+  ebook: '/admin/ebook',
 };
 
 export const clientRoutes = {
@@ -39,5 +42,9 @@ export const clientRoutes = {
   categories: '/categories/:id',
   orderHistory: '/order-history',
   userInfo: '/userInfo',
-  orderSuccess: '/orderSuccess',
+  orderSuccess: '/checkout/success',
+  event: '/events',
+  authorDetail: '/author/:id',
+  book: '/books',
+  shareBook: '/sharingBook',
 };

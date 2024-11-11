@@ -18,6 +18,8 @@ import cartReducer from './cart/slice';
 import orderReducer from './order/slice';
 import addressReducer from './address/slice';
 import eventReducer from './event/slice';
+import formatReducer from './format/slice';
+import statisticReducer from './statistic/slice';
 import rootSaga from './sagas';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -40,11 +42,13 @@ const store = configureStore({
     order: orderReducer,
     address: addressReducer,
     event: eventReducer,
+    format: formatReducer,
+    statistic: statisticReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(sagaMiddleware),
   devTools:
-        process.env.NODE_ENV !== 'production' ? composeWithDevTools() : undefined,
+    process.env.NODE_ENV !== 'production' ? composeWithDevTools() : undefined,
 });
 
 sagaMiddleware.run(rootSaga);

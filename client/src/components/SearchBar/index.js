@@ -21,7 +21,7 @@ const SearchBar = () => {
   };
 
   return (
-    <div className='flex items-center rounded-full border p-2 w-full max-w-xl mx-auto'>
+    <div className='flex items-center rounded-full border p-2 w-full max-w-lg min-w-max mx-6'>
       {/* Input Field */}
       <input
         type='text'
@@ -32,7 +32,7 @@ const SearchBar = () => {
       />
       {/* Search Icon */}
       <div className='px-3' onClick={handleSearch}>
-        <FontAwesomeIcon icon={faMagnifyingGlass}/>
+        <FontAwesomeIcon icon={faMagnifyingGlass} />
       </div>
     </div>
   );

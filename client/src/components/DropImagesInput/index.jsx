@@ -18,7 +18,7 @@ const DropImagesInput = ({ multiple, files, setFiles, }) => {
   };
 
   const removeFile = (fileToRemove) => {
-    const updatedFiles = value.filter(file => file.id !== fileToRemove);
+    const updatedFiles = value.filter((file) => file.id !== fileToRemove);
     setFiles(updatedFiles);
   };
 
@@ -29,11 +29,19 @@ const DropImagesInput = ({ multiple, files, setFiles, }) => {
         value={value}
         accept='image/*'
         style={{
-          border: '2px dashed #3b82f6', padding: '20px', cursor: 'pointer', 
+          border: '2px dashed #3b82f6',
+          padding: '20px',
+          cursor: 'pointer',
         }}
       >
         {value.map((file) => (
-          <FileCard key={file.id} {...file} onDelete={removeFile} info preview />
+          <FileCard
+            key={file.id}
+            {...file}
+            onDelete={removeFile}
+            info
+            preview
+          />
         ))}
       </Dropzone>
     </div>

@@ -7,6 +7,7 @@ const fs = require('fs');
 const config = require('../config');
 const User = require('../models/User');
 const Cart = require('../models/Cart');
+const Address = require("../models/Address");
 
 const transporter = nodemailer.createTransport({
     service: config.emailService,
@@ -25,12 +26,15 @@ exports.register = async (req, res) => {
             return res.status(400).json({error: 'User already exists'});
         }
 
+        const newAddress = new Address({name: fullname, phone: phone, addressDetail: address});
+        const savedAddress = await newAddress.save();
+
         user = new User({
             username,
             fullname,
             birthday,
             phone,
-            address,
+            address: [savedAddress._id],
             email,
             isAdmin: false,
         });
@@ -95,10 +99,11 @@ exports.updateUser = async (req, res) => {
     const {username, fullname, birthday, phone, address, email} = req.body;
 
     try {
-        let user = await User.findById(req.user.id);
+        let user = await User.findById(req.user.id).populate('address');
         if (!user) {
             return res.status(404).json({error: 'User not found'});
         }
+
 
         if (username) user.username = username;
         if (fullname) user.fullname = fullname;
@@ -107,7 +112,11 @@ exports.updateUser = async (req, res) => {
         // if (address) {
         //     user.address = [...user.address, address];
         // }
-        if (address) user.address = address;
+        if (address) {
+            const newAddress = new Address({name: fullname, phone: phone, addressDetail: address});
+            const savedAddress = await newAddress.save();
+            user.address = [savedAddress._id];
+        }
         if (email) user.email = email;
 
         if (req.files?.['avatar']) {
@@ -131,7 +140,7 @@ exports.updatePassword = async (req, res) => {
     const {currentPassword, newPassword} = req.body;
 
     try {
-        let user = await User.findById(req.user.id);
+        let user = await User.findById(req.user.id).populate('address');
         if (!user) {
             return res.status(404).json({error: 'User not found'});
         }
@@ -167,7 +176,7 @@ exports.forgotPassword = async (req, res) => {
     const {email} = req.body;
 
     try {
-        const user = await User.findOne({email});
+        const user = await User.findOne({email}).populate('address');
         if (!user) {
             return res.status(404).json({error: 'User not found'});
         }
@@ -209,7 +218,7 @@ exports.resetPassword = async (req, res) => {
         const user = await User.findOne({
             resetPasswordToken: token,
             resetPasswordExpires: {$gt: Date.now()}
-        });
+        }).populate('address');
 
         if (!user) {
             return res.status(400).json({error: 'Password reset token is invalid or has expired'});
@@ -232,7 +241,7 @@ exports.deletePhoto = async (req, res) => {
     const {photo} = req.params;
 
     try {
-        let user = await User.findById(req.user.id);
+        let user = await User.findById(req.user.id).populate('address');
         if (!user) {
             return res.status(404).json({error: 'User not found'});
         }

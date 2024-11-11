@@ -3,27 +3,33 @@ import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus, faTrash, } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 import { formatCurrency, } from '~/helpers';
+import { useNavigate, } from 'react-router-dom';
+import { clientRoutes, } from '~/configs/routes';
 
 const CartItem = ({ cartItem, handleUpdateItem, handleDeleteItem, }) => {
+  const nav = useNavigate();
   const [quantity, setQuantity,] = useState(cartItem?.quantity || 1);
   const [isCheck, setIsCheck,] = React.useState(cartItem?.checked || false);
 
   const handleIncrement = () => {
-    setQuantity(prev => {
-      const newQuantity = prev + 1;
-      handleUpdateItem(cartItem?.product?._id, newQuantity, isCheck); // Immediately update
-      return newQuantity; // Update state
+    setQuantity((prev) => {
+      if (prev < cartItem?.product?.stockQuantity) {
+        const newQuantity = prev + 1;
+        handleUpdateItem(cartItem?.product?._id, newQuantity, isCheck);
+        return newQuantity;
+      }
+      return prev;
     });
   };
 
   const handleDecrement = () => {
-    setQuantity(prev => {
+    setQuantity((prev) => {
       if (prev > 1) {
         const newQuantity = prev - 1;
-        handleUpdateItem(cartItem?.product?._id, newQuantity, isCheck); // Immediately update
-        return newQuantity; // Update state
+        handleUpdateItem(cartItem?.product?._id, newQuantity, isCheck);
+        return newQuantity;
       }
-      return prev; // Do not decrement below 1
+      return prev;
     });
   };
 
@@ -37,6 +43,9 @@ const CartItem = ({ cartItem, handleUpdateItem, handleDeleteItem, }) => {
     handleUpdateItem(cartItem?.product?._id, quantity, checked);
   };
 
+  const handleNavItem = () => {
+    nav(clientRoutes.product.replace(':id', cartItem?.product?._id));
+  };
   // const handleCheckChange = (e) => {
   //   setIsCheck(e.target.checked);
   //   selectItem(cartItem, e.target.checked);
@@ -49,29 +58,37 @@ const CartItem = ({ cartItem, handleUpdateItem, handleDeleteItem, }) => {
 
   return (
     <div className='flex justify-between items-center border-b py-4'>
-      <div className='flex items-start gap-4 w-2/5'>
+      <div className='flex items-start gap-3 w-2/5'>
         <div className='flex content-center h-max'>
-          <input type='checkbox' checked={isCheck} onChange={handleCheckChange}
-            className=' w-4 h-4 accent-blue-500'/>
+          <input
+            type='checkbox'
+            checked={isCheck}
+            onChange={handleCheckChange}
+            className=' w-4 h-4 accent-blue-500'
+          />
         </div>
-        {cartItem?.product?.images?.[0] ? (
-          <img
-            src={`${process.env.REACT_APP_HOST_IP}/${cartItem?.product?.images?.[0]}`}
-            alt={cartItem?.product?.name}
-            className='w-20 h-24 object-cover'
-          />
-        ) : (
-          <img
-            src={`${process.env.PUBLIC_URL}/assets/pages/other/noImageItem.jpg`}
-            alt='Product'
-            className='w-20 h-24 object-cover'
-          />
-        )}
+        <div className='flex items-start gap-3 w-full' onClick={handleNavItem}>
+          {cartItem?.product?.images?.[0] ? (
+            <img
+              src={`${process.env.REACT_APP_HOST_IP}/${cartItem?.product?.images?.[0]}`}
+              alt={cartItem?.product?.name}
+              className='w-20 h-24 object-cover'
+            />
+          ) : (
+            <img
+              src={`${process.env.PUBLIC_URL}/assets/pages/other/noImageItem.jpg`}
+              alt='Product'
+              className='w-20 h-24 object-cover'
+            />
+          )}
 
-        {/* Product Details */}
-        <div>
-          <div className='flex items-center'>
-            <span className='font-normal break-all text-left'>{cartItem?.product?.name}</span>
+          {/* Product Details */}
+          <div>
+            <div className='flex items-center'>
+              <span className='font-normal break-words text-left'>
+                {cartItem?.product?.name}
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -88,7 +105,7 @@ const CartItem = ({ cartItem, handleUpdateItem, handleDeleteItem, }) => {
             onClick={handleDecrement}
             className='border px-2 py-1 rounded'
           >
-            <FontAwesomeIcon icon={faMinus}/>
+            <FontAwesomeIcon icon={faMinus} />
           </button>
           <input
             type='text'
@@ -100,7 +117,7 @@ const CartItem = ({ cartItem, handleUpdateItem, handleDeleteItem, }) => {
             onClick={handleIncrement}
             className='border px-2 py-1 rounded'
           >
-            <FontAwesomeIcon icon={faPlus}/>
+            <FontAwesomeIcon icon={faPlus} />
           </button>
         </div>
 
@@ -110,8 +127,11 @@ const CartItem = ({ cartItem, handleUpdateItem, handleDeleteItem, }) => {
         </div>
 
         {/* Delete Icon */}
-        <button className='text-gray-500 hover:text-red-500 w-full content-center' onClick={deleteItem}>
-          <FontAwesomeIcon icon={faTrash}/>
+        <button
+          className='text-gray-500 hover:text-red-500 w-full content-center'
+          onClick={deleteItem}
+        >
+          <FontAwesomeIcon icon={faTrash} />
         </button>
       </div>
     </div>

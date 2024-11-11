@@ -3,16 +3,19 @@ import { useDispatch, useSelector, } from 'react-redux';
 import { useNavigate, } from 'react-router-dom';
 import { authRoutes, clientRoutes, } from '~/configs/routes';
 import { translate, } from '~/helpers';
-import { Avatar, Box, IconButton, Menu, MenuItem, Paper, Tooltip, Typography, } from '@mui/material';
+import { Avatar, Badge, Box, IconButton, Menu, MenuItem, Paper, styled, Tooltip, Typography, } from '@mui/material';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { logout, } from '~/redux/auth/slice';
-import { faCartShopping, } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
 import { DropdownCategories, SearchBar, } from '~/components';
-import { getTypesByAdminRequestStart, } from '~/redux/productType/slice';
+import { getTypesRequestStart, } from '~/redux/productType/slice';
+import HeaderItem from '~/components/CustomerHeader/HeaderItem';
+import { getCartRequestStart, } from '~/redux/cart/slice';
 
 const CustomerHeader = () => {
   const [anchorElUser, setAnchorElUser,] = React.useState(null);
   const { user, } = useSelector((state) => state.auth);
+  const { cart, } = useSelector((state) => state.cart);
+  const { shop, } = useSelector(state => state.config);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { types, } = useSelector(state => state.type);
@@ -20,6 +23,7 @@ const CustomerHeader = () => {
   const [descending,] = React.useState(true);
   const [page,] = React.useState(1);
   const [limit,] = React.useState(200);
+  const [cartNumber, setCartNumber,] = React.useState(0);
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -30,7 +34,7 @@ const CustomerHeader = () => {
   };
 
   const getTypes = () => {
-    dispatch(getTypesByAdminRequestStart({
+    dispatch(getTypesRequestStart({
       orderBy,
       page,
       limit,
@@ -38,13 +42,28 @@ const CustomerHeader = () => {
     }));
   };
 
-  const settings = [
-    {
-      handle: () => {
-        navigate(clientRoutes.home);
-      },
-      label: translate('home'),
+  const getCart = () => {
+    dispatch(getCartRequestStart());
+  };
+
+  const StyledBadge = styled(Badge)(({ theme, }) => ({
+    '& .MuiBadge-badge': {
+      right: -3,
+      top: 0,
+      border: `2px solid ${theme.palette.background.paper}`,
+      padding: '0 4px',
+      color: 'white',
+      backgroundColor: shop?.accentColor,
     },
+  }));
+
+  const settings = [
+    // {
+    //   handle: () => {
+    //     navigate(clientRoutes.home);
+    //   },
+    //   label: translate('home'),
+    // },
     {
       handle: () => {
         navigate(clientRoutes.userInfo);
@@ -73,9 +92,18 @@ const CustomerHeader = () => {
   const goToHome = () => {
     navigate(clientRoutes.home);
   };
+  const getCartNumber = () => {
+    if (cart)
+      setCartNumber(cart?.cart?.items?.length);
+  };
   React.useEffect(() => {
     getTypes();
+    getCart();
   }, [dispatch,]);
+
+  React.useEffect(() => {
+    getCartNumber();
+  }, [cart,]);
 
   return (
     <Paper className='mx-auto w-full px-16 py-2 sticky top-0 z-40'>
@@ -86,68 +114,86 @@ const CustomerHeader = () => {
             <img className='h-12' src={`${process.env.PUBLIC_URL}/assets/pages/other/bookStore.png`}
               alt='Home'/>
           </div>
-          <div className={'ml-6 self-center'}>
+          <div className={'ml-6 self-center w-'}>
             <div className={'flex flex-row gap-3'}>
-              <div>
-                <button
-                  onClick={goToHome}
-                  className='inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900  hover:bg-gray-50'
-                >
-                                    Trang chủ
-                </button>
-              </div>
+              <HeaderItem
+                route={clientRoutes.home}
+                name={'home'}
+              ></HeaderItem>
               <DropdownCategories items={types} name={'Danh mục'}/>
+              <HeaderItem
+                route={clientRoutes.event}
+                name={'event'}
+              ></HeaderItem>
+              <HeaderItem
+                route={clientRoutes.book}
+                name={'book'}
+              ></HeaderItem>
+
+              <HeaderItem
+                route={clientRoutes.shareBook}
+                name={'sharing-book'}
+              ></HeaderItem>
             </div>
           </div>
         </div>
+        <div className={'max-w-fit flex flex-row justify-end  items-center space-x-2 gap-3'}>
+          {/* Search Bar*/}
+          <div className={'mr-2 max-w-fit'}>
+            <SearchBar></SearchBar>
+          </div>
 
-        {/* Search Bar*/}
-        <SearchBar></SearchBar>
-
-        {/* Cart Icon*/}
-        <div onClick={handleChangeCartPage}>
-          <FontAwesomeIcon icon={faCartShopping}/>
-        </div>
-
-        {/* User*/}
-        <Box sx={{
-          flexGrow: 0,
-        }}>
-          <Tooltip title={user.fullname}>
-            <IconButton onClick={handleOpenUserMenu} sx={{
-              p: 0,
-            }}>
-              <Avatar alt={user.fullname} src={`${process.env.REACT_APP_HOST_IP}/${user?.avatar}`}/>
+          {/* Cart Icon*/}
+          <div onClick={handleChangeCartPage}>
+            <IconButton aria-label='cart'>
+              <StyledBadge
+                badgeContent={cartNumber}
+              >
+                <ShoppingCartIcon/>
+              </StyledBadge>
             </IconButton>
-          </Tooltip>
-          <Menu
-            sx={{
-              mt: '45px',
-            }}
-            id='menu-appbar'
-            anchorEl={anchorElUser}
-            anchorOrigin={{
-              vertical: 'top', horizontal: 'right',
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: 'top', horizontal: 'right',
-            }}
-            open={Boolean(anchorElUser)}
-            onClose={handleCloseUserMenu}
-          >
-            {settings.map((setting, index) => (
-              <MenuItem key={index} onClick={() => {
-                setting.handle();
-                handleCloseUserMenu();
+          </div>
+
+          {/* User*/}
+          <Box sx={{
+            flexGrow: 0,
+          }}>
+            <Tooltip title={user.fullname}>
+              <IconButton onClick={handleOpenUserMenu} sx={{
+                p: 0,
               }}>
-                <Typography textAlign='center'>
-                  <div className='no-underline text-black'>{setting?.label}</div>
-                </Typography>
-              </MenuItem>
-            ))}
-          </Menu>
-        </Box>
+                <Avatar alt={user.fullname} src={`${process.env.REACT_APP_HOST_IP}/${user?.avatar}`}/>
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{
+                mt: '45px',
+              }}
+              id='menu-appbar'
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top', horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top', horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {settings.map((setting, index) => (
+                <MenuItem key={index} onClick={() => {
+                  setting.handle();
+                  handleCloseUserMenu();
+                }}>
+                  <Typography textAlign='center'>
+                    <div className='no-underline text-sm text-gray-700'>{setting?.label}</div>
+                  </Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+        </div>
       </div>
     </Paper>
   );

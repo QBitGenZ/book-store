@@ -13,6 +13,7 @@ import { getAuthorsByAdminRequestStart, } from '~/redux/author/slice';
 import { createProductRequestStart, } from '~/redux/product/slice';
 import { QuiltedImageList, } from '~/components';
 import { formatDate, } from 'src/helpers';
+import { getAllFormatsRequestStart, } from '~/redux/format/slice';
 
 const CreateProductPage = () => {
   const [name, setName,] = useState('');
@@ -39,17 +40,28 @@ const CreateProductPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { shop, } = useSelector(state => state.config);
+  const { shop, } = useSelector((state) => state.config);
   const { publishers, } = useSelector((state) => state.publisher);
-  const { types, } = useSelector(state => state.type);
-  const { authors, } = useSelector(state => state.author);
+  const { types, } = useSelector((state) => state.type);
+  const { authors, } = useSelector((state) => state.author);
+  const { formats, } = useSelector((state) => state.format);
   // const { users, } = useSelector(state => state.user);
   const [limit,] = React.useState(100);
 
   const getTypes = () => {
-    dispatch(getTypesByAdminRequestStart({
-      limit,
-    }));
+    dispatch(
+      getTypesByAdminRequestStart({
+        limit,
+      })
+    );
+  };
+
+  const getFormats = () => {
+    dispatch(
+      getAllFormatsRequestStart({
+        limit: 1000,
+      })
+    );
   };
 
   const getPublishers = () => {
@@ -75,15 +87,17 @@ const CreateProductPage = () => {
   // };
 
   const handleRemovePhoto = (imageRemoved) => {
-    setImages(prevImages => prevImages.filter(image => image.url !== imageRemoved.img));
+    setImages((prevImages) =>
+      prevImages.filter((image) => image.url !== imageRemoved.img)
+    );
   };
   const handleAddImages = (imagesUpload) => {
     if (imagesUpload.length > 0) {
-      const newImages = imagesUpload.map(image => ({
+      const newImages = imagesUpload.map((image) => ({
         file: image.file,
         url: URL.createObjectURL(image.file),
       }));
-      setImages(prevImages => [...prevImages, ...newImages,]);
+      setImages((prevImages) => [...prevImages, ...newImages,]);
     }
   };
 
@@ -91,12 +105,13 @@ const CreateProductPage = () => {
     getTypes();
     getPublishers();
     getAuthors();
+    getFormats();
     // getUsers();
   }, []);
 
   React.useEffect(() => {
     return () => {
-      images.forEach(image => URL.revokeObjectURL(image.url));
+      images.forEach((image) => URL.revokeObjectURL(image.url));
     };
   }, []);
 
@@ -140,14 +155,19 @@ const CreateProductPage = () => {
     <div className={'flex flex-col gap-3'}>
       <div className='grid grid-cols-3 gap-3'>
         <div className={'relative'}>
-          <div className='absolute inset-y-0 left-0 place-content-center' onClick={handleBack} style={{
-            color: shop?.accentColor,
-          }}>
-            <FontAwesomeIcon className='left-0 inset-y-0' icon={faArrowLeft}/>
+          <div
+            className='absolute inset-y-0 left-0 place-content-center'
+            onClick={handleBack}
+            style={{
+              color: shop?.accentColor,
+            }}
+          >
+            <FontAwesomeIcon className='left-0 inset-y-0' icon={faArrowLeft} />
           </div>
         </div>
         <div>
-          <div className={'place-content-center'}><h2>{translate('create-product')}</h2>
+          <div className={'place-content-center'}>
+            <h2>{translate('create-product')}</h2>
           </div>
         </div>
         <div></div>
@@ -279,13 +299,39 @@ const CreateProductPage = () => {
               shrink: true,
             }}
           />
+          {/* <TextField*/}
+          {/*  label={translate('format')}*/}
+          {/*  size='small'*/}
+          {/*  name='format'*/}
+          {/*  value={format}*/}
+          {/*  onChange={(e) => setFormat(e.target.value)}*/}
+          {/* />*/}
           <TextField
-            label={translate('format')}
+            className='w-100'
+            select
+            sx={{
+              textAlign: 'left',
+            }}
+            label={translate('format-label')}
             size='small'
-            name='format'
             value={format}
             onChange={(e) => setFormat(e.target.value)}
-          />
+            SelectProps={{
+              MenuProps: {
+                PaperProps: {
+                  style: {
+                    maxHeight: 200,
+                  },
+                },
+              },
+            }}
+          >
+            {formats?.map((format) => (
+              <MenuItem key={format._id} value={format._id}>
+                {format.name}
+              </MenuItem>
+            ))}
+          </TextField>
 
           <TextField
             label={translate('description')}
@@ -324,7 +370,8 @@ const CreateProductPage = () => {
             name='weight'
             type='number'
             inputProps={{
-              min: 0, step: 1,
+              min: 0,
+              step: 1,
             }}
             value={weight}
             onChange={(e) => setWeight(e.target.value)}
@@ -336,7 +383,8 @@ const CreateProductPage = () => {
             name='pageNumber'
             type='number'
             inputProps={{
-              min: 1, step: 1,
+              min: 1,
+              step: 1,
             }}
             value={pageNumber}
             onChange={(e) => setPageNumber(e.target.value)}
@@ -348,7 +396,8 @@ const CreateProductPage = () => {
             name='stockQuantity'
             type='number'
             inputProps={{
-              min: 0, step: 1,
+              min: 0,
+              step: 1,
             }}
             value={stockQuantity}
             onChange={(e) => setStockQuantity(e.target.value)}
@@ -360,7 +409,8 @@ const CreateProductPage = () => {
             name='quantity'
             type='number'
             inputProps={{
-              min: 0, step: 1,
+              min: 0,
+              step: 1,
             }}
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
@@ -372,7 +422,8 @@ const CreateProductPage = () => {
             name='cost'
             type='number'
             inputProps={{
-              min: 0, step: 1,
+              min: 0,
+              step: 1,
             }}
             value={cost}
             onChange={(e) => setCost(e.target.value)}
@@ -383,13 +434,14 @@ const CreateProductPage = () => {
             name='price'
             type='number'
             inputProps={{
-              min: 0, step: 1,
+              min: 0,
+              step: 1,
             }}
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
           <QuiltedImageList
-            itemData={images.map(image => ({
+            itemData={images.map((image) => ({
               img: image.url,
             }))}
             actions={[
@@ -398,31 +450,30 @@ const CreateProductPage = () => {
                 func: handleRemovePhoto,
               },
             ]}
-            onAddImages={handleAddImages}></QuiltedImageList>
+            onAddImages={handleAddImages}
+          ></QuiltedImageList>
         </div>
 
         <div className='flex flex-col gap-3'>
-
           <input
             type='file'
             name='file'
-            value={file}
-            onChange={(e) => setFile(e.target.value)}
+            onChange={(e) => setFile(e.target.files[0])}
           />
         </div>
-
       </div>
 
       <div className='flex flex-row gap-2'>
-        <div className={'justify-center w-full flex gap-2'}><Button onClick={handleBack} variant='secondary'>
-          {translate('cancel')}
-        </Button>
-        <Button onClick={handleSubmit} variant='primary'>
-          {translate('create')}
-        </Button></div>
+        <div className={'justify-center w-full flex gap-2'}>
+          <Button onClick={handleBack} variant='secondary'>
+            {translate('cancel')}
+          </Button>
+          <Button onClick={handleSubmit} variant='primary'>
+            {translate('create')}
+          </Button>
+        </div>
       </div>
     </div>
-
   );
 };
 
