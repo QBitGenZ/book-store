@@ -35,6 +35,7 @@ exports.donate = async (req, res) => {
       name, 
       publisher,
       isEbook: true,
+      isShow: false,
     })
 
     if(req.files?.['images'] && req.files?.['image']?.length > 0) {

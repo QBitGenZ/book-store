@@ -47,7 +47,7 @@ exports.createEvent = async (req, res) => {
 exports.updateEvent = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, description, startDate, endDate, donateBooks } = req.body;
+    const { title, description, startDate, endDate } = req.body;
 
     const event = await Event.findById(id);
 

@@ -72,6 +72,10 @@ const BookSchema = new mongoose.Schema({
   },
   translator: {
     type: String
+  },
+  isShow: {
+    type: Boolean,
+    default: true
   }
 });
 
