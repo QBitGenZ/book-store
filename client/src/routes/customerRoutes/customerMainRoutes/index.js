@@ -7,10 +7,12 @@ import { BookPage,
   CheckOutSuccessPage,
   CustomerAuthorDetailPage,
   CustomerEventPage,
+  EBookDetailPage,
   HomePage,
   OneStepCheckOutPage,
   OrderHistoryPage,
   ProductInfoPage,
+  ReadEbookPage,
   SearchResultPage,
   ShareBookPage,
   UserInfoPage, } from '~/pages';
@@ -80,5 +82,15 @@ export default [
     id: `client-${uuid4}`,
     path: clientRoutes.shareBook,
     element: <ShareBookPage />,
+  },
+  {
+    id: `client-${uuid4}`,
+    path: clientRoutes.ebook,
+    element: <EBookDetailPage />,
+  },
+  {
+    id: `client-${uuid4}`,
+    path: clientRoutes.readEbook,
+    element: <ReadEbookPage />,
   },
 ];

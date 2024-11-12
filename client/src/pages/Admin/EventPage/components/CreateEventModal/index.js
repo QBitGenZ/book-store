@@ -5,6 +5,7 @@ import { Modal as BModal, } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { translate, } from '~/helpers';
 import { TextField, } from '@mui/material';
+import { RichTextEditor, } from '~/components';
 
 function CreateEventModal({ show, setShow, createEvent, }) {
   const [title, setTitle,] = useState('');
@@ -34,8 +35,9 @@ function CreateEventModal({ show, setShow, createEvent, }) {
       <BModal.Header closeButton>
         <BModal.Title>{translate('create-event-label')}</BModal.Title>
       </BModal.Header>
+
       <BModal.Body>
-        <div className='flex justify-between gap-3 mb-3'>
+        <div className='flex justify-between gap-3 mb-3 w-full'>
           <TextField
             className='w-full'
             required
@@ -87,15 +89,22 @@ function CreateEventModal({ show, setShow, createEvent, }) {
           />
         </div>
         <div className='flex justify-between gap-3'>
-          <TextField
-            className='w-full'
-            label={translate('description-label')}
-            size='small'
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            multiline
-            rows={5}
-          />
+          {/* <TextField*/}
+          {/*  className='w-full'*/}
+          {/*  label={translate('description-label')}*/}
+          {/*  size='small'*/}
+          {/*  value={description}*/}
+          {/*  onChange={(e) => setDescription(e.target.value)}*/}
+          {/*  multiline*/}
+          {/*  rows={5}*/}
+          {/* />*/}
+          <div className={'text-left w-full'}>
+            {/* {translate('description')}*/}
+            <RichTextEditor
+              content={description}
+              setContent={setDescription}
+            ></RichTextEditor>
+          </div>
         </div>
       </BModal.Body>
       <BModal.Footer>

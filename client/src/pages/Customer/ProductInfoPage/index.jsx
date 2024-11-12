@@ -88,6 +88,7 @@ const ProductInfoPage = () => {
                 'stockQuantity',
                 'quantity',
                 'name',
+                'isShow',
               ]}
             />
           </div>

@@ -8,28 +8,28 @@ function AuthorDetail({ author, }) {
         <div className={'min-w-80'}>
           <img
             src={`${process.env.REACT_APP_HOST_IP}/${author.avatar}`}
-            alt={author.name}
+            alt={author?.fullname}
             className='rounded object-cover'
           />
         </div>
       )}
       <div className={'w-fit flex flex-col gap-2'}>
         <div className={'font-semibold text-left text-3xl'}>
-          {author.fullname}
+          {author?.fullname}
         </div>
-        {author.birthday && (
+        {author?.birthday && (
           <div className={'text-left text-gray-400 text-sm'}>
             <span>Sinh ngày: {author.birthday}</span>
           </div>
         )}
 
-        {author.nationality && (
+        {author?.nationality && (
           <div className={'text-left text-gray-400 text-sm'}>
             <span>{author.nationality}</span>
           </div>
         )}
 
-        <div className={'text-left mt-4'}>{author.biography}</div>
+        <div className={'text-left mt-4'}>{author?.biography}</div>
       </div>
     </div>
   );

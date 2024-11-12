@@ -13,7 +13,7 @@ import { getAuthorsByAdminRequestStart, } from '~/redux/author/slice';
 import { deleteImageRequestStart,
   getProductRequestStart,
   updateProductRequestStart, } from '~/redux/product/slice';
-import { QuiltedImageList, } from '~/components';
+import { QuiltedImageList, RichTextEditor, } from '~/components';
 import { formatDate, } from 'src/helpers';
 import { getAllFormatsRequestStart, } from '~/redux/format/slice';
 
@@ -376,15 +376,22 @@ const UpdateProductPage = () => {
             ))}
           </TextField>
 
-          <TextField
-            label={translate('description')}
-            size='small'
-            name='description'
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            multiline
-            rows={4}
-          />
+          {/* <TextField*/}
+          {/*  label={translate('description')}*/}
+          {/*  size='small'*/}
+          {/*  name='description'*/}
+          {/*  value={description}*/}
+          {/*  onChange={(e) => setDescription(e.target.value)}*/}
+          {/*  multiline*/}
+          {/*  rows={4}*/}
+          {/* />*/}
+          <div className={'text-left'}>
+            {/* {translate('description')}*/}
+            <RichTextEditor
+              content={description}
+              setContent={setDescription}
+            ></RichTextEditor>
+          </div>
 
           <FormControlLabel
             control={

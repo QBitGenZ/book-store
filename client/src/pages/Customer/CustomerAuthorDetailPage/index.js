@@ -4,16 +4,20 @@ import { useDispatch, useSelector, } from 'react-redux';
 import { getAuthorRequestStart, } from '~/redux/author/slice';
 import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, } from '@fortawesome/free-solid-svg-icons';
-import { AuthorDetail, ProductList, } from '~/components';
+import { AuthorDetail, CustomerPagination, ProductList, } from '~/components';
 import { getProductsByAuthorRequestStart, } from '~/redux/product/slice';
 
 const CustomerAuthorDetailPage = () => {
   const { id, } = useParams();
   const { author, } = useSelector((state) => state.author);
-  const { products, } = useSelector((state) => state.product);
+  const { products, meta, } = useSelector((state) => state.product);
   const { shop, } = useSelector((state) => state.config);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [orderBy,] = React.useState('');
+  const [descending,] = React.useState(true);
+  const [page, setPage,] = React.useState(1);
+  const [limit,] = React.useState(5);
 
   const getAuthor = (id) => {
     dispatch(getAuthorRequestStart(id));
@@ -23,17 +27,23 @@ const CustomerAuthorDetailPage = () => {
     dispatch(
       getProductsByAuthorRequestStart({
         id,
+        meta: {
+          orderBy,
+          page,
+          limit,
+          descending,
+        },
       })
     );
   };
+
   const handleBack = () => {
     navigate(-1);
   };
   React.useEffect(() => {
     getAuthor(id);
     getProducts(id);
-    console.log(author);
-  }, []);
+  }, [dispatch,]);
 
   return (
     <>
@@ -54,7 +64,12 @@ const CustomerAuthorDetailPage = () => {
         )}
         {products.length > 0 && (
           <div>
-            <ProductList products={products} />
+            <ProductList products={products} title={'Tác phẩm'} />
+            <CustomerPagination
+              currentPage={meta?.page ?? 1}
+              totalPages={meta?.totalPage ?? 1}
+              onPageChange={setPage}
+            />
           </div>
         )}
       </div>

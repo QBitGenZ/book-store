@@ -25,6 +25,8 @@ import CustomCarousel from './CustomCarousel';
 import AuthorList from './AuthorList';
 import AuthorDetail from './AuthorDetail';
 import Filter from './Filter';
+import EBookList from './EBookList';
+import EBookCard from './EBookCard';
 
 export {
   CustomSnackbar,
@@ -54,4 +56,6 @@ export {
   AuthorList,
   AuthorDetail,
   Filter,
+  EBookList,
+  EBookCard,
 };

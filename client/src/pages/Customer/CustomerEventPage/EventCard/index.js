@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { formatDateDMY, } from '~/helpers';
+import parser from 'html-react-parser';
 
 function EventCard({ event, }) {
   return (
@@ -11,12 +12,13 @@ function EventCard({ event, }) {
       </div>
       <div>
         <p className={'text-sm break-words hyphens-manual'}>
-          {event.description.split('\n').map((line, index) => (
-            <span key={index}>
-              {line}
-              <br />
-            </span>
-          ))}
+          {/* {event.description.split('\n').map((line, index) => (*/}
+          {/*  <span key={index}>*/}
+          {/*    {line}*/}
+          {/*    <br />*/}
+          {/*  </span>*/}
+          {/* ))}*/}
+          {parser(event.description)}
         </p>
       </div>
 

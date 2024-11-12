@@ -1,27 +1,55 @@
-import React from 'react';
-// import { Viewer, Worker, } from '@react-pdf-viewer/core';
-// import '@react-pdf-viewer/core/lib/styles/index.css';
+import React, { useState, } from 'react';
+import { translate, } from '~/helpers';
+import { useDispatch, useSelector, } from 'react-redux';
+import AddEbook from 'src/pages/Customer/ShareBookPage/Components/AddEbook';
+import { getDonationsRequestStart, } from '~/redux/donation/slice';
+import { EBookList, } from '~/components';
 
 const ShareBookPage = () => {
+  const { shop, } = useSelector((state) => state.config);
+  const [modals, setModals,] = useState(false);
+  const { createSuccess, } = useSelector((state) => state.donation);
+
+  const dispatch = useDispatch();
+  const { donations, } = useSelector((state) => state.donation);
+
+  const handleAddEbook = (addressData) => {
+    console.log('Address Data Submitted: ', addressData);
+    setModals(false);
+  };
+
+  const getMyEBook = () => {
+    dispatch(getDonationsRequestStart());
+  };
+
+  React.useEffect(() => {
+    getMyEBook();
+  }, [dispatch, createSuccess,]);
+
   return (
-    <div>Chia se sach</div>
-    // <Worker workerUrl='https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js'>
-    //   <div style={{
-    //     height: '750px', width: '100%',
-    //   }}>
-    //     <Viewer
-    //       fileUrl={`${process.env.PUBLIC_URL}/assets/pages/other/404.png`}
-    //       renderError={(error) => (
-    //         <div>
-    //           {error.message.includes('Failed to fetch')
-    //             ? 'Failed to load the document. Please check the file URL.'
-    //             : 'An error occurred while rendering the PDF.'}
-    //         </div>
-    //       )}
-    //       renderLoader={() => <div>Loading PDF...</div>}
-    //     />
-    //   </div>
-    // </Worker>
+    <>
+      <div className={'flex flex-col gap-3'}>
+        <AddEbook
+          show={modals}
+          setShow={setModals}
+          addNewEBook={handleAddEbook}
+        />
+        <div>
+          <button
+            onClick={() => setModals(true)}
+            className={`border-2 border-[${shop?.accentColor}] p-2 rounded text-sm font-semibold`}
+          >
+            {translate('sharing-book')}
+          </button>
+        </div>
+        {donations && donations.length > 0 && (
+          <EBookList
+            products={donations}
+            title={translate('my-sharing-book')}
+          ></EBookList>
+        )}
+      </div>
+    </>
   );
 };
 

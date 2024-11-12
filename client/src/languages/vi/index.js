@@ -1,4 +1,13 @@
 const vi = {
+  filter: 'Lọc',
+  'read-book': 'Đọc sách',
+  'my-sharing-book': 'Sách đã chia sẻ',
+  'add-images-label': 'Thêm ảnh',
+  share: 'Chia sẻ',
+  'update-product': 'Cập nhật sản phẩm',
+  'create-product': 'Thêm mới sản phẩm',
+  cancel: 'Hủy bỏ',
+  events: 'Sự kiện',
   'price increase': 'Giá tăng dần',
   home: 'Trang chủ',
   'sharing-book': 'Chia sẻ sách',

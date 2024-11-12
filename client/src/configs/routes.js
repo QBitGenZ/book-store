@@ -47,4 +47,6 @@ export const clientRoutes = {
   authorDetail: '/author/:id',
   book: '/books',
   shareBook: '/sharingBook',
+  ebook: '/ebook/:id',
+  readEbook: '/read/ebook/:id',
 };
