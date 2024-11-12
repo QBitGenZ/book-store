@@ -20,6 +20,7 @@ import addressReducer from './address/slice';
 import eventReducer from './event/slice';
 import formatReducer from './format/slice';
 import statisticReducer from './statistic/slice';
+import donationReducer from './donation/slice';
 import rootSaga from './sagas';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -44,6 +45,7 @@ const store = configureStore({
     event: eventReducer,
     format: formatReducer,
     statistic: statisticReducer,
+    donation: donationReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(sagaMiddleware),

@@ -1,40 +1,40 @@
-const Book = require('../models/Book');
-const {deleteFile} = require('../utils/deleteFile');
-const {getAllDocuments} = require('../utils/querryDocument');
+const Book = require("../models/Book");
+const {deleteFile} = require("../utils/deleteFile");
+const {getAllDocuments} = require("../utils/querryDocument");
 
 
 exports.getAll = async (req, res) => {
     let query = {};
 
     if (req.query.search) {
-        query.name = {$regex: req.query.search, $options: 'i'}
+        query.name = {$regex: req.query.search, $options: "i"};
     }
 
     if (req.query.minPrice && req.query.maxPrice) {
         query.price = {
             $gte: parseInt(req.query.minPrice, 10),
-            $lte: parseInt(req.query.maxPrice, 10)
+            $lte: parseInt(req.query.maxPrice, 10),
         };
     }
 
-    const defaultField = 'name';
+    const defaultField = "name";
     getAllDocuments(Book, query, defaultField, req, res);
-}
+};
 
 exports.getOne = async (req, res) => {
     try {
-        const id = req.params.id
+        const id = req.params.id;
 
-        const object = await Book.findById(id)
+        const object = await Book.findById(id);
 
         res.status(200).json({
-            data: object
-        })
+            data: object,
+        });
     } catch (err) {
         console.error(err.message);
         res.status(500).json({error: err.message});
     }
-}
+};
 
 exports.createPBook = async (req, res) => {
     try {
@@ -55,7 +55,7 @@ exports.createPBook = async (req, res) => {
             publisher,
             isEbook,
             donor,
-            translator
+            translator,
         } = req.body;
 
         const object = new Book({
@@ -76,27 +76,28 @@ exports.createPBook = async (req, res) => {
             publisher,
             donor,
             isEbook,
-            translator
-        })
+            translator,
+        });
 
-        if (req.files?.['images'] && req.files?.['images']?.length > 0) {
-            object.images = req.files['images']?.map(file => file.filename)
+        if (req.files?.["images"] && req.files?.["images"]?.length > 0) {
+            object.images = req.files["images"]?.map(file => file.filename);
+        }
+        
+
+        if (req.files?.["file"]?.[0]) {
+            object.file = req.files?.["file"]?.[0].filename;
         }
 
-        if (req.files?.['file']?.[0]) {
-            object.file = req.files?.['file']?.[0].filename
-        }
-
-        await object.save()
+        await object.save();
         res.status(201).json({
-            data: object
-        })
+            data: object,
+        });
 
     } catch (err) {
         console.error(err.message);
         res.status(500).json({error: err.message});
     }
-}
+};
 
 exports.updatePBook = async (req, res) => {
     try {
@@ -117,7 +118,7 @@ exports.updatePBook = async (req, res) => {
             publisher,
             donor,
             isEbook,
-            translator
+            translator,
         } = req.body;
 
         const id = req.params.id;
@@ -125,7 +126,7 @@ exports.updatePBook = async (req, res) => {
         const object = await Book.findById(id);
 
         if (!object) {
-            return res.status(404).json({error: 'Not found'});
+            return res.status(404).json({error: "Not found"});
         }
 
         object.cost = cost || object.cost;
@@ -144,19 +145,19 @@ exports.updatePBook = async (req, res) => {
         object.author = author || object.author;
         object.isEbook = isEbook || object.isEbook;
         object.donor = donor || object.donor;
-        object.translator = translator || object.translator
+        object.translator = translator || object.translator;
 
 
-        if (req.files?.['images'] && req.files?.['images']?.length > 0) {
-            const images = req.files['images']?.map(file => file.filename)
-            object.images = [...object.images, ...images]
+        if (req.files?.["images"] && req.files?.["images"]?.length > 0) {
+            const images = req.files["images"]?.map(file => file.filename);
+            object.images = [...object.images, ...images];
         }
 
-        if (req.files?.['file']?.[0]) {
+        if (req.files?.["file"]?.[0]) {
             if (object.file) {
-                deleteFile(object.file, res)
+                deleteFile(object.file, res);
             }
-            object.file = req.files?.['file']?.[0].filename
+            object.file = req.files?.["file"]?.[0].filename;
         }
 
         await object.save();
@@ -166,27 +167,27 @@ exports.updatePBook = async (req, res) => {
         console.error(err.message);
         res.status(500).json({error: err.message});
     }
-}
+};
 
 exports.deleteOne = async (req, res) => {
     try {
         const id = req.params.id;
-        const object = await Book.findByIdAndDelete(id)
+        const object = await Book.findByIdAndDelete(id);
 
         object.images.forEach(file => {
-            deleteFile(file, res)
-        })
+            deleteFile(file, res);
+        });
 
         if (object.file) {
-            deleteFile(object.file, res)
+            deleteFile(object.file, res);
         }
 
-        res.status(204).send()
+        res.status(204).send();
     } catch (err) {
         console.error(err.message);
         res.status(500).json({error: err.message});
     }
-}
+};
 
 exports.deleteImage = async (req, res) => {
     const {id, image} = req.params;
@@ -194,14 +195,14 @@ exports.deleteImage = async (req, res) => {
     try {
         let book = await Book.findById(id);
         if (!book) {
-            return res.status(404).json({error: 'Not found'});
+            return res.status(404).json({error: "Not found"});
         }
 
         if (!book.images.includes(image)) {
-            return res.status(404).json({error: 'Not found'});
+            return res.status(404).json({error: "Not found"});
         }
 
-        deleteFile(image, res)
+        deleteFile(image, res);
 
         book.images = book.images.filter(i => i !== image);
         await book.save();
@@ -209,6 +210,6 @@ exports.deleteImage = async (req, res) => {
         res.json({data: book});
     } catch (err) {
         console.error(err.message);
-        res.status(500).json({error: 'Server error'});
+        res.status(500).json({error: "Server error"});
     }
 };

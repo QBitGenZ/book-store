@@ -56,7 +56,7 @@ const SearchResultPage = () => {
           >
             {/* <img className='mb-4' src={`${process.env.PUBLIC_URL}/assets/pages/other/ico_emptycart.svg`}*/}
             {/*  alt='Empty Cart'/>*/}
-            <p>{translate('There are no products.')}</p>
+            <p>{translate('Không tìm thấy sách phù hợp')}</p>
             <button
               className='w-fit py-2 px-4 rounded shadow-md bg-red-600 text-white font-semibold mt-4'
               onClick={goToHome}

@@ -17,8 +17,10 @@ export const formatDateDMY = (dateString) => {
 };
 
 export const formatCurrency = (price) => {
-  return new Intl.NumberFormat('vi-VN', {
-    style: 'currency',
-    currency: 'VND',
-  }).format(price);
+  return price === 0
+    ? ''
+    : new Intl.NumberFormat('vi-VN', {
+      style: 'currency',
+      currency: 'VND',
+    }).format(price);
 };

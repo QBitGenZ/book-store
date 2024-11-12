@@ -80,11 +80,11 @@ export const getProductsByType = (id, query) => {
 export const getProductsByAuthorApi = (id, data) => {
   return apiFetch({
     url: `authors/${id}/products`,
+    queryParams: data,
     options: {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
-      body: data,
     },
   });
 };

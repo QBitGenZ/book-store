@@ -68,7 +68,9 @@ function* handleGetProductsRequest(action) {
 function* handleGetProductRequest(action) {
   try {
     const response = yield call(getOneRequestApi, action.payload);
+    console.log(action.payload);
     const { data, } = response;
+    console.log(data);
     yield put(getProductRequestSuccess(data));
     yield put(
       showSnackbar({

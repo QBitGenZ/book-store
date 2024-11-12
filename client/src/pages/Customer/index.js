@@ -13,6 +13,8 @@ import CustomerEventPage from './CustomerEventPage';
 import CustomerAuthorDetailPage from './CustomerAuthorDetailPage';
 import BookPage from './BookPage';
 import ShareBookPage from './ShareBookPage';
+import ReadEbookPage from './ReadEbookPage';
+import EBookDetailPage from './EBookDetail';
 
 export {
   LoginPage,
@@ -30,4 +32,6 @@ export {
   CustomerAuthorDetailPage,
   BookPage,
   ShareBookPage,
+  ReadEbookPage,
+  EBookDetailPage,
 };

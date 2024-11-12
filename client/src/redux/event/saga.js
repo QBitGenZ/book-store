@@ -46,7 +46,7 @@ function* handleGetAllEventsRequest(action) {
     );
     yield put(
       showSnackbar({
-        message: 'Events fetched successfully!',
+        message: 'Request successfully!',
         severity: 'success',
       })
     );
@@ -54,7 +54,7 @@ function* handleGetAllEventsRequest(action) {
     yield put(getAllEventsRequestFailure(err.message));
     yield put(
       showSnackbar({
-        message: `Failed to fetch events: ${err.message}`,
+        message: `Failed to fetch: ${err.message}`,
         severity: 'error',
       })
     );

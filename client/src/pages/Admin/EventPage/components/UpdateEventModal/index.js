@@ -5,6 +5,7 @@ import { Modal as BModal, } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { translate, } from '~/helpers';
 import { TextField, } from '@mui/material';
+import { RichTextEditor, } from '~/components';
 
 function UpdateEventModal({ event, show, setShow, updateEvent, }) {
   const [title, setTitle,] = useState(event?.title);
@@ -44,7 +45,7 @@ function UpdateEventModal({ event, show, setShow, updateEvent, }) {
         <BModal.Title>{translate('update-event-label')}</BModal.Title>
       </BModal.Header>
       <BModal.Body>
-        <div className='flex justify-between gap-3 mb-3'>
+        <div className='flex justify-between gap-3 mb-3 w-full'>
           <TextField
             className='w-full'
             required
@@ -92,15 +93,22 @@ function UpdateEventModal({ event, show, setShow, updateEvent, }) {
           />
         </div>
         <div className='flex justify-between gap-3'>
-          <TextField
-            className='w-full'
-            label={translate('description-label')}
-            size='small'
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            multiline
-            rows={5}
-          />
+          {/* <TextField*/}
+          {/*  className='w-full'*/}
+          {/*  label={translate('description-label')}*/}
+          {/*  size='small'*/}
+          {/*  value={description}*/}
+          {/*  onChange={(e) => setDescription(e.target.value)}*/}
+          {/*  multiline*/}
+          {/*  rows={5}*/}
+          {/* />*/}
+          <div className={'text-left w-full'}>
+            {/* {translate('description')}*/}
+            <RichTextEditor
+              content={description}
+              setContent={setDescription}
+            ></RichTextEditor>
+          </div>
         </div>
         {/* <div className='flex justify-between gap-3'>*/}
         {/*  <DatePicker*/}

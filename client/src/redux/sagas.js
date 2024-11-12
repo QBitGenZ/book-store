@@ -16,6 +16,7 @@ import addressSaga from './address/saga';
 import eventSaga from './event/saga';
 import formatSaga from './format/saga';
 import statisticsSaga from './statistic/saga';
+import donationSaga from './donation/saga';
 
 export default function* rootSaga() {
   yield all([
@@ -36,5 +37,6 @@ export default function* rootSaga() {
     eventSaga(),
     formatSaga(),
     statisticsSaga(),
+    donationSaga(),
   ]);
 }
