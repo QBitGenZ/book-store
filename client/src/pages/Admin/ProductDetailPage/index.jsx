@@ -2,7 +2,6 @@ import React from 'react';
 import { useNavigate, useParams, } from 'react-router-dom';
 import { useDispatch, useSelector, } from 'react-redux';
 import { getProductRequestStart, } from '~/redux/product/slice';
-import { adminRoutes, } from '~/configs/routes';
 import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, } from '@fortawesome/free-solid-svg-icons';
 import { ProductDetailInformation, ProductImage, } from '~/components';
@@ -21,7 +20,7 @@ const ProductDetailPage = () => {
   };
 
   const handleBack = () => {
-    navigate(adminRoutes.product);
+    navigate(-1);
   };
 
   React.useEffect(() => {

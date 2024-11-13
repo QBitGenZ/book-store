@@ -1,4 +1,8 @@
 const vi = {
+  'shared-book': 'Sách được chia sẻ',
+  'censor-sharing-book': 'Kiểm duyệt sách chia sẻ',
+  'create-event-label': 'Thêm mới sự kiện',
+  'update-event-label': 'Cập nhật sự kiện',
   filter: 'Lọc',
   'read-book': 'Đọc sách',
   'my-sharing-book': 'Sách đã chia sẻ',

@@ -15,6 +15,7 @@ import BookPage from './BookPage';
 import ShareBookPage from './ShareBookPage';
 import ReadEbookPage from './ReadEbookPage';
 import EBookDetailPage from './EBookDetail';
+import CustomerAuthorPage from './CustomerAuthorPage';
 
 export {
   LoginPage,
@@ -34,4 +35,5 @@ export {
   ShareBookPage,
   ReadEbookPage,
   EBookDetailPage,
+  CustomerAuthorPage,
 };

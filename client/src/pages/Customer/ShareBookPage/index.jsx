@@ -3,15 +3,21 @@ import { translate, } from '~/helpers';
 import { useDispatch, useSelector, } from 'react-redux';
 import AddEbook from 'src/pages/Customer/ShareBookPage/Components/AddEbook';
 import { getDonationsRequestStart, } from '~/redux/donation/slice';
-import { EBookList, } from '~/components';
+import { CustomerPagination, EBookList, } from '~/components';
+import { getProductsRequestStart, } from '~/redux/product/slice';
 
 const ShareBookPage = () => {
   const { shop, } = useSelector((state) => state.config);
   const [modals, setModals,] = useState(false);
-  const { createSuccess, } = useSelector((state) => state.donation);
+  const { donations, createSuccess, } = useSelector((state) => state.donation);
+  const { products, meta, } = useSelector((state) => state.product);
 
   const dispatch = useDispatch();
-  const { donations, } = useSelector((state) => state.donation);
+
+  const [orderBy,] = React.useState('');
+  const [descending,] = React.useState(true);
+  const [page, setPage,] = React.useState(1);
+  const [limit,] = React.useState(20);
 
   const handleAddEbook = (addressData) => {
     console.log('Address Data Submitted: ', addressData);
@@ -22,8 +28,22 @@ const ShareBookPage = () => {
     dispatch(getDonationsRequestStart());
   };
 
+  const getProducts = () => {
+    dispatch(
+      getProductsRequestStart({
+        orderBy,
+        page,
+        limit,
+        descending,
+        isEbook: true,
+        isShow: true,
+      })
+    );
+  };
+
   React.useEffect(() => {
     getMyEBook();
+    getProducts();
   }, [dispatch, createSuccess,]);
 
   return (
@@ -34,10 +54,10 @@ const ShareBookPage = () => {
           setShow={setModals}
           addNewEBook={handleAddEbook}
         />
-        <div>
+        <div className={'flex justify-end bg-white rounded shadow-sm p-2'}>
           <button
             onClick={() => setModals(true)}
-            className={`border-2 border-[${shop?.accentColor}] p-2 rounded text-sm font-semibold`}
+            className={`left-0 border-2 border-[${shop?.accentColor}] p-2 rounded text-sm font-semibold`}
           >
             {translate('sharing-book')}
           </button>
@@ -47,6 +67,20 @@ const ShareBookPage = () => {
             products={donations}
             title={translate('my-sharing-book')}
           ></EBookList>
+        )}
+
+        {products && products.length > 0 && (
+          <div>
+            <EBookList
+              products={products}
+              title={translate('shared-book')}
+            ></EBookList>
+            <CustomerPagination
+              currentPage={meta?.page ?? 1}
+              totalPages={meta?.totalPage ?? 1}
+              onPageChange={setPage}
+            />
+          </div>
         )}
       </div>
     </>

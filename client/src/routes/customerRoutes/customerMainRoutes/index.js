@@ -6,6 +6,7 @@ import { BookPage,
   CategoriesPage,
   CheckOutSuccessPage,
   CustomerAuthorDetailPage,
+  CustomerAuthorPage,
   CustomerEventPage,
   EBookDetailPage,
   HomePage,
@@ -92,5 +93,10 @@ export default [
     id: `client-${uuid4}`,
     path: clientRoutes.readEbook,
     element: <ReadEbookPage />,
+  },
+  {
+    id: `client-${uuid4}`,
+    path: clientRoutes.author,
+    element: <CustomerAuthorPage />,
   },
 ];

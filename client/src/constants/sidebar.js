@@ -10,6 +10,11 @@ const sidebar = [
   },
   {
     key: `side-bar-${uuid4()}`,
+    label: translate('user-management'),
+    path: adminRoutes.user,
+  },
+  {
+    key: `side-bar-${uuid4()}`,
     label: translate('category'),
     children: [
       {
@@ -56,24 +61,26 @@ const sidebar = [
   },
   {
     key: `side-bar-${uuid4()}`,
-    label: translate('ebook'),
+    label: translate('Ebook'),
     path: adminRoutes.ebook,
+  },
+  {
+    key: `side-bar-${uuid4()}`,
+    label: translate('censor-sharing-book'),
+    path: adminRoutes.bookCensorship,
   },
   {
     key: `side-bar-${uuid4()}`,
     label: translate('event'),
     path: adminRoutes.event,
   },
+
   {
     key: `side-bar-${uuid4()}`,
     label: translate('order'),
     path: adminRoutes.order,
   },
-  {
-    key: `side-bar-${uuid4()}`,
-    label: translate('user-management'),
-    path: adminRoutes.user,
-  },
+
   {
     key: `side-bar-${uuid4()}`,
     label: translate('settings'),

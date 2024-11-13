@@ -72,7 +72,7 @@ const CartItem = ({ cartItem, handleUpdateItem, handleDeleteItem, }) => {
             <img
               src={`${process.env.REACT_APP_HOST_IP}/${cartItem?.product?.images?.[0]}`}
               alt={cartItem?.product?.name}
-              className='w-20 h-24 object-cover'
+              className='w-20 h-24 p-0.5 object-fit-contain aspect-square border rounded'
             />
           ) : (
             <img

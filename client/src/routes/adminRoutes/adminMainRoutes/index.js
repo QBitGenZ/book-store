@@ -3,6 +3,7 @@ import { adminRoutes, } from '~/configs/routes';
 import { AdminProfilePage,
   AuthorDetailPage,
   AuthorPage,
+  BookCensorshipPage,
   ConfigPage,
   CreateProductPage,
   DashboardPage,
@@ -18,6 +19,7 @@ import { AdminProfilePage,
   ProductPage,
   ProductTypePage,
   PublisherPage,
+  ReadingEbookPage,
   UpdateProductPage,
   UserPage, } from '~/pages';
 import React from 'react';
@@ -122,5 +124,15 @@ export default [
     id: `admin-${uuid4}`,
     path: adminRoutes.ebook,
     element: <EBookPage />,
+  },
+  {
+    id: `admin-${uuid4}`,
+    path: adminRoutes.bookCensorship,
+    element: <BookCensorshipPage />,
+  },
+  {
+    id: `admin-${uuid4}`,
+    path: adminRoutes.readEbook,
+    element: <ReadingEbookPage />,
   },
 ];

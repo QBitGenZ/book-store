@@ -2,16 +2,15 @@ import React from 'react';
 import { useDispatch, useSelector, } from 'react-redux';
 import { useNavigate, } from 'react-router-dom';
 import { deleteProductRequestStart,
-  getProductsRequestStart, } from '~/redux/product/slice';
+  getProductsRequestStart,
+  updateProductRequestStart, } from '~/redux/product/slice';
 import { getPublishersByAdminRequestStart, } from '~/redux/publisher/slice';
 import { getAuthorsByAdminRequestStart, } from '~/redux/author/slice';
-import { adminRoutes, } from '~/configs/routes';
 import { ConfirmationModal, DataTable, Pagination, } from '~/components';
 import { formatDate, translate, } from '~/helpers';
-import { Button, } from '@mui/material';
-import { getUserAllRequestStart, } from '~/redux/user/slice';
+import { adminRoutes, } from '~/configs/routes';
 
-const EBookPage = () => {
+const BookCensorshipPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { products, meta, updateSuccess, deleteSuccess, createSuccess, } =
@@ -38,7 +37,7 @@ const EBookPage = () => {
         limit,
         descending,
         isEbook: true,
-        isShow: true,
+        isShow: false,
       })
     );
   };
@@ -59,19 +58,18 @@ const EBookPage = () => {
     );
   };
 
-  const getUsers = () => {
-    dispatch(
-      getUserAllRequestStart({
-        limit: 1000,
-      })
-    );
-  };
+  // const getUsers = () => {
+  //   dispatch(
+  //     getUserAllRequestStart({
+  //       limit: 1000,
+  //     })
+  //   );
+  // };
 
   React.useEffect(() => {
     getProducts();
     getAuthors();
     getPublishers();
-    getUsers();
   }, [
     orderBy,
     descending,
@@ -94,10 +92,21 @@ const EBookPage = () => {
     setShowConfirm(true);
   };
 
-  const handleCreate = () => {
-    navigate(adminRoutes.createProduct);
-  };
+  // const handleCreate = () => {
+  //   navigate(adminRoutes.createProduct);
+  // };
 
+  const handleCensor = (value) => {
+    const formData = new FormData();
+    formData.append('isShow', true);
+
+    dispatch(
+      updateProductRequestStart({
+        id: value._id,
+        data: formData,
+      })
+    );
+  };
   const handleUpdate = (value) => {
     const selectedCopy = {
       ...value,
@@ -109,6 +118,7 @@ const EBookPage = () => {
   const handleShowDetail = (value) => {
     navigate(adminRoutes.productDetail.replace(':id', value._id));
   };
+
   const handleRead = (value) => {
     navigate(adminRoutes.readEbook.replace(':id', value._id));
   };
@@ -125,15 +135,15 @@ const EBookPage = () => {
 
       <div className='flex flex-col'>
         <div className='leading-10 text-left py-2 mb-3 bg-gray-50 text-2xl'>
-          {translate('Ebook')}
+          {translate('censor-sharing-book')}
         </div>
         <div className='flex flex-row w-full justify-between gap-3'>
           <div className='rounded-xl p-3 bg-white w-full'>
-            <div className='text-right mb-3'>
-              <Button onClick={handleCreate} variant='contained'>
-                {translate('create')}
-              </Button>
-            </div>
+            {/* <div className='text-right mb-3'>*/}
+            {/*  <Button onClick={handleCreate} variant='contained'>*/}
+            {/*    {translate('create')}*/}
+            {/*  </Button>*/}
+            {/* </div>*/}
             <DataTable
               actions={[
                 {
@@ -143,6 +153,10 @@ const EBookPage = () => {
                 {
                   label: translate('read-book'),
                   handler: handleRead,
+                },
+                {
+                  label: translate('Duyệt'),
+                  handler: handleCensor,
                 },
                 {
                   label: translate('update'),
@@ -246,4 +260,4 @@ const EBookPage = () => {
   return render();
 };
 
-export default EBookPage;
+export default BookCensorshipPage;
