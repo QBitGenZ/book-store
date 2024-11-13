@@ -21,6 +21,8 @@ import DetailOrderPage from './DetailOrderPage';
 import UserPage from './UserPage';
 import AuthorDetailPage from './AuthorDetailPage';
 import EBookPage from './EBookPage';
+import BookCensorshipPage from './BookCensorshipPage';
+import ReadingEbookPage from './ReadingEbookPage';
 
 export {
   LoginAdminPage,
@@ -46,4 +48,6 @@ export {
   UserPage,
   AuthorDetailPage,
   EBookPage,
+  BookCensorshipPage,
+  ReadingEbookPage,
 };

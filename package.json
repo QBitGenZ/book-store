@@ -16,11 +16,28 @@
   "author": "Entier",
   "license": "ISC",
   "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@headlessui/react": "^2.2.0",
+    "@mui/material": "^6.1.6",
+    "@mui/styled-engine-sc": "^6.1.6",
+    "@mui/x-charts": "^7.22.1",
+    "apexcharts": "^3.54.1",
     "book-store": "file:",
-    "concurrently": "^9.0.1"
+    "concurrently": "^9.0.1",
+    "html-react-parser": "^5.1.18",
+    "pdfjs-dist": "^3.4.120",
+    "prop-types": "^15.8.1",
+    "react-apexcharts": "^1.5.0",
+    "styled-components": "^6.1.13",
+    "typescript": "^5.6.3",
+    "uuid": "^10.0.0"
   },
   "bugs": {
     "url": "https://github.com/QBitGenZ/book-store/issues"
   },
-  "homepage": "https://github.com/QBitGenZ/book-store#readme"
+  "homepage": "https://github.com/QBitGenZ/book-store#readme",
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+  }
 }

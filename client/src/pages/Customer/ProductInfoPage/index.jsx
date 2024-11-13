@@ -6,9 +6,9 @@ import ProductPurchaseSection from '~/pages/Customer/ProductInfoPage/Components/
 import { ProductDetailInformation, ProductImage, } from '~/components';
 import ProductNameCard from '~/pages/Customer/ProductInfoPage/Components/ProductNameCard';
 import { createCartRequestStart, } from '~/redux/cart/slice';
-import { getPublishersByAdminRequestStart, } from '~/redux/publisher/slice';
-import { getTypesByAdminRequestStart, } from '~/redux/productType/slice';
-import { getAuthorsByAdminRequestStart, } from '~/redux/author/slice';
+import { getPublishersRequestStart, } from '~/redux/publisher/slice';
+import { getTypesRequestStart, } from '~/redux/productType/slice';
+import { getAuthorsRequestStart, } from '~/redux/author/slice';
 import { getAllFormatsRequestStart, } from '~/redux/format/slice';
 
 const ProductInfoPage = () => {
@@ -32,17 +32,17 @@ const ProductInfoPage = () => {
   React.useEffect(() => {
     getProduct();
     dispatch(
-      getPublishersByAdminRequestStart({
+      getPublishersRequestStart({
         limit: 1000,
       })
     );
     dispatch(
-      getTypesByAdminRequestStart({
+      getTypesRequestStart({
         limit: 1000,
       })
     );
     dispatch(
-      getAuthorsByAdminRequestStart({
+      getAuthorsRequestStart({
         limit: 1000,
       })
     );

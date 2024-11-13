@@ -141,6 +141,7 @@ const CreateProductPage = () => {
     }
     if (file) formData.append('file', file);
     formData.append('isEbook', isEbook);
+    formData.append('isShow', true);
 
     dispatch(createProductRequestStart(formData));
 
@@ -148,7 +149,7 @@ const CreateProductPage = () => {
   };
 
   const handleBack = () => {
-    navigate(adminRoutes.product);
+    navigate(-1);
   };
 
   return (

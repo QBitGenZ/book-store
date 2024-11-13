@@ -30,7 +30,10 @@ export const adminRoutes = {
   createProduct: '/admin/create-product',
   updateProduct: '/admin/update-product/:id',
   authorDetail: '/admin/categories/authors/:id',
+
   ebook: '/admin/ebook',
+  readEbook: '/admin/ebook/:id',
+  bookCensorship: '/admin/ebook/sharing',
 };
 
 export const clientRoutes = {
@@ -44,6 +47,7 @@ export const clientRoutes = {
   userInfo: '/userInfo',
   orderSuccess: '/checkout/success',
   event: '/events',
+  author: '/author',
   authorDetail: '/author/:id',
   book: '/books',
   shareBook: '/sharingBook',

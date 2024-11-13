@@ -38,6 +38,7 @@ const ProductPage = () => {
         page,
         limit,
         descending,
+        isEbook: false,
       })
     );
   };
@@ -192,7 +193,7 @@ const ProductPage = () => {
                 ...item,
                 image: item?.images[0] ? (
                   <img
-                    className='h-20 inline-block'
+                    className='h-20 w-24 inline-block object-contain'
                     src={`${process.env.REACT_APP_HOST_IP}/${item?.images[0]}`}
                     alt={item?.name}
                   />
@@ -200,7 +201,7 @@ const ProductPage = () => {
                   <img
                     src={`${process.env.PUBLIC_URL}/assets/pages/other/noImageItem.jpg`}
                     alt='Product'
-                    className='h-20 inline-block'
+                    className='h-20 w-24 inline-block object-contain'
                   />
                 ),
                 pubDate: formatDate(item?.pubDate),

@@ -31,13 +31,13 @@ function OrderedSummary({ order, shippingCost = 0, }) {
               <img
                 src={`${process.env.REACT_APP_HOST_IP}/${item.product.images[0]}`}
                 alt='Product'
-                className='w-20 h-24 object-cover'
+                className='w-20 h-24 p-0.5 object-contain aspect-square border rounded'
               />
             ) : (
               <img
                 src={`${process.env.PUBLIC_URL}/assets/pages/other/noImageItem.jpg`}
                 alt='Product'
-                className='w-20 h-24 object-cover'
+                className='w-20 h-24 p-0.5 object-contain aspect-square border rounded'
               />
             )}
             <div className='flex-1'>
