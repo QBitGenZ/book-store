@@ -1,33 +1,93 @@
 import React from 'react';
 import { useDispatch, useSelector, } from 'react-redux';
-import { getProductsRequestStart, } from '~/redux/product/slice';
+import { getProductsByTypeRequestStart,
+  getProductsRequestStart, } from '~/redux/product/slice';
 import { getShopRequestStart, } from '~/redux/config/slice';
 import { CustomerPagination, Filter, ProductList, } from '~/components';
 import { translate, } from '~/helpers';
 
 const BookPage = () => {
   const { products, meta, } = useSelector((state) => state.product);
-  const [orderBy,] = React.useState('');
-  const [descending,] = React.useState(true);
+  const [orderBy, setOrderBy,] = React.useState('');
+  const [descending, setDescending,] = React.useState(true);
   const [page, setPage,] = React.useState(1);
   const [limit,] = React.useState(20);
+  const [minPrice, setMinPrice,] = React.useState(0);
+  const [maxPrice, setMaxPrice,] = React.useState(0);
+  const [selectedCategory, setSelectedCategory,] = React.useState('');
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
+  const getProducts = () => {
     dispatch(
       getProductsRequestStart({
         orderBy,
         page,
         limit,
         descending,
+        minPrice: minPrice || 0,
+        maxPrice: maxPrice || 99999999,
       })
     );
+  };
+
+  const getProductsByTypes = (id) => {
+    dispatch(
+      getProductsByTypeRequestStart({
+        id,
+        meta: {
+          orderBy,
+          page,
+          limit,
+          descending,
+          minPrice: minPrice || 0,
+          maxPrice: maxPrice || 99999999,
+        },
+      })
+    );
+  };
+
+  const filterByPrice = () => {
+    if (selectedCategory) {
+      getProductsByTypes(selectedCategory);
+    } else {
+      getProducts();
+    }
+  };
+
+  React.useEffect(() => {
     dispatch(getShopRequestStart());
-  }, [dispatch, page, orderBy, descending, limit,]);
+  });
+  React.useEffect(() => {
+    // dispatch(
+    //   getProductsRequestStart({
+    //     orderBy,
+    //     page,
+    //     limit,
+    //     descending,
+    //   })
+    // );
+    filterByPrice();
+  }, [dispatch, page, orderBy, descending, limit, selectedCategory,]);
+  React.useEffect(() => {
+    setPage(1);
+  }, [selectedCategory, orderBy, descending,]);
   return (
     <div className={'flex flex-row gap-3 w-full'}>
       <div className={'shrink-0'}>
-        <Filter></Filter>
+        <Filter
+          page={page}
+          maxPrice={maxPrice}
+          setMaxPrice={setMaxPrice}
+          minPrice={minPrice}
+          setMinPrice={setMinPrice}
+          descending={descending}
+          setDescending={setDescending}
+          orderBy={orderBy}
+          setOrderBy={setOrderBy}
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+          filterByPrice={filterByPrice}
+        ></Filter>
       </div>
       <div className={'w-full h-full'}>
         {products && products.length !== 0 && (

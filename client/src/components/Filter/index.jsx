@@ -1,55 +1,29 @@
-import React, { useState, } from 'react';
+import React from 'react';
 import { useDispatch, useSelector, } from 'react-redux';
-import { getProductsByTypeRequestStart,
-  getProductsRequestStart, } from '~/redux/product/slice';
-import { getTypesRequestStart, } from '~/redux/productType/slice';
 import PropTypes from 'prop-types';
 import { translate, } from '~/helpers';
 import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
 import { faArrowDown, faArrowUp, } from '@fortawesome/free-solid-svg-icons';
+import { getTypesRequestStart, } from '~/redux/productType/slice';
 
-function FilterSidebar({ idCategory, }) {
+function FilterSidebar({
+  orderBy,
+  setOrderBy,
+  descending,
+  setDescending,
+  page,
+  limit,
+  selectedCategory,
+  setSelectedCategory,
+  minPrice,
+  setMinPrice,
+  maxPrice,
+  setMaxPrice,
+  filterByPrice,
+}) {
   const { types, } = useSelector((state) => state.type);
-  // const { products, } = useSelector((state) => state.product);
   const { shop, } = useSelector((state) => state.config);
   const dispatch = useDispatch();
-  const [orderBy, setOrderBy,] = React.useState('');
-  const [descending, setDescending,] = React.useState(true);
-  const [page,] = React.useState(1);
-  const [limit,] = React.useState(20);
-  const [selectedCategory, setSelectedCategory,] = useState(idCategory || null);
-
-  const [minPrice, setMinPrice,] = useState();
-  const [maxPrice, setMaxPrice,] = useState();
-
-  const getProducts = () => {
-    dispatch(
-      getProductsRequestStart({
-        orderBy,
-        page,
-        limit,
-        descending,
-        minPrice: minPrice || 0,
-        maxPrice: maxPrice || 9999999,
-      })
-    );
-  };
-
-  const getProductsByTypes = (id) => {
-    dispatch(
-      getProductsByTypeRequestStart({
-        id,
-        meta: {
-          orderBy,
-          page,
-          limit,
-          descending,
-          minPrice: minPrice || 0,
-          maxPrice: maxPrice || 9999999,
-        },
-      })
-    );
-  };
 
   const getTypes = () => {
     dispatch(
@@ -59,28 +33,13 @@ function FilterSidebar({ idCategory, }) {
     );
   };
 
-  const filterByPrice = () => {
-    if (selectedCategory) {
-      getProductsByTypes(selectedCategory);
-    } else {
-      getProducts();
-    }
-  };
-
-  // React.useEffect(() => {
-  //   getProducts();
-  // }, [orderBy, descending,]);
-
   React.useEffect(() => {
     getTypes();
-  }, [dispatch,]);
+  }, [dispatch, page, limit, orderBy,]);
 
-  React.useEffect(() => {
-    // if (selectedCategory) {
-    //   getProductsByTypes(selectedCategory);
-    // }
-    filterByPrice();
-  }, [selectedCategory, orderBy, descending,]);
+  // React.useEffect(() => {
+  //   filterByPrice();
+  // }, [selectedCategory, orderBy, descending,]);
 
   return (
     <div className='p-4 bg-white rounded-md w-64 text-left shadow-sm'>
@@ -92,7 +51,7 @@ function FilterSidebar({ idCategory, }) {
           className='font-normal mb-3'
           onClick={() => {
             setSelectedCategory(null);
-            getProducts();
+            // getProducts();
           }}
           style={{
             fontWeight: selectedCategory === null ? 'bold' : 'lighter',
@@ -142,7 +101,7 @@ function FilterSidebar({ idCategory, }) {
             type='number'
             name='price'
             id='price'
-            className={`block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[${shop.accentColor}] sm:text-sm/6`}
+            className={`block w-full rounded-md border-0 py-1.5 pl-3 pr-1 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[${shop.accentColor}] sm:text-sm/6`}
             placeholder='Từ'
             onChange={(e) => {
               setMinPrice(e.target.value);
@@ -155,7 +114,7 @@ function FilterSidebar({ idCategory, }) {
             type='number'
             name='price'
             id='price'
-            className={`block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[${shop.accentColor}] sm:text-sm/6`}
+            className={`block w-full rounded-md border-0 py-1.5 pl-3 pr-1 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[${shop.accentColor}] sm:text-sm/6`}
             placeholder='Đến'
             onChange={(e) => {
               setMaxPrice(e.target.value);
@@ -211,7 +170,19 @@ function FilterSidebar({ idCategory, }) {
 }
 
 FilterSidebar.propTypes = {
-  idCategory: PropTypes.string,
+  orderBy: PropTypes.string,
+  setOrderBy: PropTypes.func,
+  descending: PropTypes.bool,
+  setDescending: PropTypes.func,
+  page: PropTypes.number,
+  limit: PropTypes.number,
+  selectedCategory: PropTypes.string,
+  setSelectedCategory: PropTypes.func,
+  minPrice: PropTypes.number,
+  setMinPrice: PropTypes.func,
+  maxPrice: PropTypes.number,
+  setMaxPrice: PropTypes.func,
+  filterByPrice: PropTypes.func,
 };
 
 export default FilterSidebar;
