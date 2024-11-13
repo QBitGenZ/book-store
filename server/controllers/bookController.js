@@ -17,6 +17,10 @@ exports.getAll = async (req, res) => {
         };
     }
 
+    if(req.query.isEbook != null && req.query.isEbook != undefined) {
+        query.isEbook = req.query.isEbook
+    }
+
     const defaultField = "name";
     getAllDocuments(Book, query, defaultField, req, res);
 };
