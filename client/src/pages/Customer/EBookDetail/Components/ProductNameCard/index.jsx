@@ -39,28 +39,31 @@ const ProductNameCard = ({ product, }) => {
       {/*    {formatCurrency(product?.price)}*/}
       {/*  </span>*/}
       {/* </div>*/}
-      <div>
-        <button
-          type='button'
-          onClick={readBook}
-          className={`block border-2 mt-1 px-3 py-1 rounded text-left text-lg font-semibold text-[${shop.accentColor}] e`}
-          style={{
-            color: shop.accentColor,
-            borderColor: shop.accentColor,
-          }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.color = 'white';
-            e.currentTarget.style.backgroundColor = shop?.accentColor;
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.color = shop.accentColor;
-            e.currentTarget.style.borderColor = shop.accentColor;
-            e.currentTarget.style.backgroundColor = 'white';
-          }}
-        >
-          {translate('read-book')}
-        </button>
-      </div>
+      {product?.file && (
+        <div>
+          <button
+            type='button'
+            onClick={readBook}
+            className={`block border-2 mt-1 px-3 py-1 rounded text-left text-lg font-semibold text-[${shop.accentColor}] e`}
+            style={{
+              color: shop.accentColor,
+              borderColor: shop.accentColor,
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.color = 'white';
+              e.currentTarget.style.backgroundColor = shop?.accentColor;
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.color = shop.accentColor;
+              e.currentTarget.style.borderColor = shop.accentColor;
+              e.currentTarget.style.backgroundColor = 'white';
+            }}
+          >
+            {translate('read-book')}
+          </button>
+        </div>
+      )}
+
     </div>
   );
 };

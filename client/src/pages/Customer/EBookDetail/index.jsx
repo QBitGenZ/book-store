@@ -42,6 +42,7 @@ const ReadEbookPage = () => {
               'quantity',
               'name',
               'isShow',
+              'file',
             ]}
           />
         </div>

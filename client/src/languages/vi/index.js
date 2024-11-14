@@ -1,4 +1,7 @@
 const vi = {
+  'file-must-be-pdf': 'File tải lên là PDF',
+  'file-required': 'Vui lòng tải file lên',
+  'name-required': 'Vui lòng nhập tên',
   'shared-book': 'Sách được chia sẻ',
   'censor-sharing-book': 'Kiểm duyệt sách chia sẻ',
   'create-event-label': 'Thêm mới sự kiện',

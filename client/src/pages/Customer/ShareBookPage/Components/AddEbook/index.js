@@ -11,6 +11,8 @@ function AddEbook({ show, setShow, }) {
   const [description, setDescription,] = useState('');
   const [images, setImages,] = useState([]);
   const [file, setFile,] = useState(null);
+  const [errors, setErrors,] = useState({
+  });
   const { shop, } = useSelector((state) => state.config);
   const dispatch = useDispatch();
 
@@ -19,6 +21,7 @@ function AddEbook({ show, setShow, }) {
       prevImages.filter((image) => image.url !== imageRemoved.img)
     );
   };
+
   const handleAddImages = (imagesUpload) => {
     if (imagesUpload.length > 0) {
       const newImages = imagesUpload.map((image) => ({
@@ -29,21 +32,37 @@ function AddEbook({ show, setShow, }) {
     }
   };
 
-  const handleClose = () => setShow(false);
+  const validateFields = () => {
+    const newErrors = {
+    };
+    if (!name.trim()) newErrors.name = translate('name-required');
+    if (!file) {
+      newErrors.file = translate('file-required');
+    } else if (file.type !== 'application/pdf') {
+      newErrors.file = translate('file-must-be-pdf');
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleClose = () => {
+    setErrors({
+    });
+    setShow(false);
+  };
+
   const handleSave = () => {
+    if (!validateFields()) return;
+
     const formData = new FormData();
     formData.append('name', name);
     if (description) formData.append('description', description);
 
-    if (images !== []) {
-      // const newImagesUpload = images.map(image => image.file);
-      // setImagesSubmit(prevImagesSubmit => [...prevImagesSubmit, ...newImagesUpload,]);
-      images?.forEach((image) => {
-        formData.append('images', image.file);
-      });
-    }
+    images.forEach((image) => {
+      formData.append('images', image.file);
+    });
 
-    if (file) formData.append('file', file);
+    formData.append('file', file);
     dispatch(createDonationRequestStart(formData));
     handleClose();
   };
@@ -68,9 +87,11 @@ function AddEbook({ show, setShow, }) {
               value={name}
               onChange={(e) => setName(e.target.value)}
               className={`w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-[${shop.accentColor}]`}
-              // placeholder='Nhập họ và tên người nhận'
               required
             />
+            {errors.name && (
+              <p className='text-red-500 text-sm mt-1'>{translate(errors.name)}</p>
+            )}
           </div>
           <div className='mb-4'>
             <label className='block text-gray-700 mb-2'>Mô tả</label>
@@ -87,15 +108,17 @@ function AddEbook({ show, setShow, }) {
               },
             ]}
             onAddImages={handleAddImages}
-          ></QuiltedImageList>
+          />
           <div className='flex flex-col gap-3'>
             <input
               type='file'
               name='file'
               onChange={(e) => setFile(e.target.files[0])}
             />
+            {errors.file && (
+              <p className='text-red-500 text-sm mt-1'>{translate(errors.file)}</p>
+            )}
           </div>
-          {/* Add more fields as necessary */}
         </div>
       </BModal.Body>
       <BModal.Footer>
@@ -147,7 +170,6 @@ function AddEbook({ show, setShow, }) {
 AddEbook.propTypes = {
   show: PropTypes.bool.isRequired,
   setShow: PropTypes.func.isRequired,
-  // addNewEBook: PropTypes.func.isRequired,
 };
 
 export default AddEbook;
