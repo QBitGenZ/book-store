@@ -11,31 +11,16 @@ const Types = ({ typesStatistics = [], }) => {
   console.log(categoryNames, stockQuantities);
   return (
     <div>
-      {/* <BarChart*/}
-      {/*  series={[{*/}
-      {/*    stockQuantities,*/}
-      {/*  },]}*/}
-      {/*  xAxis={[{*/}
-      {/*    scaleType: 'band', data: categoryNames,*/}
-      {/*  },]}*/}
-      {/*  width={500}*/}
-      {/*  height={300}></BarChart>*/}
       <BarChart
         xAxis={[
           {
             scaleType: 'band',
-            data: ['group A', 'group B', 'group C',],
+            data: categoryNames,
           },
         ]}
         series={[
           {
-            data: [4, 3, 5,],
-          },
-          {
-            data: [1, 6, 3,],
-          },
-          {
-            data: [2, 5, 6,],
+            data: stockQuantities,
           },
         ]}
         width={500}

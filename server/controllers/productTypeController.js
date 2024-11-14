@@ -106,15 +106,17 @@ exports.getProductByType = async (req, res) => {
 
   try {
     const type = await ProductType.findById(id);
-
     const query = {
       type: type.id,
-      price: {
+    };
+
+    if (req.query.minPrice && req.query.maxPrice) {
+      query.price = {
         $gte: parseInt(req.query.minPrice, 10),
         $lte: parseInt(req.query.maxPrice, 10),
-      },
-      ...(req.query.search && {name: {$regex: req.query.search, $options: "i"}}),
-    };
+      };
+    }
+
     // if (req.query.minPrice && req.query.maxPrice) {
     //   query.price = {
     //     $gte: parseInt(req.query.minPrice, 10),
