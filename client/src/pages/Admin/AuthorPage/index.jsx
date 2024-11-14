@@ -198,11 +198,11 @@ const AuthorPage = () => {
                   enableSort: true,
                   label: translate('birthday'),
                 },
-                {
-                  field: 'biography',
-                  enableSort: false,
-                  label: translate('biography'),
-                },
+                // {
+                //   field: 'biography',
+                //   enableSort: false,
+                //   label: translate('biography'),
+                // },
               ]}
               data={authors?.map((item) => ({
                 ...item,

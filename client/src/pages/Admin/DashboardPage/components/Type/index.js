@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// import BarChart from '@mui/x-charts';
 import { BarChart, } from '@mui/x-charts';
 
 const Types = ({ typesStatistics = [], }) => {

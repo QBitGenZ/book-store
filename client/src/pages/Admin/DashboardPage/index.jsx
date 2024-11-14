@@ -3,6 +3,7 @@ import { useDispatch, useSelector, } from 'react-redux';
 import { getAllStatisticsRequestStart, } from '~/redux/statistic/slice';
 import Inventory from './components/Inventory';
 import Revenue from './components/Revenue';
+import Types from '~/pages/Admin/DashboardPage/components/Type';
 
 const DashboardPage = () => {
   const { allStatistics, } = useSelector((state) => state.statistic);
@@ -20,7 +21,7 @@ const DashboardPage = () => {
             <Inventory productStatistics={allStatistics?.productStatistics} />
           </div>
 
-          {/* <Types typesStatistics={allStatistics?.typeStatistics}/>*/}
+          <Types typesStatistics={allStatistics?.typeStatistics} />
         </>
       )}
     </>

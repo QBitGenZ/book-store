@@ -27,6 +27,7 @@ import AuthorDetail from './AuthorDetail';
 import Filter from './Filter';
 import EBookList from './EBookList';
 import EBookCard from './EBookCard';
+import Footer from './Footer';
 
 export {
   CustomSnackbar,
@@ -58,4 +59,5 @@ export {
   Filter,
   EBookList,
   EBookCard,
+  Footer,
 };

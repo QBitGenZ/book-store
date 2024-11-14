@@ -207,12 +207,12 @@ function* handleGetInfo() {
     );
   } catch (err) {
     yield put(getInfoRequestFailure(err.message));
-    yield put(
-      showSnackbar({
-        message: `Request failed: ${err.message}`,
-        severity: 'error',
-      })
-    );
+    // yield put(
+    //   showSnackbar({
+    //     message: `Request failed: ${err.message}`,
+    //     severity: 'error',
+    //   })
+    // );
   }
 }
 

@@ -77,7 +77,11 @@ const LoginPage = () => {
             placeholder={translate('password')}
           />
           <div className='text-right'>
-            <span>{translate('forgot-password')} ?</span>
+            <Link className='no-underline' to={authRoutes.forgotPassword}>
+              <span className='no-underline'>
+                {translate('forgot-password')} ?
+              </span>
+            </Link>
           </div>
           <Button variant='contained' onClick={loginRequest}>
             {translate('login')}
