@@ -4,7 +4,7 @@ import { getInfoRequestStart, } from '~/redux/auth/slice';
 import { LoadingPage, } from '~/pages';
 import { authRoutes, } from '~/configs/routes';
 import { Navigate, } from 'react-router-dom';
-import { CustomerHeader, } from '~/components';
+import { CustomerHeader, Footer, } from '~/components';
 
 const CustomerMainLayout = ({ children, }) => {
   const { user, loading, } = useSelector((state) => state.auth);
@@ -26,6 +26,7 @@ const CustomerMainLayout = ({ children, }) => {
             <div className='flex-grow p-6 sm:mx-8 md:mx-8 lg:mx-12 xl:mx-28'>
               {children}
             </div>
+            <Footer></Footer>
           </div>
         </main>
       </div>

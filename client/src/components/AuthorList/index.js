@@ -69,6 +69,10 @@ function AuthorList() {
             <button
               onClick={handleAll}
               className={`border-2 border-[${shop?.accentColor}] p-2 px-5 rounded text-sm font-semibold`}
+              style={{
+                backgroundColor: shop?.accentColor || '#0065D7',
+                color: 'white',
+              }}
             >
               Xem tất cả
             </button>

@@ -60,11 +60,14 @@ const OneStepCheckOutPage = () => {
     dispatch(getDeliveryMethodsRequestStart());
     dispatch(getPaymentMethodsRequestStart());
     dispatch(getCartRequestStart());
-    dispatch(getShopRequestStart());
+
     dispatch(resetSuccessStates());
     // console.log(getItems(cart));
   }, [dispatch, user,]);
 
+  React.useEffect(() => {
+    dispatch(getShopRequestStart());
+  });
   // Handle address operation success and cleanup
   useEffect(() => {
     const hasAddressChange = createSuccess || updateSuccess || deleteSuccess;

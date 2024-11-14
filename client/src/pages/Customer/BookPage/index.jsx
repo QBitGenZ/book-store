@@ -8,6 +8,7 @@ import { translate, } from '~/helpers';
 
 const BookPage = () => {
   const { products, meta, } = useSelector((state) => state.product);
+  const { shop, } = useSelector((state) => state.config);
   const [orderBy, setOrderBy,] = React.useState('');
   const [descending, setDescending,] = React.useState(true);
   const [page, setPage,] = React.useState(1);
@@ -55,7 +56,7 @@ const BookPage = () => {
   };
 
   React.useEffect(() => {
-    dispatch(getShopRequestStart());
+    if (!shop) dispatch(getShopRequestStart());
   });
   React.useEffect(() => {
     // dispatch(

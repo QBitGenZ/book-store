@@ -57,7 +57,10 @@ const ShareBookPage = () => {
         <div className={'flex justify-end bg-white rounded shadow-sm p-2'}>
           <button
             onClick={() => setModals(true)}
-            className={`left-0 border-2 border-[${shop?.accentColor}] p-2 rounded text-sm font-semibold`}
+            className={`left-0 border-2 border-[${shop?.accentColor}] text-white p-2 rounded text-sm font-semibold`}
+            style={{
+              backgroundColor: shop?.accentColor || '#0065D7',
+            }}
           >
             {translate('sharing-book')}
           </button>

@@ -22,8 +22,10 @@ const HomePage = () => {
         descending,
       })
     );
-    dispatch(getShopRequestStart());
   }, [dispatch, page, orderBy, descending, limit,]);
+  React.useEffect(() => {
+    dispatch(getShopRequestStart());
+  });
 
   return (
     <>
