@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate, } from 'react-router-dom';
 import { clientRoutes, } from '~/configs/routes';
+import { translate, } from '~/helpers';
 
 const EBookCard = ({ product, }) => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const EBookCard = ({ product, }) => {
   };
 
   return (
-    <div className='relative flex w-full max-w-56 h-[320px] flex-col overflow-hidden bg-white hover:shadow-xl transition-shadow duration-200 rounded'>
+    <div className='relative flex w-full max-w-56 h-[350px] flex-col overflow-hidden bg-white hover:shadow-xl transition-shadow duration-200 rounded'>
       <div
         className='relative mx-3 mt-3 flex justify-center overflow-hidden rounded-xl cursor-pointer'
         onClick={handleNavigate}
@@ -33,15 +34,19 @@ const EBookCard = ({ product, }) => {
       </div>
       <div className='flex flex-col justify-start mt-2 mx-2 px-2 pb-2'>
         <div onClick={handleNavigate} className='cursor-pointer'>
-          <div className='text-pretty text-start text-sm  truncate font-normal line-clamp-2'>
+          <div className='text-pretty text-start text-sm  truncate font-normal line-clamp-2 h-[calc(2*1.25rem)]'>
             {product?.name}
           </div>
         </div>
-        {/* <div className='mb-3 mt-1 flex items-center justify-between'>*/}
-        {/*  <div className='font-bold text-base text-red-500'>*/}
-        {/*    {formatCurrency(product?.price)}*/}
-        {/*  </div>*/}
-        {/* </div>*/}
+        {product?.isEbook && (
+          <div className='mb-3 mt-1 flex items-center justify-between'>
+            <span
+              className='inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10'>
+              {translate('Ebook')}
+            </span>
+          </div>
+        )
+        }
       </div>
     </div>
   );
@@ -53,6 +58,7 @@ EBookCard.propTypes = {
     name: PropTypes.string,
     price: PropTypes.number,
     images: PropTypes.arrayOf(PropTypes.string),
+    isEbook: PropTypes.bool,
   }).isRequired,
 };
 

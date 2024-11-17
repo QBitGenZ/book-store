@@ -90,6 +90,11 @@ const cartSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    resetState: (state) => {
+      state.createSuccess = false;
+      state.updateSuccess = false;
+      state.deleteSuccess = false;
+    },
   },
 });
 
@@ -109,6 +114,7 @@ export const {
   deleteAllCartRequestStart,
   deleteAllCartRequestSuccess,
   deleteAllCartRequestFailure,
+  resetState,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

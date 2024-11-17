@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ProductCard, } from '~/components';
+import { EBookCard, ProductCard, } from '~/components';
 
 const ProductList = ({ title, products = [], }) => {
   return (
@@ -18,7 +18,12 @@ const ProductList = ({ title, products = [], }) => {
             key={product._id}
             className='w-fit flex justify-center items-center'
           >
-            <ProductCard product={product} />
+            {product?.isEbook ?
+              (<EBookCard product={product} />)
+              : (
+                <ProductCard product={product} />
+              )}
+
           </div>
         ))}
       </div>
