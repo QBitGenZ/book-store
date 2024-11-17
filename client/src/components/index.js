@@ -28,6 +28,7 @@ import Filter from './Filter';
 import EBookList from './EBookList';
 import EBookCard from './EBookCard';
 import Footer from './Footer';
+import PopupChat from './PopupChat';
 
 export {
   CustomSnackbar,
@@ -60,4 +61,5 @@ export {
   EBookList,
   EBookCard,
   Footer,
+  PopupChat,
 };

@@ -2,14 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate, } from 'react-router-dom';
 import { clientRoutes, } from '~/configs/routes';
-import { formatCurrency, } from '~/helpers';
+import { formatCurrency, translate, } from '~/helpers';
 
 const ProductCard = ({ product, }) => {
   const navigate = useNavigate();
   // const { shop, } = useSelector(state => state.config);
 
   const handleNavigate = () => {
-    navigate(clientRoutes.product.replace(':id', product._id));
+    if (product?.isEbook)
+      navigate(clientRoutes.ebook.replace(':id', product._id));
+    else
+      navigate(clientRoutes.product.replace(':id', product._id));
   };
 
   return (
@@ -38,11 +41,24 @@ const ProductCard = ({ product, }) => {
             {product?.name}
           </div>
         </div>
-        <div className='mb-3 mt-1 flex items-center justify-between'>
-          <div className='font-bold text-base text-red-500'>
-            {formatCurrency(product?.price)}
+
+        {product?.stockQuantity === 0 ? (
+          <div className='mb-3 mt-1 flex items-center justify-between'>
+            <span
+              className='inline-flex items-center rounded-md bg-pink-50 px-2 py-1 text-xs font-medium text-pink-700 ring-1 ring-inset ring-pink-700/10'>
+              {translate('sold-out')}
+            </span>
           </div>
-        </div>
+        )
+          :
+          (
+            <div className='mt-1 flex items-center justify-between'>
+              <div className='font-bold text-base text-red-500'>
+                {formatCurrency(product?.price)}
+              </div>
+            </div>
+          )}
+
       </div>
     </div>
   );
@@ -54,6 +70,8 @@ ProductCard.propTypes = {
     name: PropTypes.string,
     price: PropTypes.number,
     images: PropTypes.arrayOf(PropTypes.string),
+    isEbook: PropTypes.bool,
+    stockQuantity: PropTypes.number,
   }).isRequired,
 };
 

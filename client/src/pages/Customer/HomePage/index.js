@@ -31,16 +31,16 @@ const HomePage = () => {
     <>
       <div className={'flex flex-col gap-3'}>
         <div className={'w-full rounded'}>
-          <CustomCarousel />
+          <CustomCarousel/>
         </div>
         <div className={'w-full'}>
-          <AuthorList />
+          <AuthorList/>
         </div>
 
         <div>
           {products && (
             <div>
-              <ProductList products={products} title={'Sách mới'} />
+              <ProductList products={products} title={'Sách mới'}/>
               {/* <CustomerPagination*/}
               {/*  currentPage={meta?.page ?? 1}*/}
               {/*  totalPages={meta?.totalPage ?? 1}*/}
@@ -50,8 +50,9 @@ const HomePage = () => {
           )}
         </div>
         <div className={'w-full'}>
-          <Categories />
+          <Categories/>
         </div>
+
       </div>
     </>
   );
