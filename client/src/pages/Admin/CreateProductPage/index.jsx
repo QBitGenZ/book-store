@@ -126,13 +126,13 @@ const CreateProductPage = () => {
     if (!author) newErrors.author = translate('author-required');
     if (!publisher) newErrors.publisher = translate('publisher-required');
     if (!pubDate) newErrors.pubDate = translate('pubDate-required');
-    if (!size || !/^[\d]+x[\d]+$/.test(size)) newErrors.size = translate('size-required');
+    if (!size) newErrors.size = translate('size-required');
     if (!weight || weight <= 0) newErrors.weight = translate('weight-required');
     if (!pageNumber || pageNumber <= 0) newErrors.pageNumber = translate('pageNumber-required');
-    if (stockQuantity === '' || stockQuantity < 0) newErrors.stockQuantity = translate('stockQuantity-required');
-    if (quantity === '' || quantity < 0) newErrors.quantity = translate('quantity-required');
-    if (cost === '' || cost < 0) newErrors.cost = translate('cost-required');
-    if (price === '' || price < 0) newErrors.price = translate('price-required');
+    if (stockQuantity === '' || stockQuantity <= 0) newErrors.stockQuantity = translate('stockQuantity-required');
+    if (quantity === '' || quantity <= 0) newErrors.quantity = translate('quantity-required');
+    if (cost === '' || cost <= 0) newErrors.cost = translate('cost-required');
+    if (price === '' || price <= 0) newErrors.price = translate('price-required');
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -387,7 +387,7 @@ const CreateProductPage = () => {
               setContent={setDescription}
             ></RichTextEditor>
           </div>
-          <div className='flex flex-col gap-3'>
+          <div hidden={true} className='flex flex-col gap-3'>
             <input
               type='file'
               name='file'
