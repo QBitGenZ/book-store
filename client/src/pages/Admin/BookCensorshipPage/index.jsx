@@ -37,7 +37,7 @@ const BookCensorshipPage = () => {
         limit,
         descending,
         isEbook: true,
-        isShow: false,
+        // isShow: false,
       })
     );
   };
@@ -198,6 +198,7 @@ const BookCensorshipPage = () => {
                   enableSort: false,
                   label: translate('donor'),
                 },
+
                 // {
                 //     field: 'price',
                 //     enableSort: true,
@@ -212,6 +213,11 @@ const BookCensorshipPage = () => {
                   field: 'pubDate',
                   enableSort: true,
                   label: translate('pub-date'),
+                },
+                {
+                  field: 'isShow',
+                  enableSort: true,
+                  label: translate('status'),
                 },
               ]}
               data={products?.map((item) => ({
@@ -236,6 +242,12 @@ const BookCensorshipPage = () => {
                   (publisher) => item.publisher === publisher._id
                 )?.name,
                 donor: users?.find((user) => item.donor === user._id)?.fullname,
+                isShow: item.isShow ?
+                  (<span
+                    className='inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20'>Đã duyệt</span>)
+                  :
+                  (<span
+                    className='inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20'>Chưa duyệt</span>),
               }))}
               keyField='_id'
               onSort={(f, des) => {

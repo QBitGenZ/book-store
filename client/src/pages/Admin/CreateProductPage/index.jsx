@@ -1,6 +1,6 @@
 import React, { useState, } from 'react';
 import Button from 'react-bootstrap/Button';
-import { Checkbox, FormControlLabel, MenuItem, TextField, } from '@mui/material';
+import { MenuItem, TextField, } from '@mui/material';
 import { translate, } from '~/helpers';
 import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
 import { useNavigate, } from 'react-router-dom';
@@ -35,7 +35,7 @@ const CreateProductPage = () => {
   // const [imagesSubmit, setImagesSubmit,] = useState([]);
   const [file, setFile,] = useState(null);
 
-  const [isEbook, setIsEbook,] = useState(false);
+  const [isEbook, ] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -47,6 +47,8 @@ const CreateProductPage = () => {
   const { formats, } = useSelector((state) => state.format);
   // const { users, } = useSelector(state => state.user);
   const [limit,] = React.useState(100);
+  const [errors, setErrors,] = useState({
+  });
 
   const getTypes = () => {
     dispatch(
@@ -115,7 +117,29 @@ const CreateProductPage = () => {
     };
   }, []);
 
+  const validate = () => {
+    const newErrors = {
+    };
+
+    if (!name.trim()) newErrors.name = translate('name-required');
+    if (!type) newErrors.type = translate('type-required');
+    if (!author) newErrors.author = translate('author-required');
+    if (!publisher) newErrors.publisher = translate('publisher-required');
+    if (!pubDate) newErrors.pubDate = translate('pubDate-required');
+    if (!size || !/^[\d]+x[\d]+$/.test(size)) newErrors.size = translate('size-required');
+    if (!weight || weight <= 0) newErrors.weight = translate('weight-required');
+    if (!pageNumber || pageNumber <= 0) newErrors.pageNumber = translate('pageNumber-required');
+    if (stockQuantity === '' || stockQuantity < 0) newErrors.stockQuantity = translate('stockQuantity-required');
+    if (quantity === '' || quantity < 0) newErrors.quantity = translate('quantity-required');
+    if (cost === '' || cost < 0) newErrors.cost = translate('cost-required');
+    if (price === '' || price < 0) newErrors.price = translate('price-required');
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = () => {
+    if (!validate()) return;
     const formData = new FormData();
     formData.append('name', name);
     if (type) formData.append('type', type);
@@ -183,6 +207,8 @@ const CreateProductPage = () => {
             name='name'
             size='small'
             value={name}
+            error={!!errors.name}
+            helperText={errors.name}
             onChange={(e) => setName(e.target.value)}
           />
           <TextField
@@ -191,10 +217,13 @@ const CreateProductPage = () => {
             sx={{
               textAlign: 'left',
             }}
+            required
             label={translate('product-type-label')}
             size='small'
             value={type}
             onChange={(e) => setType(e.target.value)}
+            error={!!errors.type}
+            helperText={errors.type}
             SelectProps={{
               MenuProps: {
                 PaperProps: {
@@ -220,7 +249,10 @@ const CreateProductPage = () => {
             label={translate('publisher-label')}
             size='small'
             value={publisher}
+            required
             onChange={(e) => setPublisher(e.target.value)}
+            error={!!errors.publisher}
+            helperText={errors.publisher}
             SelectProps={{
               MenuProps: {
                 PaperProps: {
@@ -246,7 +278,10 @@ const CreateProductPage = () => {
             label={translate('author-label')}
             size='small'
             value={author}
+            required
             onChange={(e) => setAuthor(e.target.value)}
+            error={!!errors.author}
+            helperText={errors.author}
             SelectProps={{
               MenuProps: {
                 PaperProps: {
@@ -296,6 +331,8 @@ const CreateProductPage = () => {
             type='date'
             value={formatDate(pubDate)}
             onChange={(e) => setPubDate(e.target.value)}
+            error={!!errors.pubDate}
+            helperText={errors.pubDate}
             InputLabelProps={{
               shrink: true,
             }}
@@ -350,17 +387,24 @@ const CreateProductPage = () => {
               setContent={setDescription}
             ></RichTextEditor>
           </div>
+          <div className='flex flex-col gap-3'>
+            <input
+              type='file'
+              name='file'
+              onChange={(e) => setFile(e.target.files[0])}
+            />
+          </div>
 
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={isEbook}
-                onChange={(e) => setIsEbook(e.target.checked)}
-                name='isEbook'
-              />
-            }
-            label={translate('is-ebook')}
-          />
+          {/* <FormControlLabel*/}
+          {/*  control={*/}
+          {/*    <Checkbox*/}
+          {/*      checked={isEbook}*/}
+          {/*      onChange={(e) => setIsEbook(e.target.checked)}*/}
+          {/*      name='isEbook'*/}
+          {/*    />*/}
+          {/*  }*/}
+          {/*  label={translate('is-ebook')}*/}
+          {/* />*/}
         </div>
 
         <div className='flex flex-col gap-3'>
@@ -368,8 +412,11 @@ const CreateProductPage = () => {
             label={translate('size')}
             size='small'
             name='size'
+            required
             value={size}
             onChange={(e) => setSize(e.target.value)}
+            error={!!errors.size}
+            helperText={errors.size}
           />
 
           <TextField
@@ -377,12 +424,15 @@ const CreateProductPage = () => {
             size='small'
             name='weight'
             type='number'
+            required
             inputProps={{
               min: 0,
               step: 1,
             }}
             value={weight}
             onChange={(e) => setWeight(e.target.value)}
+            error={!!errors.weight}
+            helperText={errors.weight}
           />
 
           <TextField
@@ -390,12 +440,15 @@ const CreateProductPage = () => {
             size='small'
             name='pageNumber'
             type='number'
+            required
             inputProps={{
               min: 1,
               step: 1,
             }}
             value={pageNumber}
             onChange={(e) => setPageNumber(e.target.value)}
+            error={!!errors.pageNumber}
+            helperText={errors.pageNumber}
           />
 
           <TextField
@@ -403,12 +456,15 @@ const CreateProductPage = () => {
             size='small'
             name='stockQuantity'
             type='number'
+            required
             inputProps={{
-              min: 0,
+              min: 1,
               step: 1,
             }}
             value={stockQuantity}
             onChange={(e) => setStockQuantity(e.target.value)}
+            error={!!errors.stockQuantity}
+            helperText={errors.stockQuantity}
           />
 
           <TextField
@@ -416,12 +472,15 @@ const CreateProductPage = () => {
             size='small'
             name='quantity'
             type='number'
+            required
             inputProps={{
-              min: 0,
+              min: 1,
               step: 1,
             }}
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
+            error={!!errors.quantity}
+            helperText={errors.quantity}
           />
 
           <TextField
@@ -429,24 +488,30 @@ const CreateProductPage = () => {
             size='small'
             name='cost'
             type='number'
+            required
             inputProps={{
-              min: 0,
+              min: 1,
               step: 1,
             }}
             value={cost}
             onChange={(e) => setCost(e.target.value)}
+            error={!!errors.cost}
+            helperText={errors.cost}
           />
           <TextField
             label={translate('price')}
             size='small'
             name='price'
             type='number'
+            required
             inputProps={{
-              min: 0,
+              min: 1,
               step: 1,
             }}
             value={price}
             onChange={(e) => setPrice(e.target.value)}
+            error={!!errors.price}
+            helperText={errors.price}
           />
           <QuiltedImageList
             itemData={images.map((image) => ({
@@ -462,13 +527,6 @@ const CreateProductPage = () => {
           ></QuiltedImageList>
         </div>
 
-        <div className='flex flex-col gap-3'>
-          <input
-            type='file'
-            name='file'
-            onChange={(e) => setFile(e.target.files[0])}
-          />
-        </div>
       </div>
 
       <div className='flex flex-row gap-2'>
