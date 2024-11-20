@@ -1,4 +1,5 @@
 const vi = {
+  'status': 'Trạng thái',
   'sold-out': 'Hết hàng',
   'file-must-be-pdf': 'File tải lên là PDF',
   'file-required': 'Vui lòng tải file lên',

@@ -3,19 +3,19 @@ import { useDispatch, useSelector, } from 'react-redux';
 import { useNavigate, } from 'react-router-dom';
 import { authRoutes, clientRoutes, } from '~/configs/routes';
 import { translate, } from '~/helpers';
-import { Avatar, Badge, Box, IconButton, Menu, MenuItem, Paper, styled, Tooltip, Typography, } from '@mui/material';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { Avatar, Box, IconButton, Menu, MenuItem, Paper, Tooltip, Typography, } from '@mui/material';
 import { logout, } from '~/redux/auth/slice';
 import { DropdownCategories, SearchBar, } from '~/components';
 import { getTypesRequestStart, } from '~/redux/productType/slice';
 import HeaderItem from '~/components/CustomerHeader/HeaderItem';
 import { getCartRequestStart, } from '~/redux/cart/slice';
+import CartModal from '~/components/CustomerHeader/CartModal';
 
 const CustomerHeader = () => {
   const [anchorElUser, setAnchorElUser,] = React.useState(null);
   const { user, } = useSelector((state) => state.auth);
-  const { cart, } = useSelector((state) => state.cart);
-  const { shop, } = useSelector(state => state.config);
+  // const { cart, } = useSelector((state) => state.cart);
+  // const { shop, } = useSelector(state => state.config);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { types, } = useSelector(state => state.type);
@@ -23,7 +23,6 @@ const CustomerHeader = () => {
   const [descending,] = React.useState(true);
   const [page,] = React.useState(1);
   const [limit,] = React.useState(200);
-  const [cartNumber, setCartNumber,] = React.useState(0);
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -45,17 +44,6 @@ const CustomerHeader = () => {
   const getCart = () => {
     dispatch(getCartRequestStart());
   };
-
-  const StyledBadge = styled(Badge)(({ theme, }) => ({
-    '& .MuiBadge-badge': {
-      right: -3,
-      top: 0,
-      border: `2px solid ${theme.palette.background.paper}`,
-      padding: '0 4px',
-      color: 'white',
-      backgroundColor: shop?.accentColor,
-    },
-  }));
 
   const settings = [
     // {
@@ -92,18 +80,10 @@ const CustomerHeader = () => {
   const goToHome = () => {
     navigate(clientRoutes.home);
   };
-  const getCartNumber = () => {
-    if (cart)
-      setCartNumber(cart?.cart?.items?.length);
-  };
   React.useEffect(() => {
     getTypes();
     getCart();
   }, [dispatch,]);
-
-  React.useEffect(() => {
-    getCartNumber();
-  }, [cart,]);
 
   return (
     <Paper className='mx-auto w-full px-16 py-2 sticky top-0 z-40'>
@@ -139,19 +119,13 @@ const CustomerHeader = () => {
         </div>
         <div className={'max-w-fit flex flex-row justify-end  items-center space-x-2 gap-3'}>
           {/* Search Bar*/}
-          <div className={'mr-2 max-w-fit'}>
+          <div className={'mr-6 max-w-fit'}>
             <SearchBar></SearchBar>
           </div>
 
           {/* Cart Icon*/}
           <div onClick={handleChangeCartPage}>
-            <IconButton aria-label='cart'>
-              <StyledBadge
-                badgeContent={cartNumber}
-              >
-                <ShoppingCartIcon/>
-              </StyledBadge>
-            </IconButton>
+            <CartModal></CartModal>
           </div>
 
           {/* User*/}
