@@ -7,10 +7,15 @@ import { formatCurrency, translate, } from '~/helpers';
 import { useNavigate, } from 'react-router-dom';
 import { adminRoutes, } from '~/configs/routes';
 import UpdateOrder from './components/UpdateOrder';
+import Dropdown from './components/Dropdown';
+import { getDeliveryStatusesRequestStart, } from '~/redux/deliveryStatus/slice';
+import { getPaymentStatusesRequestStart, } from '~/redux/paymentStatus/slice';
 
 const OrderPage = () => {
   const dispatch = useDispatch();
   const { orders, meta, updateSuccess, } = useSelector((state) => state.order);
+  const { deliveryStatuses, } = useSelector((state) => state.deliveryStatus);
+  const { paymentStatuses, } = useSelector((state) => state.paymentStatus);
 
   const [orderBy, setOrderBy,] = React.useState('');
   const [descending, setDescending,] = React.useState(true);
@@ -20,16 +25,44 @@ const OrderPage = () => {
   const [confirmAction, setConfirmAction,] = useState(() => () => {});
   const [confirmMessage, setConfirmMessage,] = useState('');
   const navigate = useNavigate();
-  const [selectedObj, setSelectedObj,] = useState(null);
+  const [selectedObj, ] = useState(null);
   const [showUpdate, setShowUpdate,] = useState(false);
+  const [ deliveryStatus,] = React.useState(null);
+  const [ paymentStatus,] = React.useState(null);
 
   const handleDetail = (e) => {
+    const serializableOrder = {
+      ...e, 
+      deliveryStatus: e.deliveryStatus.props.selected,
+      paymentStatus: e.paymentStatus.props.selected,
+
+    };
     navigate(adminRoutes.detailOrder.replace(':id', e._id), {
-      state: e,
+      state: serializableOrder,
     });
+    console.log(e.deliveryStatus.props.selected);
+  };
+
+  const getDeliveryStatus = () => {
+    dispatch(
+      getDeliveryStatusesRequestStart({
+        limit: 1000,
+        page: 1,
+      })
+    );
+  };
+
+  const getPaymentStatus = () => {
+    dispatch(
+      getPaymentStatusesRequestStart({
+        limit: 1000,
+        page: 1,
+      })
+    );
   };
 
   React.useEffect(() => {
+
     dispatch(
       getAllByAdminRequestStart({
         orderBy,
@@ -38,13 +71,19 @@ const OrderPage = () => {
         descending,
       })
     );
+    console.log(deliveryStatus, paymentStatus);
   }, [dispatch, orderBy, page, limit, descending, updateSuccess,]);
 
-  const updateOrder = (value) => {
-    setSelectedObj(value);
+  React.useEffect(() => {
+    getDeliveryStatus();
+    getPaymentStatus();
+  }, []);
 
-    setShowUpdate(true);
-  };
+  // const updateOrder = (value) => {
+  //   setSelectedObj(value);
+  //
+  //   setShowUpdate(true);
+  // };
 
   const confirmOrder = (id, deliveryStatusData) => {
     setConfirmAction(() => () => {
@@ -76,6 +115,34 @@ const OrderPage = () => {
     );
   };
 
+  const updatePayment = (id, paymentStatus) => {
+    if (!paymentStatus) return;
+    const data = {
+      
+    };
+    data.paymentStatus = paymentStatus;
+    // console.log(data);
+    dispatch(
+      updateOrderRequestStart({
+        id,
+        data: JSON.stringify(data),
+      })
+    );
+  };
+  const updateDelivery = (id, deliveryStatus) => {
+    if (!deliveryStatus) return;
+    const data = {
+
+    };
+    data.deliveryStatus = deliveryStatus;
+    // console.log(data);
+    dispatch(
+      updateOrderRequestStart({
+        id,
+        data: JSON.stringify(data),
+      })
+    );
+  };
   const render = () => (
     <>
       <ConfirmationModal
@@ -91,22 +158,22 @@ const OrderPage = () => {
         updateOrder={confirmOrder}
         order={selectedObj}
       />
-      <div className='flex flex-col'>
+      <div className='flex flex-col h-full'>
         <div className='leading-10 text-left py-2 mb-3 bg-gray-50 text-2xl'>
           {translate('orders')}
         </div>
-        <div className='flex flex-row w-full justify-between gap-3'>
-          <div className='rounded-xl p-3 bg-white w-full'>
+        <div className='flex flex-row w-full justify-between gap-3 h-full overflow-visible'>
+          <div className='rounded-xl p-3 bg-white w-full h-full overflow-visible'>
             <DataTable
               actions={[
                 {
                   label: translate('detail'),
                   handler: handleDetail,
                 },
-                {
-                  label: translate('update-order'),
-                  handler: updateOrder,
-                },
+                // {
+                //   label: translate('update-order'),
+                //   handler: updateOrder,
+                // },
               ]}
               columns={[
                 {
@@ -119,11 +186,11 @@ const OrderPage = () => {
                   enableSort: false,
                   label: translate('user'),
                 },
-                {
-                  field: 'address',
-                  enableSort: false,
-                  label: translate('address'),
-                },
+                // {
+                //   field: 'address',
+                //   enableSort: false,
+                //   label: translate('address'),
+                // },
                 {
                   field: 'totalPrice',
                   enableSort: true,
@@ -134,15 +201,25 @@ const OrderPage = () => {
                   enableSort: false,
                   label: translate('payment'),
                 },
-                {
-                  field: 'paymentDate',
-                  enableSort: true,
-                  label: translate('payment-date'),
-                },
+                // {
+                //   field: 'paymentDate',
+                //   enableSort: true,
+                //   label: translate('payment-date'),
+                // },
                 {
                   field: 'createdAt',
                   enableSort: true,
                   label: translate('created-at'),
+                },
+                {
+                  field: 'deliveryStatus',
+                  enableSort: true,
+                  label: translate('delivery-status'),
+                },
+                {
+                  field: 'paymentStatus',
+                  enableSort: true,
+                  label: translate('payment-status'),
                 },
               ]}
               data={orders?.map((order) => ({
@@ -156,6 +233,9 @@ const OrderPage = () => {
                   ? new Date(order.paymentDate).toLocaleDateString()
                   : '',
                 createdAt: new Date(order.createdAt).toLocaleDateString(),
+                paymentStatus:  (<Dropdown selected={order?.paymentStatus} order={order} listOptions={paymentStatuses} updateOrder={updatePayment}/>),
+                deliveryStatus:  (<Dropdown selected={order?.deliveryStatus} order={order} listOptions={deliveryStatuses} updateOrder={updateDelivery}/>),
+
               }))}
               keyField='_id'
               onSort={(field, des) => {

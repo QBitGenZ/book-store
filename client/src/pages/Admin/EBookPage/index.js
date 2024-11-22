@@ -95,7 +95,7 @@ const EBookPage = () => {
   };
 
   const handleCreate = () => {
-    navigate(adminRoutes.createProduct);
+    // navigate(adminRoutes.createProduct);
   };
 
   const handleUpdate = (value) => {
