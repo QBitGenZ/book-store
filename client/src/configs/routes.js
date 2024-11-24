@@ -44,6 +44,7 @@ export const clientRoutes = {
   search: '/search/:query',
   categories: '/categories/:id',
   orderHistory: '/order-history',
+  orderDetail:'/order/:id',
   userInfo: '/userInfo',
   orderSuccess: '/checkout/success',
   event: '/events',

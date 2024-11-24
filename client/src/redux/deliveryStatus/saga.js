@@ -57,20 +57,20 @@ function* handleGetDeliveryStatusRequest(action) {
     const response = yield call(getOneRequestApi, action.payload);
     const { data, } = response;
     yield put(getDeliveryStatusRequestSuccess(data));
-    yield put(
-      showSnackbar({
-        message: 'Request successful!',
-        severity: 'success',
-      })
-    );
+    // yield put(
+    //   showSnackbar({
+    //     message: 'Request successful!',
+    //     severity: 'success',
+    //   })
+    // );
   } catch (err) {
     yield put(getDeliveryStatusRequestFailure(err.message));
-    yield put(
-      showSnackbar({
-        message: `Request failed: ${err.message}`,
-        severity: 'error',
-      })
-    );
+    // yield put(
+    //   showSnackbar({
+    //     message: `Request failed: ${err.message}`,
+    //     severity: 'error',
+    //   })
+    // );
   }
 }
 

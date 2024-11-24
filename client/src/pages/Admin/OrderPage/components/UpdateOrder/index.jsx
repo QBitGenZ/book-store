@@ -31,7 +31,6 @@ function UpdateOrder({ show, setShow, updateOrder, order, }) {
 
   useEffect(() => {
     if (order) {
-      console.log(order);
       setDeliveryStatus(order.deliveryStatus || '');
       setPaymentStatus(order.paymentStatus || '');
     }
@@ -56,8 +55,6 @@ function UpdateOrder({ show, setShow, updateOrder, order, }) {
       })
     );
   };
-
-  console.log(deliveryStatus, paymentStatus);
 
   return (
     <BModal

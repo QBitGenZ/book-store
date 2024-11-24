@@ -5,7 +5,7 @@ import { clientRoutes, } from '~/configs/routes';
 import { useNavigate, } from 'react-router-dom';
 
 const TotalCart = ({ totalPrice, totalProduct, }) => {
-  console.log(totalProduct, totalPrice);
+  // console.log(totalProduct, totalPrice);
   const nav = useNavigate();
   const handlePurchase = () => {
     if (totalProduct) {

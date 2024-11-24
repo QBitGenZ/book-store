@@ -57,20 +57,20 @@ function* handleGetPaymentStatusRequest(action) {
     const response = yield call(getOneRequestApi, action.payload);
     const { data, } = response;
     yield put(getPaymentStatusRequestSuccess(data));
-    yield put(
-      showSnackbar({
-        message: 'Request successful!',
-        severity: 'success',
-      })
-    );
+    // yield put(
+    //   showSnackbar({
+    //     message: 'Request successful!',
+    //     severity: 'success',
+    //   })
+    // );
   } catch (err) {
     yield put(getPaymentStatusRequestFailure(err.message));
-    yield put(
-      showSnackbar({
-        message: `Request failed: ${err.message}`,
-        severity: 'error',
-      })
-    );
+    // yield put(
+    //   showSnackbar({
+    //     message: `Request failed: ${err.message}`,
+    //     severity: 'error',
+    //   })
+    // );
   }
 }
 

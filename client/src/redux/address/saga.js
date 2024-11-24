@@ -59,28 +59,30 @@ function* handleGetAddressesRequest(action) {
 function* handleGetAddressRequest(action) {
   try {
     const response = yield call(getOneRequestApi, action.payload);
-    const { data, } = response;
 
-    // Check if the response is valid
-    if (response && response.status === 200) {
+    const { data, } = response;
+    // console.log(response);
+
+    if (response) {
+
       yield put(getAddressRequestSuccess(data));
-      yield put(
-        showSnackbar({
-          message: 'Request successfully!',
-          severity: 'success',
-        })
-      );
+      // yield put(
+      //   showSnackbar({
+      //     message: 'Request successfully!',
+      //     severity: 'success',
+      //   })
+      // );
     } else {
       throw new Error('Failed to fetch.');
     }
   } catch (err) {
     yield put(getAddressRequestFailure(err.message));
-    yield put(
-      showSnackbar({
-        message: `Failed to request: ${err.message}`,
-        severity: 'error',
-      })
-    );
+    // yield put(
+    //   showSnackbar({
+    //     message: `Failed to request: ${err.message}`,
+    //     severity: 'error',
+    //   })
+    // );
   }
 }
 
