@@ -53,7 +53,7 @@ const OrderInfo = forwardRef(({ order, }, printRef) => {
   return (
     <div className='' ref={printRef}>
       {/* eslint-disable-next-line react/prop-types */}
-      <OrderSummary items={order?.items} shippingCost={order?.delivery?.cost} />
+      <OrderSummary order={order} shippingCost={order?.delivery?.cost} />
     </div>
   );
 });

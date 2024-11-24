@@ -21,6 +21,12 @@ const OrderHistoryPage = () => {
     nav(clientRoutes.home);
   };
 
+  const goToOrder = (order) => {
+    nav(clientRoutes.orderDetail.replace(':id', order._id), {
+      state: order,
+    });
+  };
+
   React.useEffect(() => {
     dispatch(
       getAllOrderRequestStart({
@@ -36,7 +42,7 @@ const OrderHistoryPage = () => {
   return (
     <>
       {orders?.map((order, index) => (
-        <div className={'mb-3'} key={index}>
+        <div className={'mb-3'} key={index} onClick={() => goToOrder(order)}>
           <OrderedSummary order={order} shippingCost={order?.delivery?.cost} />
         </div>
       ))}

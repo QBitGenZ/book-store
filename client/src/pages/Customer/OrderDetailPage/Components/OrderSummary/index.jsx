@@ -1,52 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { formatCurrency, } from '~/helpers';
+import { formatCurrency, formatDate, } from '~/helpers';
 import { useDispatch, useSelector, } from 'react-redux';
 import { getAddressRequestStart, resetAddressStates, } from '~/redux/address/slice';
-import { getPaymentStatusRequestStart, resetPaymentStatus, } from '~/redux/paymentStatus/slice';
-import { getDeliveryStatusRequestStart, resetDeliveryStatus, } from '~/redux/deliveryStatus/slice';
 
 function OrderSummary({ order, shippingCost = 0, }) {
   const dispatch = useDispatch();
-  const { address, } = useSelector((state) => state.address);
-  const { deliveryStatus, } = useSelector((state) => state.deliveryStatus);
-  const { paymentStatus, } = useSelector((state) => state.paymentStatus);
   const calSubTotal = () => {
-    return order.items.reduce(
+    return order?.items.reduce(
       (total, item) => total + item.product.price * item.quantity,
       0
-    );
+    ) || 0;
   };
   const calculateTotal = () => {
     const subtotal = calSubTotal();
     return subtotal + shippingCost;
   };
-
+  const { address, } = useSelector((state) => state.address);
   const getAddress = (id) => {
     dispatch(getAddressRequestStart(id));
   };
-
-  const getPaymentStatus = (id) => {
-    if (id)
-      dispatch(getPaymentStatusRequestStart(id));
-  };
-
-  const getDeliveryStatus = (id) => {
-    if (id)
-      dispatch(getDeliveryStatusRequestStart(id));
-  };
-
   React.useEffect(() => {
     getAddress(order.address);
-    getPaymentStatus(order.paymentStatus);
-    getDeliveryStatus(order.deliveryStatus);
   }, [dispatch,]);
 
   React.useState(() => {
     dispatch(resetAddressStates());
-    dispatch(resetPaymentStatus());
-    dispatch(resetDeliveryStatus());
-  }, [dispatch, address, paymentStatus, deliveryStatus,]);
+  }, [dispatch, address,]);
 
   return (
     <div
@@ -58,7 +38,7 @@ function OrderSummary({ order, shippingCost = 0, }) {
 
       <div className={'text-left text-xs px-4 mt-4'}>
         <h6 className='font-semibold text-lg text-left'>Chi tiết đơn hàng #{order?._id}</h6>
-        <p className={'normal-case mb-0'}>Ngày đặt hàng: {order?.createdAt}</p>
+        <p className={'normal-case mb-0'}>Ngày đặt hàng: {formatDate(order?.createdAt)}</p>
       </div>
       <div className={'flex flex-row gap-3 text-xs w-full'}>
         <div className='space-y-4 p-4 rounded bg-white flex flex-col text-left w-full'>
@@ -80,14 +60,14 @@ function OrderSummary({ order, shippingCost = 0, }) {
           <div className={'space-y-4'}>
             <span className={'uppercase'}>Hình thức giao hàng</span>
             <div>
-              <div className={'font-bold'}>{order?.delivery.name}</div>
-              <div className={'font-light italic pl-2'}>{order?.delivery.description}</div>
+              <div className={'font-bold'}>{order?.delivery?.name}</div>
+              <div className={'font-light italic pl-2'}>{order?.delivery?.description}</div>
             </div>
           </div>
           <div className={'space-y-4'}>
             <span className={'uppercase'}>Hình thức thanh toán</span>
             <div>
-              <div className={'font-bold'}>{order?.payment}</div>
+              <div className={'font-bold'}>{order?.payment.name}</div>
             </div>
           </div>
         </div>
@@ -96,13 +76,13 @@ function OrderSummary({ order, shippingCost = 0, }) {
           <div className={'space-y-4'}>
             <span className={'uppercase'}>Trạng thái giao hàng</span>
             <div>
-              <div className={'font-bold'}>{deliveryStatus?.name}</div>
+              <div className={'font-bold'}>{order?.deliveryStatus?.name}</div>
             </div>
           </div>
           <div className={'space-y-4'}>
             <span className={'uppercase'}>Trạng thái thanh toán</span>
             <div>
-              <div className={'font-bold'}>{paymentStatus?.name}</div>
+              <div className={'font-bold'}>{order?.paymentStatus?.name}</div>
               {/* <div className={'font-light italic pl-2'}>{order?.delivery.description}</div>*/}
             </div>
           </div>
@@ -110,7 +90,7 @@ function OrderSummary({ order, shippingCost = 0, }) {
       </div>
       <div className='space-y-4 p-4 rounded bg-white'>
         <div className='border rounded p-4 flex flex-col'>
-          {order.items.map((item) => (
+          {order?.items.map((item) => (
             <div key={item._id} className='flex gap-3 py-3 border-b-[1px]'>
               {/* <img src={item.product.image[0]} alt={item.name} className='w-20'/>*/}
               {item?.product?.images[0] ? (

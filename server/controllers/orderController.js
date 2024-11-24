@@ -20,7 +20,7 @@ exports.getAllBySelf = async (req, res) => {
 
     const defaultField = 'createdAt';
     getAllDocuments(Order, query, defaultField, req, res, [
-        'user', 'payment', 'items.product', 'delivery', 'deliveryStatus'
+        'user', 'payment', 'items.product', 'delivery', 'deliveryStatus', 'paymentStatus',
     ]);
 }
 //
@@ -120,6 +120,7 @@ exports.createOne = async (req, res) => {
             paymentStatus: req.body.paymentStatus,
             totalPrice: totalPrice,
         });
+        console.log(req.body.address);
 
         await newOrder.save();
 

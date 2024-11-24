@@ -17,7 +17,7 @@ import { getDeliveryMethodsRequestStart, } from '~/redux/deliveryMethod/slice';
 import { getPaymentMethodsRequestStart, } from '~/redux/paymentMethod/slice';
 import { getCartRequestStart, } from '~/redux/cart/slice';
 import OrderSummary from '~/pages/Customer/OneStepCheckOutPage/Components/OrderSummary';
-import { getShopRequestStart, } from '~/redux/config/slice';
+// import { getShopRequestStart, } from '~/redux/config/slice';
 import { createOrderRequestStart,
   resetOrderRequest, } from '~/redux/order/slice';
 import { useNavigate, } from 'react-router-dom';
@@ -65,9 +65,6 @@ const OneStepCheckOutPage = () => {
     // console.log(getItems(cart));
   }, [dispatch, user,]);
 
-  React.useEffect(() => {
-    dispatch(getShopRequestStart());
-  });
   // Handle address operation success and cleanup
   useEffect(() => {
     const hasAddressChange = createSuccess || updateSuccess || deleteSuccess;
@@ -171,7 +168,7 @@ const OneStepCheckOutPage = () => {
       await dispatch(
         createOrderRequestStart(
           JSON.stringify({
-            address: selectedAddress?.addressDetail,
+            address: selectedAddress,
             delivery: selectedDeliveryMethods?._id,
             payment: selectedPaymentMethod?._id,
           })

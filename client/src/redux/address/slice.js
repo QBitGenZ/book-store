@@ -86,6 +86,10 @@ const addressSlice = createSlice({
       state.updateSuccess = false;
       state.deleteSuccess = false;
     },
+    resetAddressStates: (state) => {
+      state.address = null;
+      state.updateSuccess = false;
+    },
   },
 });
 
@@ -106,6 +110,7 @@ export const {
   deleteAddressRequestSuccess,
   deleteAddressRequestFailure,
   resetSuccessStates,
+  resetAddressStates,
 } = addressSlice.actions;
 
 export default addressSlice.reducer;

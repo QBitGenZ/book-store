@@ -27,8 +27,8 @@ const OrderPage = () => {
   const navigate = useNavigate();
   const [selectedObj, ] = useState(null);
   const [showUpdate, setShowUpdate,] = useState(false);
-  const [ deliveryStatus,] = React.useState(null);
-  const [ paymentStatus,] = React.useState(null);
+  // const [ deliveryStatus,] = React.useState(null);
+  // const [ paymentStatus,] = React.useState(null);
 
   const handleDetail = (e) => {
     const serializableOrder = {
@@ -40,7 +40,6 @@ const OrderPage = () => {
     navigate(adminRoutes.detailOrder.replace(':id', e._id), {
       state: serializableOrder,
     });
-    console.log(e.deliveryStatus.props.selected);
   };
 
   const getDeliveryStatus = () => {
@@ -71,19 +70,13 @@ const OrderPage = () => {
         descending,
       })
     );
-    console.log(deliveryStatus, paymentStatus);
+    // console.log(deliveryStatus, paymentStatus);
   }, [dispatch, orderBy, page, limit, descending, updateSuccess,]);
 
   React.useEffect(() => {
     getDeliveryStatus();
     getPaymentStatus();
   }, []);
-
-  // const updateOrder = (value) => {
-  //   setSelectedObj(value);
-  //
-  //   setShowUpdate(true);
-  // };
 
   const confirmOrder = (id, deliveryStatusData) => {
     setConfirmAction(() => () => {
@@ -105,8 +98,6 @@ const OrderPage = () => {
     if (orderData?.paymentStatus) {
       data.paymentStatus = orderData?.paymentStatus;
     }
-
-    console.log(data);
     dispatch(
       updateOrderRequestStart({
         id,

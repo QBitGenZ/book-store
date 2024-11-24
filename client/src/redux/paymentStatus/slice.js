@@ -81,6 +81,10 @@ const paymentStatusSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    resetPaymentStatus: (state) => {
+      state.paymentStatus = null;
+      state.paymentStatuses = [];
+    },
   },
 });
 
@@ -100,6 +104,8 @@ export const {
   updatePaymentStatusRequestFailure,
   updatePaymentStatusRequestStart,
   updatePaymentStatusRequestSuccess,
+  resetPaymentStatus,
+
 } = paymentStatusSlice.actions;
 
 export default paymentStatusSlice.reducer;

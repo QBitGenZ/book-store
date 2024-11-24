@@ -81,6 +81,10 @@ const deliveryStatuesSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    resetDeliveryStatus: (state) => {
+      state.deliveryStatus = null;
+      state.deliveryStatuses = [];
+    },
   },
 });
 
@@ -100,6 +104,7 @@ export const {
   updateDeliveryStatusRequestFailure,
   updateDeliveryStatusRequestStart,
   updateDeliveryStatusRequestSuccess,
+  resetDeliveryStatus,
 } = deliveryStatuesSlice.actions;
 
 export default deliveryStatuesSlice.reducer;
