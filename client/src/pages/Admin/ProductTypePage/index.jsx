@@ -177,7 +177,7 @@ const ProductTypePage = () => {
                 id: item._id,
                 displayImage: item?.image ? (
                   <img
-                    className='h-20 inline-block'
+                    className='h-20 inline-block object-cover'
                     src={`${process.env.REACT_APP_HOST_IP}/${item?.image}`}
                     alt={item?.name}
                   />

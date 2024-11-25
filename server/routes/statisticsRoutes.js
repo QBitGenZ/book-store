@@ -4,12 +4,13 @@ const {
   getProductStatistics,
   getTypeStatistics,
   getAuthorStatistics,
-  getPublisherStatistics
+  getPublisherStatistics, getRevenue
 } = require('../controllers/statisticsController');
 
 const router = express.Router();
 
 router.get('/', getStatistics);
+router.get('/revenue', getRevenue);
 
 router.get('/products', async (req, res) => {
   try {

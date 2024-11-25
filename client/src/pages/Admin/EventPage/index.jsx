@@ -10,9 +10,12 @@ import { createEventRequestStart,
 import CreateEventModal from './components/CreateEventModal';
 import UpdateEventModal from './components/UpdateEventModal';
 import { Button, } from '@mui/material';
+import { adminRoutes, } from '~/configs/routes';
+import { useNavigate, } from 'react-router-dom';
 
 const EventPage = () => {
   const dispatch = useDispatch();
+  const nav = useNavigate();
   const { events, meta, event, updateSuccess, deleteSuccess, createSuccess, } =
     useSelector((state) => state.event);
 
@@ -55,17 +58,18 @@ const EventPage = () => {
   ]);
 
   const updateEvent = (id, eventData) => {
-    const data = {
-      title: eventData?.title,
-      description: eventData?.description,
-      startDate: eventData?.startDate,
-      endDate: eventData?.endDate,
-    };
+
+    const formData = new FormData();
+    formData.append('title', eventData.title);
+    formData.append('description', eventData.description);
+    formData.append('startDate', eventData.startDate);
+    formData.append('endDate', eventData.endDate);
+    formData.append('image', eventData.image?.file);
 
     dispatch(
       updateEventRequestStart({
         id: id,
-        data: JSON.stringify(data),
+        data: formData,
       })
     );
   };
@@ -78,15 +82,15 @@ const EventPage = () => {
     setShowUpdateEvent(true);
   };
 
-  const createEvent = ({ title, description, startDate, endDate, }) => {
-    const data = {
-      title,
-      description,
-      startDate,
-      endDate,
-    };
+  const createEvent = ({ title, description, startDate, endDate, image, }) => {
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('startDate', startDate);
+    formData.append('endDate', endDate);
+    formData.append('image', image?.file);
 
-    dispatch(createEventRequestStart(JSON.stringify(data)));
+    dispatch(createEventRequestStart(formData));
     setShowCreateEvent(false);
   };
 
@@ -108,6 +112,20 @@ const EventPage = () => {
     });
     setConfirmMessage('Are you sure you want to delete this item?');
     setShowConfirm(true);
+  };
+
+  const handleDetail = (e) => {
+    const { _id, title, description, startDate, endDate, image, } = e;
+    nav(adminRoutes.eventDetail.replace(':id', _id), {
+      state: {
+        _id,
+        title,
+        description,
+        startDate,
+        endDate,
+        image,
+      },
+    });
   };
 
   const render = () => (
@@ -147,6 +165,10 @@ const EventPage = () => {
             <DataTable
               actions={[
                 {
+                  label: translate('detail'),
+                  handler: handleDetail,
+                },
+                {
                   label: translate('update'),
                   handler: handleUpdateEvent,
                 },
@@ -154,6 +176,7 @@ const EventPage = () => {
                   label: translate('delete'),
                   handler: handleDeleteEvent,
                 },
+
               ]}
               columns={[
                 {
@@ -166,10 +189,15 @@ const EventPage = () => {
                   enableSort: true,
                   label: translate('title'),
                 },
+                // {
+                //   field: 'description',
+                //   enableSort: false,
+                //   label: translate('description'),
+                // },
                 {
-                  field: 'description',
+                  field: 'displayImage',
                   enableSort: false,
-                  label: translate('description'),
+                  label: translate('image'),
                 },
                 {
                   field: 'startDate',
@@ -187,6 +215,15 @@ const EventPage = () => {
                 id: item._id,
                 startDate: formatDate(item.startDate),
                 endDate: formatDate(item.endDate),
+                displayImage: item?.image ? (
+                  <img
+                    className='h-20 inline-block object-cover'
+                    src={`${process.env.REACT_APP_HOST_IP}/${item?.image}`}
+                    alt={item?.name}
+                  />
+                ) : (
+                  ''
+                ),
               }))}
               keyField='_id'
               onSort={(f, des) => {

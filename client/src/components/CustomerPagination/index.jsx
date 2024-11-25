@@ -132,6 +132,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { translate, } from '~/helpers';
 
 const CustomerPagination = ({
   currentPage = 1,
@@ -179,7 +180,7 @@ const CustomerPagination = ({
         disabled={currentPage === 1}
         className='text-gray-500 hover:text-gray-700 disabled:opacity-50'
       >
-                Previous
+        {translate('previous-page')}
       </button>
 
       {getPageNumbers().map((page, index) => (
@@ -204,7 +205,7 @@ const CustomerPagination = ({
         disabled={currentPage === totalPages}
         className='text-gray-500 hover:text-gray-700 disabled:opacity-50'
       >
-                Next
+        {translate('next-page')}
       </button>
     </div>
   );

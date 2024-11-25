@@ -23,6 +23,7 @@ import AuthorDetailPage from './AuthorDetailPage';
 import EBookPage from './EBookPage';
 import BookCensorshipPage from './BookCensorshipPage';
 import ReadingEbookPage from './ReadingEbookPage';
+import EventDetailPage from './EventDetailPage';
 
 export {
   LoginAdminPage,
@@ -50,4 +51,5 @@ export {
   EBookPage,
   BookCensorshipPage,
   ReadingEbookPage,
+  EventDetailPage,
 };

@@ -18,6 +18,7 @@ import EBookDetailPage from './EBookDetail';
 import CustomerAuthorPage from './CustomerAuthorPage';
 import CustomerForgetPasswordPage from './CustomerForgetPasswordPage';
 import OrderDetailPage from './OrderDetailPage';
+import CustomerEventDetailPage from './CustomerEventDetailPage';
 
 export {
   LoginPage,
@@ -40,4 +41,5 @@ export {
   CustomerAuthorPage,
   CustomerForgetPasswordPage,
   OrderDetailPage,
+  CustomerEventDetailPage,
 };

@@ -1,5 +1,6 @@
 const Event = require('../models/Event');
 const { getAllDocuments } = require('../utils/querryDocument');
+const {deleteFile} = require("../utils/deleteFile");
 
 exports.getAll = async (req, res) => {
   const query = { };
@@ -36,6 +37,10 @@ exports.createEvent = async (req, res) => {
       endDate,
     });
 
+    if (req.files?.["image"] && req.files?.["image"]?.length > 0) {
+      event.images = req.files["image"][0].filename;
+    }
+
     await event.save();
     res.status(201).json({ data: event });
   } catch (err) {
@@ -63,6 +68,13 @@ exports.updateEvent = async (req, res) => {
     event.description = description || event.description;
     event.startDate = startDate || event.startDate;
     event.endDate = endDate || event.endDate;
+
+    if (req.files?.["image"]?.[0]) {
+      if (event.image) {
+        deleteFile(event.image, res);
+      }
+      event.image = req.files["image"][0].filename;
+    }
 
     await event.save();
     res.status(200).json({ data: event });

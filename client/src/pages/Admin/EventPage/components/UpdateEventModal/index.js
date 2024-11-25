@@ -5,14 +5,14 @@ import { Modal as BModal, } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { translate, } from '~/helpers';
 import { TextField, } from '@mui/material';
-import { RichTextEditor, } from '~/components';
+import { DropImagesInput, RichTextEditor, } from '~/components';
 
 function UpdateEventModal({ event, show, setShow, updateEvent, }) {
   const [title, setTitle,] = useState(event?.title);
   const [description, setDescription,] = useState(event?.description);
   const [startDate, setStartDate,] = useState(event?.startDate);
   const [endDate, setEndDate,] = useState(event?.endDate);
-  // const [images, setImages,] = useState([]);
+  const [images, setImages,] = useState([]);
 
   const handleClose = () => setShow(false);
   const handleSave = () => {
@@ -21,8 +21,9 @@ function UpdateEventModal({ event, show, setShow, updateEvent, }) {
       description,
       startDate,
       endDate,
-      // image: images[0],
+      image: images[0],
     });
+    console.log(images);
   };
 
   useEffect(() => {
@@ -124,7 +125,7 @@ function UpdateEventModal({ event, show, setShow, updateEvent, }) {
         {/*    format='yyyy-MM-dd'*/}
         {/*  />*/}
         {/* </div>*/}
-        {/* <DropImagesInput files={images} setFiles={setImages} multiple={false}/>*/}
+        <DropImagesInput files={images} setFiles={setImages} multiple={false}/>
       </BModal.Body>
       <BModal.Footer>
         <Button variant='secondary' onClick={handleClose}>

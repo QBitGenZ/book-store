@@ -19,6 +19,7 @@ export const adminRoutes = {
   author: '/admin/categories/authors',
 
   event: '/admin/events',
+  eventDetail: '/admin/events/:id',
   order: '/admin/order',
   user: '/admin/user',
   detailOrder: '/admin/order/:id',
@@ -48,6 +49,7 @@ export const clientRoutes = {
   userInfo: '/userInfo',
   orderSuccess: '/checkout/success',
   event: '/events',
+  eventDetail: '/events/:id',
   author: '/author',
   authorDetail: '/author/:id',
   book: '/books',
