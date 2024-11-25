@@ -208,7 +208,7 @@ const AuthorPage = () => {
                 ...item,
                 avatar: item?.avatar ? (
                   <img
-                    className='h-20 inline-block'
+                    className='h-20 inline-block object-cover'
                     src={`${process.env.REACT_APP_HOST_IP}/${item?.avatar}`}
                     alt={item?.fullname}
                   />

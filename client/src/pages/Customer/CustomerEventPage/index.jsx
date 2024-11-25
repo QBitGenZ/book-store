@@ -3,6 +3,8 @@ import { useDispatch, useSelector, } from 'react-redux';
 import { getAllEventsRequestStart, } from '~/redux/event/slice';
 import { CustomerPagination, } from '~/components';
 import EventCard from '~/pages/Customer/CustomerEventPage/EventCard';
+import { useNavigate, } from 'react-router-dom';
+import { clientRoutes, } from '~/configs/routes';
 
 const CustomerEventPage = () => {
   const dispatch = useDispatch();
@@ -10,7 +12,8 @@ const CustomerEventPage = () => {
   const [orderBy,] = React.useState('');
   const [descending,] = React.useState(true);
   const [page, setPage,] = React.useState(1);
-  const [limit,] = React.useState(5);
+  const [limit,] = React.useState(3);
+  const nav = useNavigate();
   const getEvents = () => {
     dispatch(
       getAllEventsRequestStart({
@@ -26,12 +29,25 @@ const CustomerEventPage = () => {
     getEvents();
   }, [orderBy, descending, page, limit, dispatch,]);
 
+  const handleDetail = (e) => {
+    nav(clientRoutes.eventDetail.replace(e._id, ':id'), {
+      state: e,
+    });
+  };
+
   const render = () => (
     <>
-      <div className={'bg-white rounded shadow-sm p-4'}>
+      <div className={'mx-[-136px] mt-[-24px] mb-4'}>
+        <img
+          className='w-full object-cover rounded'
+          src={`${process.env.PUBLIC_URL}/assets/pages/other/eventBanner.png`}
+        />
+      </div>
+      <div className={'grid grid-cols-3 gap-3'}>
+
         {events.map((event) => (
-          <div key={event._id}>
-            <EventCard event={event} />
+          <div key={event._id} onClick={() => handleDetail(event)}>
+            <EventCard event={event}/>
           </div>
         ))}
       </div>

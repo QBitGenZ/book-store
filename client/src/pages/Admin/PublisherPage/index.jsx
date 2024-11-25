@@ -221,7 +221,7 @@ const PublisherPage = () => {
                 ...item,
                 logo: item?.logo ? (
                   <img
-                    className='h-20 inline-block'
+                    className='h-20 inline-block object-cover'
                     src={`${process.env.REACT_APP_HOST_IP}/${item?.logo}`}
                     alt={item?.name}
                   />

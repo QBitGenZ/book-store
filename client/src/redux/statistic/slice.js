@@ -8,6 +8,7 @@ const initialState = {
   typesStatistics: null,
   authorsStatistics: null,
   publishersStatistics: null,
+  revenueStatistics: null,
 };
 
 const statisticsSlice = createSlice({
@@ -83,6 +84,19 @@ const statisticsSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+
+    getRevenueStatisticsRequestStart: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    getRevenueStatisticsRequestSuccess: (state, action) => {
+      state.loading = false;
+      state.revenueStatistics = action.payload;
+    },
+    getRevenueStatisticsRequestFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
 });
 
@@ -102,6 +116,9 @@ export const {
   getPublishersStatisticsRequestStart,
   getPublishersStatisticsRequestSuccess,
   getPublishersStatisticsRequestFailure,
+  getRevenueStatisticsRequestStart,
+  getRevenueStatisticsRequestFailure,
+  getRevenueStatisticsRequestSuccess,
 } = statisticsSlice.actions;
 
 export default statisticsSlice.reducer;

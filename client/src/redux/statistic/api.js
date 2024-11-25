@@ -54,3 +54,16 @@ export const getPublishersStatistics = () => {
     },
   });
 };
+
+export const getRevenueStatistics = (query) => {
+  return apiFetch({
+    url: 'statistics/revenue',
+    options: {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json',
+      },
+    },
+    queryParams: query,
+  });
+};

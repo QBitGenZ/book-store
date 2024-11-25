@@ -2,7 +2,7 @@ import { createEventApi,
   deleteEventApi,
   donateBookApi,
   getAllEventsApi,
-  getAllEventsByAdminApi,
+  getAllEventsByAdminApi, getEventByIdApi,
   getEventStatisticsApi,
   updateDonationStatusApi,
   updateEventApi, } from './api';
@@ -23,7 +23,7 @@ import { createEventRequestFailure,
   getAllEventsByAdminRequestSuccess,
   getAllEventsRequestFailure,
   getAllEventsRequestStart,
-  getAllEventsRequestSuccess,
+  getAllEventsRequestSuccess, getEventRequestFailure, getEventRequestStart, getEventRequestSuccess,
   getEventStatisticsRequestFailure,
   getEventStatisticsRequestStart,
   getEventStatisticsRequestSuccess,
@@ -82,6 +82,28 @@ function* handleGetAllEventsByAdminRequest(action) {
     yield put(
       showSnackbar({
         message: `Admin events fetch failed: ${err.message}`,
+        severity: 'error',
+      })
+    );
+  }
+}
+
+function* handleGetEventByIdRequest(action) {
+  try {
+    const response = yield call(getEventByIdApi, action.payload.id);
+    const { data, } = response;
+    yield put(getEventRequestSuccess(data));
+    yield put(
+      showSnackbar({
+        message: 'Event fetched successfully!',
+        severity: 'success',
+      })
+    );
+  } catch (err) {
+    yield put(getEventRequestFailure(err.message));
+    yield put(
+      showSnackbar({
+        message: `Failed to fetch event: ${err.message}`,
         severity: 'error',
       })
     );
@@ -249,5 +271,9 @@ export default function* watchEventActions() {
   yield takeLatest(
     getEventStatisticsRequestStart.type,
     handleGetEventStatisticsRequest
+  );
+  yield takeLatest(
+    getEventRequestStart.type,
+    handleGetEventByIdRequest
   );
 }

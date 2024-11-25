@@ -12,13 +12,16 @@ import { getAllStatisticsRequestFailure,
   getPublishersStatisticsRequestFailure,
   getPublishersStatisticsRequestStart,
   getPublishersStatisticsRequestSuccess,
+  getRevenueStatisticsRequestFailure,
+  getRevenueStatisticsRequestStart,
+  getRevenueStatisticsRequestSuccess,
   getTypesStatisticsRequestFailure,
   getTypesStatisticsRequestStart,
   getTypesStatisticsRequestSuccess, } from './slice';
 import { getAllStatistics,
   getAuthorsStatistics,
   getProductsStatistics,
-  getPublishersStatistics,
+  getPublishersStatistics, getRevenueStatistics,
   getTypesStatistics, } from './api';
 
 function* handleGetAllStatistics() {
@@ -28,7 +31,7 @@ function* handleGetAllStatistics() {
     yield put(getAllStatisticsRequestSuccess(data));
     yield put(
       showSnackbar({
-        message: 'All statistic fetched successfully!',
+        message: 'Statistic fetched successfully!',
         severity: 'success',
       })
     );
@@ -36,7 +39,7 @@ function* handleGetAllStatistics() {
     yield put(getAllStatisticsRequestFailure(err.message));
     yield put(
       showSnackbar({
-        message: `Failed to fetch all statistics: ${err.message}`,
+        message: 'Failed to fetch statistics!',
         severity: 'error',
       })
     );
@@ -49,7 +52,7 @@ function* handleGetProductsStatistics() {
     yield put(getProductsStatisticsRequestSuccess(response));
     yield put(
       showSnackbar({
-        message: 'Products statistic fetched successfully!',
+        message: 'Statistic fetched successfully!',
         severity: 'success',
       })
     );
@@ -57,7 +60,7 @@ function* handleGetProductsStatistics() {
     yield put(getProductsStatisticsRequestFailure(err.message));
     yield put(
       showSnackbar({
-        message: `Failed to fetch products statistics: ${err.message}`,
+        message: 'Failed to fetch statistics!',
         severity: 'error',
       })
     );
@@ -78,7 +81,7 @@ function* handleGetTypesStatistics() {
     yield put(getTypesStatisticsRequestFailure(err.message));
     yield put(
       showSnackbar({
-        message: `Failed to fetch types statistics: ${err.message}`,
+        message: 'Failed to fetch statistics!',
         severity: 'error',
       })
     );
@@ -91,7 +94,7 @@ function* handleGetAuthorsStatistics() {
     yield put(getAuthorsStatisticsRequestSuccess(response));
     yield put(
       showSnackbar({
-        message: 'Authors statistic fetched successfully!',
+        message: 'Statistic fetched successfully!',
         severity: 'success',
       })
     );
@@ -99,7 +102,7 @@ function* handleGetAuthorsStatistics() {
     yield put(getAuthorsStatisticsRequestFailure(err.message));
     yield put(
       showSnackbar({
-        message: `Failed to fetch authors statistics: ${err.message}`,
+        message: 'Failed to fetch statistics!',
         severity: 'error',
       })
     );
@@ -112,7 +115,7 @@ function* handleGetPublishersStatistics() {
     yield put(getPublishersStatisticsRequestSuccess(response));
     yield put(
       showSnackbar({
-        message: 'Publishers statistic fetched successfully!',
+        message: 'Statistic fetched successfully!',
         severity: 'success',
       })
     );
@@ -120,7 +123,28 @@ function* handleGetPublishersStatistics() {
     yield put(getPublishersStatisticsRequestFailure(err.message));
     yield put(
       showSnackbar({
-        message: `Failed to fetch publishers statistics: ${err.message}`,
+        message: 'Failed to fetch statistics!',
+        severity: 'error',
+      })
+    );
+  }
+}
+
+function* handleGetRevenueStatistics(action) {
+  try {
+    const response = yield call(getRevenueStatistics, action.payload);
+    yield put(getRevenueStatisticsRequestSuccess(response));
+    yield put(
+      showSnackbar({
+        message: 'Statistic fetched successfully!',
+        severity: 'success',
+      })
+    );
+  } catch (err) {
+    yield put(getRevenueStatisticsRequestFailure(err.message));
+    yield put(
+      showSnackbar({
+        message: 'Failed to fetch statistics!',
         severity: 'error',
       })
     );
@@ -144,5 +168,9 @@ export default function* watchStatisticsActions() {
   yield takeLatest(
     getPublishersStatisticsRequestStart.type,
     handleGetPublishersStatistics
+  );
+  yield takeLatest(
+    getRevenueStatisticsRequestStart.type,
+    handleGetRevenueStatistics
   );
 }

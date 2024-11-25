@@ -22,6 +22,11 @@ const getAllEventsByAdminApi = (query) => {
 const getEventByIdApi = (id) => {
   return apiFetch({
     url: `events/${id}`,
+    options: {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    },
   });
 };
 
@@ -43,7 +48,6 @@ const createEventApi = (event) => {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json',
       },
       body: event,
     },
@@ -57,7 +61,6 @@ const updateEventApi = (id, event) => {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json',
       },
       body: event,
     },

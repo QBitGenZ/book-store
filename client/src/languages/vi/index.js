@@ -1,4 +1,8 @@
 const vi = {
+  'rows-per-page-label': 'Số bản ghi',
+  'next-page': 'Sau',
+  'previous-page': 'Trước',
+  'confirm-btn-label': 'Xác nhận',
   'status': 'Trạng thái',
   'sold-out': 'Hết hàng',
   'file-must-be-pdf': 'File tải lên là PDF',

@@ -5,14 +5,14 @@ import { Modal as BModal, } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { translate, } from '~/helpers';
 import { TextField, } from '@mui/material';
-import { RichTextEditor, } from '~/components';
+import { DropImagesInput, RichTextEditor, } from '~/components';
 
 function CreateEventModal({ show, setShow, createEvent, }) {
   const [title, setTitle,] = useState('');
   const [description, setDescription,] = useState('');
   const [startDate, setStartDate,] = useState(null);
   const [endDate, setEndDate,] = useState(null);
-  // const [images, setImages,] = useState([]);
+  const [images, setImages,] = useState([]);
 
   const handleClose = () => setShow(false);
   const handleSave = () => {
@@ -21,8 +21,9 @@ function CreateEventModal({ show, setShow, createEvent, }) {
       description,
       startDate,
       endDate,
-      // image: images[0],
+      image: images[0],
     });
+
   };
 
   return (
@@ -105,7 +106,9 @@ function CreateEventModal({ show, setShow, createEvent, }) {
               setContent={setDescription}
             ></RichTextEditor>
           </div>
+
         </div>
+        <DropImagesInput files={images} setFiles={setImages} multiple={false} />
       </BModal.Body>
       <BModal.Footer>
         <Button variant='secondary' onClick={handleClose}>
