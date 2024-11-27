@@ -7,17 +7,17 @@ import PropTypes from 'prop-types';
 function Inventory({ productStatistics = [], }) {
   // console.log(Array.isArray(productStatistics)); // Should log true if it's an array
 
-  const calTotalProductInventory = () => {
-    return productStatistics.reduce((total, item) => {
-      return total + item.stockQuantity;
-    }, 0);
-  };
+  // const calTotalProductInventory = () => {
+  //   return productStatistics.reduce((total, item) => {
+  //     return total + item.stockQuantity;
+  //   }, 0);
+  // };
 
   return (
     <>
       <StatisticCard
         name={'Tồn kho'}
-        value={calTotalProductInventory()}
+        value={productStatistics?.totalStock}
         color={'#C0E4F8'}
         icon={
           <div

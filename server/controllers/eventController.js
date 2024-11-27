@@ -9,7 +9,7 @@ exports.getAll = async (req, res) => {
     query.title = { $regex: req.query.search, $options: 'i' }
   }
 
-  const defaultField = 'title';
+  const defaultField = 'endDate';
   getAllDocuments(Event, query, defaultField, req, res);
 };
 
@@ -37,8 +37,8 @@ exports.createEvent = async (req, res) => {
       endDate,
     });
 
-    if (req.files?.["image"] && req.files?.["image"]?.length > 0) {
-      event.images = req.files["image"][0].filename;
+    if (req.files?.["image"]?.[0]) {
+      event.image = req.files["image"][0].filename;
     }
 
     await event.save();

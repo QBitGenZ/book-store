@@ -1,29 +1,29 @@
 import React from 'react';
 import StatisticCard from '~/pages/Admin/DashboardPage/components/StatisticCard';
 import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
-import { faMoneyBillTrendUp, } from '@fortawesome/free-solid-svg-icons';
+import { faBoxArchive, } from '@fortawesome/free-solid-svg-icons';
 import PropTypes from 'prop-types';
 
-function Revenue({ revenueStatistics, }) {
+function Order({ revenueStatistics, }) {
   const calTotalProductRevenue = () => {
     return revenueStatistics?.result.reduce((total, item) => {
-      return total + item.totalRevenue;
+      return total + item.orderCount;
     }, 0) || 0;
   };
 
   return (
     <>
       <StatisticCard
-        name={'Doanh thu'}
+        name={'Đơn hàng'}
         value={calTotalProductRevenue()}
-        color={'#D7EECC'}
+        color={'#DAD0EC'}
         icon={
           <div
             className={
-              'flex items-center justify-center w-12 h-12 text-white rounded-full  bg-[#51C952]'
+              'flex items-center justify-center w-12 h-12 text-white rounded-full  bg-[#AA98FD]'
             }
           >
-            <FontAwesomeIcon icon={faMoneyBillTrendUp} className='w-6 h-6' />
+            <FontAwesomeIcon icon={faBoxArchive} className='w-6 h-6' />
           </div>
         }
       />
@@ -31,8 +31,8 @@ function Revenue({ revenueStatistics, }) {
   );
 }
 
-Revenue.propTypes = {
+Order.propTypes = {
   revenueStatistics: PropTypes.array,
 };
 
-export default Revenue;
+export default Order;

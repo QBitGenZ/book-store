@@ -21,7 +21,7 @@ const Account = () => {
   const [birthday, setBirthday,] = React.useState(dayjs(user?.birthday));
   const [phone, setPhone,] = React.useState(user?.phone);
   const [email, setEmail,] = React.useState(user?.email);
-  const [address, setAddress,] = React.useState(user?.address);
+  const [address, setAddress,] = React.useState(user?.address[0].addressDetail);
 
   const handleChangeSource = (selectedFile) => {
     setImageSource(selectedFile);

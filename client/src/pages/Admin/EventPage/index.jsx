@@ -127,6 +127,29 @@ const EventPage = () => {
       },
     });
   };
+  const getStatus = (item) => {
+    const now = new Date();
+
+    if (new Date(item.startDate) > now)
+      return (<span
+        className='inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20'>
+        Sắp diễn ra
+      </span>);
+    else
+      if (new Date(item.startDate) <= now && new Date(item.endDate) >= now)
+        return (<span
+          className='inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20'>
+        Đang diễn ra
+        </span>);
+      else
+        if (new Date(item.endDate) < now) {
+          return (
+            <span
+              className='inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10'>Kết thúc</span>
+          );
+        }
+    return '';
+  };
 
   const render = () => (
     <>
@@ -209,12 +232,18 @@ const EventPage = () => {
                   enableSort: true,
                   label: translate('end-date'),
                 },
+                {
+                  field: 'status',
+                  enableSort: false,
+                  label: translate('status'),
+                },
               ]}
               data={events?.map((item) => ({
                 ...item,
                 id: item._id,
                 startDate: formatDate(item.startDate),
                 endDate: formatDate(item.endDate),
+                status: getStatus(item),
                 displayImage: item?.image ? (
                   <img
                     className='h-20 inline-block object-cover'
