@@ -129,6 +129,7 @@ exports.updatePBook = async (req, res) => {
       isEbook,
       isShow,
       translator,
+      quantity,
     } = req.body;
 
     const id = req.params.id;
@@ -157,6 +158,7 @@ exports.updatePBook = async (req, res) => {
     object.isShow = isShow || object.isShow;
     object.donor = donor || object.donor;
     object.translator = translator || object.translator;
+    object.quantity = quantity || object.quantity;
 
 
     if (req.files?.["images"] && req.files?.["images"]?.length > 0) {

@@ -1,4 +1,6 @@
 const vi = {
+  'avatar': 'Ảnh đại diện',
+  'save': 'Lưu',
   'rows-per-page-label': 'Số bản ghi',
   'next-page': 'Sau',
   'previous-page': 'Trước',

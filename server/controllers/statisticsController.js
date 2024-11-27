@@ -30,40 +30,93 @@ const Order = require("../models/Order");
 //     },
 //   ]);
 // };
+//
+// const getProductStatistics = async () => {
+//   return await Book.aggregate([
+//     {
+//       $lookup: {
+//         from: "orders", // the collection name for 'Order'
+//         localField: "_id",
+//         foreignField: "items.product", // match `items.product` in `Order` with `_id` in `Book`
+//         as: "orders",
+//       },
+//     },
+//     {$unwind: "$orders"}, // Unwind orders array
+//     {$unwind: "$orders.items"}, // Further unwind the items array
+//     {
+//       $match: {
+//         "orders.items.product": {$exists: true}, // ensures that we only care about items with a product
+//       },
+//     },
+//     {
+//       $addFields: {
+//         soldQuantity: {$sum: "$orders.items.quantity"},
+//         revenue: {$sum: {$multiply: ["$price", "$orders.items.quantity"]}},
+//         cost: {$sum: {$multiply: ["$cost", "$orders.items.quantity"]}},
+//       },
+//     },
+//     {
+//       $project: {
+//         name: 1,
+//         stockQuantity: 1,
+//         soldQuantity: 1,
+//         revenue: 1,
+//       },
+//     },
+//   ]);
+// };
+
 const getProductStatistics = async () => {
-  return await Book.aggregate([
+  const [statistics] = await Book.aggregate([
     {
-      $lookup: {
-        from: "orders", // the collection name for 'Order'
-        localField: "_id",
-        foreignField: "items.product", // match `items.product` in `Order` with `_id` in `Book`
-        as: "orders",
-      },
-    },
-    {$unwind: "$orders"}, // Unwind orders array
-    {$unwind: "$orders.items"}, // Further unwind the items array
-    {
-      $match: {
-        "orders.items.product": {$exists: true}, // ensures that we only care about items with a product
-      },
-    },
-    {
-      $addFields: {
-        soldQuantity: {$sum: "$orders.items.quantity"},
-        revenue: {$sum: {$multiply: ["$price", "$orders.items.quantity"]}},
-        cost: {$sum: {$multiply: ["$cost", "$orders.items.quantity"]}},
+      $facet: {
+        stockStatistics: [
+          {
+            $group: {
+              _id: null,
+              totalStock: { $sum: "$stockQuantity" },
+              totalCost: { $sum: { $multiply: ["$stockQuantity", "$cost"] } },
+            },
+          },
+        ],
+        salesStatistics: [
+          {
+            $lookup: {
+              from: "orders",
+              localField: "_id",
+              foreignField: "items.product",
+              as: "orderItems",
+            },
+          },
+          {
+            $unwind: "$orderItems",
+          },
+          {
+            $unwind: "$orderItems.items",
+          },
+          {
+            $group: {
+              _id: null,
+              totalSold: { $sum: "$orderItems.items.quantity" },
+              totalRevenue: { $sum: "$orderItems.items.totalPrice" },
+            },
+          },
+        ],
       },
     },
     {
       $project: {
-        name: 1,
-        stockQuantity: 1,
-        soldQuantity: 1,
-        revenue: 1,
+        totalStock: { $arrayElemAt: ["$stockStatistics.totalStock", 0] },
+        totalCost: { $arrayElemAt: ["$stockStatistics.totalCost", 0] },
+        totalSold: { $arrayElemAt: ["$salesStatistics.totalSold", 0] },
+        totalRevenue: { $arrayElemAt: ["$salesStatistics.totalRevenue", 0] },
       },
     },
   ]);
+
+  return statistics;
 };
+
 
 
 // Thống kê doanh thu, số lượng bán ra theo loại sản phẩm

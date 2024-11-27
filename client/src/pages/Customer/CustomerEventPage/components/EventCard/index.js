@@ -5,11 +5,11 @@ import parser from 'html-react-parser';
 
 function EventCard({ event, }) {
   return (
-    <div className={'flex flex-col gap-2 mx-3 my-2 text-left border-b bg-white rounded shadow-sm'}>
+    <div className={'opacity-75 flex flex-col gap-2 mx-3 my-2 text-left border-b bg-white rounded shadow-sm'}>
       <div className={'w-full'}>
         <img
           src={`${process.env.REACT_APP_HOST_IP}/${event.image}`}
-          alt={event?.name}
+          alt={event?.title}
           className='w-full h-60 object-cover rounded-t'
         />
       </div>

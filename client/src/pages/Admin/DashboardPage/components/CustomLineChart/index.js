@@ -2,7 +2,7 @@ import ReactApexChart from 'react-apexcharts';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function CustomBarChart({ state, title, }) {
+function CustomLineChart({ state, title, }) {
   return (
     <div className={'mx-12 mt-12 text-left'}>
       <span className={'text-left font-bold text-xl'}>{title}</span>
@@ -22,9 +22,9 @@ function CustomBarChart({ state, title, }) {
   ;
 }
 
-CustomBarChart.propTypes = {
+CustomLineChart.propTypes = {
   state: PropTypes.object.isRequired,
   title: PropTypes.string,
 };
-export default CustomBarChart;
+export default CustomLineChart;
 
