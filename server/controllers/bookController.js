@@ -32,7 +32,7 @@ exports.getOne = async (req, res) => {
   try {
     const id = req.params.id;
 
-    const object = await Book.findById(id);
+    const object = await Book.findById(id).populate('donor');
 
     res.status(200).json({
       data: object,

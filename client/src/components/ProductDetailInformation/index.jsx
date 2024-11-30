@@ -1,21 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ProductDescription from '~/components/ProductDescription';
-import { formatCurrency, } from '~/helpers';
+import { formatCurrency, translate, } from '~/helpers';
 import { getTypesByAdminRequestStart, } from '~/redux/productType/slice';
 import { getPublishersByAdminRequestStart, } from '~/redux/publisher/slice';
 import { getAuthorsByAdminRequestStart, } from '~/redux/author/slice';
 import { useDispatch, useSelector, } from 'react-redux';
 import { formatDate, } from 'src/helpers';
 import DescriptionList from '~/components/DescriptionList';
-import { getUserAllRequestStart, } from '~/redux/user/slice';
+// import { getUserAllRequestStart, } from '~/redux/user/slice';
 import { getAllFormatsRequestStart, } from '~/redux/format/slice';
 
 const ProductDetailInformation = ({ product, hiddenFields, }) => {
   const { publishers, } = useSelector((state) => state.publisher);
   const { types, } = useSelector((state) => state.type);
   const { authors, } = useSelector((state) => state.author);
-  const { users, } = useSelector((state) => state.user);
+  // const { users, } = useSelector((state) => state.user);
   const { formats, } = useSelector((state) => state.format);
 
   const dispatch = useDispatch();
@@ -44,13 +44,13 @@ const ProductDetailInformation = ({ product, hiddenFields, }) => {
     );
   };
 
-  const getDonor = () => {
-    dispatch(
-      getUserAllRequestStart({
-        limit: 1000,
-      })
-    );
-  };
+  // const getDonor = () => {
+  //   dispatch(
+  //     getUserAllRequestStart({
+  //       limit: 1000,
+  //     })
+  //   );
+  // };
 
   const getFormat = () => {
     dispatch(
@@ -64,7 +64,7 @@ const ProductDetailInformation = ({ product, hiddenFields, }) => {
     getAuthors();
     getTypes();
     getPublishers();
-    getDonor();
+    // getDonor();
     getFormat();
   }, []);
 
@@ -88,8 +88,10 @@ const ProductDetailInformation = ({ product, hiddenFields, }) => {
       formattedProduct.author = author?.fullname;
     }
 
-    const donor = users.find((user) => user._id === product?.donor);
-    if (donor) formattedProduct.donor = donor.fullname;
+    // const donor = users.find((user) => user._id === product?.donor);
+    // if (donor) formattedProduct.donor = donor.fullname;
+    // console.log(users);
+    formattedProduct.donor = product?.donor?.fullname;
 
     const format = formats.find((a) => a._id === product?.format);
     if (format) formattedProduct.format = format.name;
@@ -100,6 +102,8 @@ const ProductDetailInformation = ({ product, hiddenFields, }) => {
     if (product?.price) formattedProduct.price = formatCurrency(product?.price);
 
     if (product?.cost) formattedProduct.cost = formatCurrency(product?.cost);
+
+    if (product?.isEbook) formattedProduct.isEbook = translate('Ebook');
 
     (hiddenFields || []).forEach((key) => {
       delete formattedProduct[key];

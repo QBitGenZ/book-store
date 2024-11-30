@@ -35,7 +35,6 @@ const ReadEbookPage = () => {
               '__v',
               'images',
               'description',
-              'donor',
               'cost',
               'price',
               'stockQuantity',
