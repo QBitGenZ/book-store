@@ -65,7 +65,7 @@ const CartModal = () => {
           </StyledBadge>
         </IconButton>
       </div>
-      {show && (
+      {show && cartNumber > 0 && (
         <div
           className='absolute right-0 z-10 mt-0.5 px-4 py-2 w-fit origin-top transform translate-x-5 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'
           // className='absolute right-0 z-10 mt-2.5 w-80 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'
@@ -84,15 +84,14 @@ const CartModal = () => {
               <button
                 className='text-blue-500 hover:underline'
               >
-                Xem thêm
+              Xem thêm
               </button>
             </div>
           )}
         </div>
       )}
     </div>
-  )
-  ;
+  );
 };
 
 function CartItem({ cartItem, }) {
