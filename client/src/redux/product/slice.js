@@ -120,6 +120,20 @@ const productSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+
+    getTopProductsRequestStart: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    getTopProductsRequestSuccess: (state, action) => {
+      state.loading = false;
+      state.products = action.payload.data;
+      state.meta = action.payload.meta;
+    },
+    getTopProductsRequestFailure: (state,action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
 });
 
@@ -148,6 +162,9 @@ export const {
   getProductsByAuthorRequestStart,
   getProductsByAuthorRequestSuccess,
   getProductsByAuthorRequestFailure,
+  getTopProductsRequestStart,
+  getTopProductsRequestSuccess,
+  getTopProductsRequestFailure,
 } = productSlice.actions;
 
 export default productSlice.reducer;

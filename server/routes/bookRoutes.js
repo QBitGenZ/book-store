@@ -30,6 +30,8 @@ router.put('/admin/:id', isAuthorization, isAdmin, uploadFields([
 
 router.delete('/admin/:id', isAuthorization, isAdmin, controller.deleteOne)
 router.delete('/admin/:id/images/:image', isAuthorization, isAdmin, controller.deleteImage)
+router.get('/top', controller.getTop)
 router.get('/:id', controller.getOne)
+
 
 module.exports = router

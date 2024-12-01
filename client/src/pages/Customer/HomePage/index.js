@@ -3,7 +3,7 @@ import { useDispatch, useSelector, } from 'react-redux';
 import { getShopRequestStart, } from '~/redux/config/slice';
 import { AuthorList, CustomCarousel, ProductList, } from '~/components';
 import Categories from '~/pages/Customer/HomePage/Components/Categories';
-import { getProductsRequestStart, } from '~/redux/product/slice';
+import { getTopProductsRequestStart, } from '~/redux/product/slice';
 
 const HomePage = () => {
   const { products, } = useSelector((state) => state.product);
@@ -15,11 +15,8 @@ const HomePage = () => {
 
   React.useEffect(() => {
     dispatch(
-      getProductsRequestStart({
-        orderBy,
-        page,
-        limit,
-        descending,
+      getTopProductsRequestStart({
+        'top': 5,
       })
     );
   }, [dispatch, page, orderBy, descending, limit,]);
@@ -40,7 +37,7 @@ const HomePage = () => {
         <div>
           {products && (
             <div>
-              <ProductList products={products} title={'Sách mới'}/>
+              <ProductList products={products} title={'Sách bán chạy'}/>
               {/* <CustomerPagination*/}
               {/*  currentPage={meta?.page ?? 1}*/}
               {/*  totalPages={meta?.totalPage ?? 1}*/}

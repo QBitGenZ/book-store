@@ -88,3 +88,13 @@ export const getProductsByAuthorApi = (id, data) => {
     },
   });
 };
+export const getTopProductsApi = (query) =>
+  apiFetch({
+    url: 'books/top',
+    queryParams: query,
+    options: {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    },
+  });

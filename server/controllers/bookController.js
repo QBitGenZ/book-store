@@ -1,4 +1,5 @@
 const Book = require("../models/Book");
+const Order = require("../models/Order");
 const {deleteFile} = require("../utils/deleteFile");
 const {getAllDocuments} = require("../utils/querryDocument");
 
@@ -42,6 +43,92 @@ exports.getOne = async (req, res) => {
     res.status(500).json({error: err.message});
   }
 };
+
+exports.getTop = async (req, res) => {
+  try {
+    let topN = 5;
+    if (req.query.top) {
+      topN = req.query.top;
+    }
+    topN = parseInt(topN, 10);
+    console.log(topN)
+    const topBooks = await Order.aggregate([{ $unwind: "$items" },
+      {
+        $group: {
+          _id: "$items.product",
+          totalQuantity: { $sum: "$items.quantity" },
+        },
+      },
+      {
+        $lookup: {
+          from: "books", // Collection Book
+          localField: "_id",
+          foreignField: "_id",
+          as: "bookDetails",
+        },
+      },
+      { $sort: { totalQuantity: -1 } },
+      { $limit: 5 },
+      {$unwind: "$bookDetails"},
+
+      {
+        $project: {
+          _id: 1,
+          bookId: "$_id",          // The product's ID (bookId)
+          totalQuantity: 1,       // The total quantity sold
+          name: "$bookDetails.name",
+          type: "$bookDetails.type",
+          author: "$bookDetails.author",
+          publisher: "$bookDetails.publisher",
+          pubDate: "$bookDetails.pubDate",
+          size: "$bookDetails.size",
+          weight: "$bookDetails.weight",
+          pageNumber: "$bookDetails.pageNumber",
+          stockQuantity: "$bookDetails.stockQuantity",
+          quantity: "$bookDetails.quantity",
+          cost: "$bookDetails.cost",
+          price: "$bookDetails.price",
+          format: "$bookDetails.format",
+          description: "$bookDetails.description",
+          images: "$bookDetails.images",
+          isEbook: "$bookDetails.isEbook",
+          isShow: "$bookDetails.isShow",
+        },
+      }
+    ]);
+
+    // const topBooks = await Order.aggregate([
+    //   { $unwind: "$items" },
+    //   {
+    //     $group: {
+    //       _id: "$items.product",
+    //       totalQuantity: { $sum: "$items.quantity" },
+    //     },
+    //   },
+    //   {
+    //     $lookup: {
+    //       from: "books", // Collection Book
+    //       localField: "_id",
+    //       foreignField: "_id",
+    //       as: "bookDetails",
+    //     },
+    //   },
+    //   { $sort: { totalQuantity: -1 } },
+    //   { $limit: topN },
+    //   {$unwind: "$bookDetails"},
+    //   {
+    //     $replaceRoot: { newRoot: "$bookDetails" }
+    //   },
+    // ]);
+
+    res.status(200).json({
+      data: topBooks,
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({error: err.message});
+  }
+}
 
 exports.createPBook = async (req, res) => {
   try {
