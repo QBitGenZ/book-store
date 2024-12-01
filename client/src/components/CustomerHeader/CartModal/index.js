@@ -125,7 +125,7 @@ function CartItem({ cartItem, }) {
           {formatCurrency(cartItem?.product?.price)}
         </div>
         <div className='text-red-500 text-xs font-bold w-full content-center'>
-          {formatCurrency(cartItem?.product?.price * cartItem.quantity)}
+          {formatCurrency(cartItem?.product?.price * cartItem?.quantity)}
         </div>
       </div>
     </div>

@@ -44,8 +44,8 @@ const CartPage = () => {
 
   const calTotalPrice = () => {
     const total = cart?.cart?.items.reduce((acc, item) => {
-      return item.checked && item.product.price
-        ? acc + item.quantity * item.product.price
+      return item?.checked && item?.product?.price
+        ? acc + item?.quantity * item?.product?.price
         : acc;
     }, 0);
     setTotalPrice(total);
@@ -62,7 +62,7 @@ const CartPage = () => {
   // };
   const calTotalProduct = () => {
     const total = cart?.cart?.items.reduce((acc, item) => {
-      return item.checked ? acc + 1 : acc;
+      return item?.checked ? acc + 1 : acc;
     }, 0);
     setTotalProduct(total);
   };
