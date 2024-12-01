@@ -6,10 +6,13 @@ import { deleteImageRequestFailure,
   getProductsByAuthorRequestSuccess,
   getProductsByTypeRequestFailure,
   getProductsByTypeRequestStart,
-  getProductsByTypeRequestSuccess, } from '~/redux/product/slice';
+  getProductsByTypeRequestSuccess,
+  getTopProductsRequestFailure,
+  getTopProductsRequestStart,
+  getTopProductsRequestSuccess, } from '~/redux/product/slice';
 import { deleteImageApi,
   getProductsByAuthorApi,
-  getProductsByType, } from '~/redux/product/api';
+  getProductsByType, getTopProductsApi, } from '~/redux/product/api';
 
 const { put, takeLatest, call, } = require('redux-saga/effects');
 const { showSnackbar, } = require('../snackbar/slice');
@@ -243,8 +246,36 @@ function* handleGetProductsByAuthorRequest(action) {
   }
 }
 
+function* handleGetTopProductsRequest(action) {
+  try {
+    const response = yield call(getTopProductsApi, action.payload);
+    const { data, meta, } = response;
+    yield put(
+      getTopProductsRequestSuccess({
+        data,
+        meta,
+      })
+    );
+    yield put(
+      showSnackbar({
+        message: 'Request successful!',
+        severity: 'success',
+      })
+    );
+  } catch (err) {
+    yield put(getTopProductsRequestFailure(err.message));
+    yield put(
+      showSnackbar({
+        message: `Request failed: ${err.message}`,
+        severity: 'error',
+      })
+    );
+  }
+}
+
 export default function* watchProductActions() {
   yield takeLatest(getProductsRequestStart.type, handleGetProductsRequest);
+  yield takeLatest(getTopProductsRequestStart.type, handleGetTopProductsRequest);
   yield takeLatest(getProductRequestStart.type, handleGetProductRequest);
   yield takeLatest(createProductRequestStart.type, handleCreateProductRequest);
   yield takeLatest(updateProductRequestStart.type, handleUpdateProductRequest);
