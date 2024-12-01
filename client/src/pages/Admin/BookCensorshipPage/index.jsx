@@ -210,9 +210,9 @@ const BookCensorshipPage = () => {
                 //     label: translate('stock'),
                 // },
                 {
-                  field: 'pubDate',
+                  field: 'createdAt',
                   enableSort: true,
-                  label: translate('pub-date'),
+                  label: translate('sharing-at'),
                 },
                 {
                   field: 'isShow',
@@ -242,6 +242,7 @@ const BookCensorshipPage = () => {
                   (publisher) => item.publisher === publisher._id
                 )?.name,
                 donor: users?.find((user) => item.donor === user._id)?.fullname,
+                createdAt: formatDate(item?.createdAt),
                 isShow: item.isShow ?
                   (<span
                     className='inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20'>Đã duyệt</span>)

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ProductDescription from '~/components/ProductDescription';
-import { formatCurrency, translate, } from '~/helpers';
+import { formatCurrency, formatDateDMY, translate, } from '~/helpers';
 import { getTypesByAdminRequestStart, } from '~/redux/productType/slice';
 import { getPublishersByAdminRequestStart, } from '~/redux/publisher/slice';
 import { getAuthorsByAdminRequestStart, } from '~/redux/author/slice';
@@ -104,6 +104,7 @@ const ProductDetailInformation = ({ product, hiddenFields, }) => {
     if (product?.cost) formattedProduct.cost = formatCurrency(product?.cost);
 
     if (product?.isEbook) formattedProduct.isEbook = translate('Ebook');
+    if (product?.createdAt) formattedProduct.createdAt = formatDateDMY(product.createdAt);
 
     (hiddenFields || []).forEach((key) => {
       delete formattedProduct[key];

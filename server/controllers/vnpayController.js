@@ -2,6 +2,7 @@ const moment = require('moment');
 const Order = require('../models/Order');
 const config = require('../config');
 const Delivery = require('../models/Delivery');
+const PaymentStatus = require('../models/PaymentStatus');
 
 
 exports.createPaymentUrl = async (req, res, next) => {
@@ -86,14 +87,27 @@ exports.vnpayReturn = async (req, res) => {
         if (code === '00') {
             let order = await Order.findById(orderId);
             order.paymentDate = Date.now();
+            let paymentStatus = await PaymentStatus.findOne({'name': 'Giao dịch thành công'});
+            if (paymentStatus) {
+                order.paymentStatus = paymentStatus._id;
+            }
             await order.save();
             console.log(process.env.CLIENT_ROOT)
 
             res.redirect(`${config.CLIENT_ROOT}/checkout/success`)
         } else {
+            let order = await Order.findById(orderId);
+            order.paymentDate = Date.now();
+            let paymentStatus = await PaymentStatus.findOne({'name': 'Lỗi giao dịch'});
+            if (paymentStatus) {
+                order.paymentStatus = paymentStatus._id;
+            }
+            await order.save();
+
             res.redirect(`${config.CLIENT_ROOT}`)
         }
     } else {
+
         res.send({status: 'success', code: '97'})
     }
 }

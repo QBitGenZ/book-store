@@ -32,11 +32,15 @@ const OrderPage = () => {
 
   const handleDetail = (e) => {
     const serializableOrder = {
-      ...e, 
-      deliveryStatus: e.deliveryStatus.props.selected,
-      paymentStatus: e.paymentStatus.props.selected,
-
+      ...e,
+      deliveryStatus: e.deliveryStatus?.$$typeof === Symbol.for('react.element')
+        ? e.deliveryStatus?.props?.selected
+        : e.deliveryStatus,
+      paymentStatus: e.paymentStatus?.$$typeof === Symbol.for('react.element')
+        ? e.paymentStatus?.props?.selected
+        : e.paymentStatus,
     };
+    console.log(e);
     navigate(adminRoutes.detailOrder.replace(':id', e._id), {
       state: serializableOrder,
     });
@@ -134,6 +138,7 @@ const OrderPage = () => {
       })
     );
   };
+
   const render = () => (
     <>
       <ConfirmationModal
@@ -224,8 +229,13 @@ const OrderPage = () => {
                   ? new Date(order.paymentDate).toLocaleDateString()
                   : '',
                 createdAt: new Date(order.createdAt).toLocaleDateString(),
-                paymentStatus:  (<Dropdown selected={order?.paymentStatus} order={order} listOptions={paymentStatuses} updateOrder={updatePayment}/>),
-                deliveryStatus:  (<Dropdown selected={order?.deliveryStatus} order={order} listOptions={deliveryStatuses} updateOrder={updateDelivery}/>),
+                paymentStatus:
+                  paymentStatuses?.find((item) => item._id === order?.paymentStatus)?.name !== 'Giao dịch thành công' ? (
+                    <Dropdown selected={order?.paymentStatus} order={order} listOptions={paymentStatuses} updateOrder={updatePayment}/>
+                  ) : 'Giao dịch thành công' ,
+                deliveryStatus:                  deliveryStatuses?.find((item) => item._id === order?.deliveryStatus)?.name !== 'Đã nhận hàng' ? (
+                  <Dropdown selected={order?.deliveryStatus} order={order} listOptions={deliveryStatuses} updateOrder={updateDelivery}/>
+                ) : 'Đã nhận hàng',
 
               }))}
               keyField='_id'

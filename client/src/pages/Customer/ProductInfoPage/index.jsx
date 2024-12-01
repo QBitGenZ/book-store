@@ -132,6 +132,8 @@ const ProductInfoPage = () => {
                 'quantity',
                 'name',
                 'isShow',
+                'isEbook',
+                'createdAt',
               ]}
             />
           </div>

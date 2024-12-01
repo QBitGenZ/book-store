@@ -46,6 +46,21 @@ const ProductImage = ({ product, }) => {
     document.exitFullscreen();
   };
 
+  const fullscreenchangeHandler = () => {
+    if (document.fullscreenElement) {
+      setIsFullScreen(true);
+    } else {
+      setIsFullScreen(false);
+    }
+  };
+
+  React.useEffect(() => {
+    window.addEventListener('fullscreenchange', fullscreenchangeHandler);
+    return () => {
+      window.removeEventListener('fullscreenchange', fullscreenchangeHandler);
+    };
+  },[isFullScreen,]);
+
   React.useEffect(() => {
     setSelectedImage(product?.images[0] || null);
   }, [product,]);

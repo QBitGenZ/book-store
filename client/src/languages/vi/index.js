@@ -1,4 +1,5 @@
 const vi = {
+  'sharing-at': 'Ngày chia sẻ',
   'avatar': 'Ảnh đại diện',
   'save': 'Lưu',
   'rows-per-page-label': 'Số bản ghi',
@@ -134,7 +135,7 @@ const vi = {
   'total-price': 'Tổng giá',
   payment: 'Thanh toán',
   'payment-date': 'Ngày thanh toán',
-  'created-at': 'Ngày tạo đơn',
+  'created-at': 'Ngày tạo',
   'update-order': 'Cập nhật đơn hàng',
   'user-management': 'Quản lý người dùng',
   profile: 'Thông tin',
