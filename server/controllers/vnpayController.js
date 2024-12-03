@@ -3,6 +3,7 @@ const Order = require('../models/Order');
 const config = require('../config');
 const Delivery = require('../models/Delivery');
 const PaymentStatus = require('../models/PaymentStatus');
+const DeliveryStatus = require('../models/DeliveryStatus');
 
 
 exports.createPaymentUrl = async (req, res, next) => {
@@ -88,8 +89,12 @@ exports.vnpayReturn = async (req, res) => {
             let order = await Order.findById(orderId);
             order.paymentDate = Date.now();
             let paymentStatus = await PaymentStatus.findOne({'name': 'Giao dịch thành công'});
+            let deliveryStatus = await  DeliveryStatus.findOne({'name':'Đang chờ duyệt'});
             if (paymentStatus) {
                 order.paymentStatus = paymentStatus._id;
+            }
+            if (deliveryStatus) {
+                order.deliveryStatus = deliveryStatus._id;
             }
             await order.save();
             console.log(process.env.CLIENT_ROOT)

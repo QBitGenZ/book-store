@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { formatCurrency, } from '~/helpers';
+// import { formatCurrency, } from '~/helpers';
 import { useSelector, } from 'react-redux';
 
 function ShippingMethod({
@@ -37,7 +37,8 @@ function ShippingMethod({
               }}
             />
             <span className='flex-grow text-left'>
-              {method.name}: {formatCurrency(method.cost)}
+              {/* {method.name}: {formatCurrency(method.cost)}*/}
+              {method.name}
             </span>
             <span className='text-gray-500'>{method.expectedDelivery}</span>
           </div>
