@@ -2,6 +2,8 @@ const Cart = require('../models/Cart');
 const Order = require('../models/Order');
 const Book = require('../models/Book')
 const {getAllDocuments} = require("../utils/querryDocument");
+const DeliveryStatus = require("../models/DeliveryStatus");
+const PaymentStatus = require("../models/PaymentStatus");
 
 exports.getAllByAdmin = async (req, res) => {
     let query;
@@ -109,15 +111,18 @@ exports.createOne = async (req, res) => {
         }
 
         const totalPrice = orderItems.reduce((total, item) => total + item.totalPrice, 0);
+        let deliveryStatus = await  DeliveryStatus.findOne({'name':'Đang chờ duyệt'});
+        let paymentStatus = await PaymentStatus.findOne({'name': 'Chưa thanh toán'});
+
 
         const newOrder = new Order({
             user: userId,
             address: req.body.address,
             items: orderItems,
             delivery: req.body.delivery,
-            deliveryStatus: req.body.deliveryStatus,
+            deliveryStatus: req.body.deliveryStatus || deliveryStatus._id,
             payment: req.body.payment,
-            paymentStatus: req.body.paymentStatus,
+            paymentStatus:req.body.paymentStatus || paymentStatus._id ,
             totalPrice: totalPrice,
         });
         console.log(req.body.address);

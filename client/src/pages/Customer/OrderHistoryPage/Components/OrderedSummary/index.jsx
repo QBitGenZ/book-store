@@ -76,7 +76,18 @@ function OrderedSummary({ order, shippingCost = 0, }) {
               backgroundColor: shop?.accentColor || '#0065D7',
             }}
           >
-            {translate('Đã nhận hàng')}
+            {translate('Xác nhận')}
+          </button>
+        )}
+        {order?.deliveryStatus?.name === 'Đang chờ duyệt' && order.payment.name === 'Thanh toán khi nhận hàng' && (
+          <button
+            onClick={() => updateDelivery(order._id, 'Đã hủy')}
+            className={'left-0 border-2 border-red-500 text-white p-2 rounded text-sm font-semibold'}
+            style={{
+              backgroundColor: 'red',
+            }}
+          >
+            {translate('Hủy đơn hàng')}
           </button>
         )}
       </div>
