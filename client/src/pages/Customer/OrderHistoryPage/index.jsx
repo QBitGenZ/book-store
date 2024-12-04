@@ -13,6 +13,7 @@ const OrderHistoryPage = () => {
   const [descending,] = React.useState(true);
   const [page, setPage,] = React.useState(1);
   const [limit,] = React.useState(5);
+  const { updateSuccess, } = useSelector(state => state.order);
 
   const dispatch = useDispatch();
   const nav = useNavigate();
@@ -31,7 +32,7 @@ const OrderHistoryPage = () => {
       })
     );
     // console.log(orders, meta);
-  }, [dispatch, page,]);
+  }, [dispatch, page, updateSuccess,]);
 
   return (
     <>

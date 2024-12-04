@@ -9,6 +9,7 @@ import { Badge, IconButton, styled, } from '@mui/material';
 const CartModal = () => {
 
   const { cart, } = useSelector((state) => state.cart);
+  const { createSuccess, } = useSelector(state => state.order);
   const dispatch = useDispatch();
   const { shop, } = useSelector(state => state.config);
 
@@ -49,6 +50,10 @@ const CartModal = () => {
   React.useEffect(() => {
     getCartNumber();
   }, [cart,]);
+  useEffect(() => {
+    dispatch(getCartRequestStart());
+
+  }, [createSuccess,]);
 
   return (
     <div
