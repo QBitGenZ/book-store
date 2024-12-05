@@ -21,20 +21,33 @@ const SearchBar = () => {
   };
 
   return (
+    // <div className='flex items-center rounded-full border p-2 w-full max-w-lg min-w-max mx-6'>
+    //   {/* Input Field */}
+    //   <input
+    //     type='text'
+    //     placeholder='Tìm kiếm'
+    //     className='w-full px-3 text-gray-700 rounded-full focus:outline-none'
+    //     onChange={(e) => setSearch(e.target.value)}
+    //     onKeyPress={handleKeyPress} // Trigger search on "Enter"
+    //   />
+    //   {/* Search Icon */}
+    //   <div className='px-3' onClick={handleSearch}>
+    //     <FontAwesomeIcon icon={faMagnifyingGlass} />
+    //   </div>
+    // </div>
     <div className='flex items-center rounded-full border p-2 w-full max-w-lg min-w-max mx-6'>
-      {/* Input Field */}
       <input
         type='text'
         placeholder='Tìm kiếm'
         className='w-full px-3 text-gray-700 rounded-full focus:outline-none'
         onChange={(e) => setSearch(e.target.value)}
-        onKeyPress={handleKeyPress} // Trigger search on "Enter"
+        onKeyPress={handleKeyPress}
       />
-      {/* Search Icon */}
       <div className='px-3' onClick={handleSearch}>
-        <FontAwesomeIcon icon={faMagnifyingGlass} />
+        <FontAwesomeIcon icon={faMagnifyingGlass}/>
       </div>
     </div>
+
   );
 };
 

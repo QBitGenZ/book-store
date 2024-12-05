@@ -6,21 +6,21 @@ function CustomCarousel() {
     <Carousel>
       <Carousel.Item>
         <img
-          className='w-full h-96 object-cover rounded'
+          className='w-full h-48 sm:h-64 md:h-80 lg:h-96 object-cover rounded'
           src={`${process.env.PUBLIC_URL}/assets/pages/other/Carousel_3.webp`}
           alt='Home'
         />
       </Carousel.Item>
       <Carousel.Item>
         <img
-          className='w-full h-96 object-cover rounded'
+          className='w-full h-48 sm:h-64 md:h-80 lg:h-96 object-cover rounded'
           src={`${process.env.PUBLIC_URL}/assets/pages/other/Carousel_1.webp`}
           alt='Home'
         />
       </Carousel.Item>
       <Carousel.Item>
         <img
-          className='w-full h-96 object-cover rounded'
+          className='w-full h-48 sm:h-64 md:h-80 lg:h-96 object-cover rounded'
           src={`${process.env.PUBLIC_URL}/assets/pages/other/Carousel_2.webp`}
           alt='Home'
         />

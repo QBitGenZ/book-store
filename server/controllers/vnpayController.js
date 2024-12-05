@@ -4,6 +4,7 @@ const config = require('../config');
 const Delivery = require('../models/Delivery');
 const PaymentStatus = require('../models/PaymentStatus');
 const DeliveryStatus = require('../models/DeliveryStatus');
+const {deleteOrder} = require("./orderController");
 
 
 exports.createPaymentUrl = async (req, res, next) => {
@@ -101,13 +102,15 @@ exports.vnpayReturn = async (req, res) => {
 
             res.redirect(`${config.CLIENT_ROOT}/checkout/success`)
         } else {
-            let order = await Order.findById(orderId);
-            order.paymentDate = Date.now();
-            let paymentStatus = await PaymentStatus.findOne({'name': 'Lỗi giao dịch'});
-            if (paymentStatus) {
-                order.paymentStatus = paymentStatus._id;
-            }
-            await order.save();
+            // let order = await Order.findById(orderId);
+            // order.paymentDate = Date.now();
+            // let paymentStatus = await PaymentStatus.findOne({'name': 'Lỗi giao dịch'});
+            // if (paymentStatus) {
+            //     order.paymentStatus = paymentStatus._id;
+            // }
+            // await order.save();
+
+            deleteOrder(orderId)
 
             res.redirect(`${config.CLIENT_ROOT}`)
         }
