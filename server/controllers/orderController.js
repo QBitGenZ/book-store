@@ -166,3 +166,102 @@ exports.updateDeliveryStatus = async (req, res) => {
         res.status(500).json({error: err.message});
     }
 };
+
+// exports.deleteOrder = async (req, res) => {
+//     try {
+//         const { orderId } = req.params;
+//         const userId = req.user.id;
+//
+//         // Tìm order theo ID
+//         const order = await Order.findById(orderId).populate('items.product');
+//
+//         if (!order) {
+//             return res.status(404).json({ error: 'Order not found' });
+//         }
+//
+//         if (order.user.toString() !== userId) {
+//             return res.status(403).json({ error: 'You do not have permission to delete this order' });
+//         }
+//
+//         // Lấy cart của người dùng
+//         let cart = await Cart.findOne({ user: userId });
+//         if (!cart) {
+//             // Tạo cart mới nếu chưa tồn tại
+//             cart = new Cart({ user: userId, items: [] });
+//         }
+//
+//         // Thêm các sản phẩm từ order vào cart và cập nhật stockQuantity
+//         order.items.forEach(async (item) => {
+//             const product = await Book.findById(item.product._id);
+//
+//             // Cập nhật stockQuantity
+//             product.stockQuantity += item.quantity;
+//             await product.save();
+//
+//             // Kiểm tra nếu sản phẩm đã tồn tại trong cart
+//             const cartItemIndex = cart.items.findIndex(
+//               (cartItem) => cartItem.product.toString() === item.product._id.toString()
+//             );
+//
+//             if (cartItemIndex >= 0) {
+//                 // Nếu đã tồn tại, tăng quantity
+//                 cart.items[cartItemIndex].quantity += item.quantity;
+//             } else {
+//                 // Nếu chưa tồn tại, thêm sản phẩm mới vào cart
+//                 cart.items.push({
+//                     product: item.product._id,
+//                     quantity: item.quantity,
+//                     checked: false, // Đặt mặc định là chưa được chọn
+//                 });
+//             }
+//         });
+//
+//         await cart.save();
+//
+//         // Xóa order
+//         await order.deleteOne();
+//
+//         res.status(200).json({ message: 'Order deleted and items returned to cart successfully.' });
+//     } catch (err) {
+//         console.error(err.message);
+//         res.status(500).json({ error: err.message });
+//     }
+// };
+
+exports.deleteOrder = async (orderId) => {
+    try {
+        const order = await Order.findById(orderId).populate('items.product');
+        if (!order) {
+            return false;
+        }
+        const userId = order.user;
+        let cart = await Cart.findOne({ user: userId });
+        if (!cart) {
+            cart = new Cart({ user: userId, items: [] });
+        }
+        for (const item of order.items) {
+            const product = await Book.findById(item.product._id);
+            product.stockQuantity += item.quantity;
+            await product.save();
+            const cartItemIndex = cart.items.findIndex(
+              (cartItem) => cartItem.product.toString() === item.product._id.toString()
+            );
+
+            if (cartItemIndex >= 0) {
+                cart.items[cartItemIndex].quantity += item.quantity;
+            } else {
+                cart.items.push({
+                    product: item.product._id,
+                    quantity: item.quantity,
+                    checked: false,
+                });
+            }
+        }
+
+        await cart.save();
+        await order.deleteOne();
+        return true;
+    } catch (err) {
+       return false;
+    }
+};
