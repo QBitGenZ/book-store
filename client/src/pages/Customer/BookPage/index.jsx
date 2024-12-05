@@ -74,7 +74,7 @@ const BookPage = () => {
   }, [selectedCategory, orderBy, descending,]);
   return (
     <div className={'flex flex-row gap-3 w-full'}>
-      <div className={'shrink-0'}>
+      <div className={'shrink-0 hidden md:block'}>
         <Filter
           page={page}
           maxPrice={maxPrice}
