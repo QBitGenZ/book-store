@@ -40,7 +40,7 @@ function OrderSummary({ order, shippingCost = 0, }) {
         <h6 className='font-semibold text-lg text-left'>Chi tiết đơn hàng #{order?._id}</h6>
         <p className={'normal-case mb-0'}>Ngày đặt hàng: {formatDate(order?.createdAt)}</p>
       </div>
-      <div className={'flex flex-row gap-3 text-xs w-full'}>
+      <div className={'flex md:flex-row flex-col gap-3 text-xs w-full'}>
         <div className='space-y-4 p-4 rounded bg-white flex flex-col text-left w-full'>
           <div className={'space-y-4'}>
             <span className={'uppercase'}>Địa chỉ người nhận</span>

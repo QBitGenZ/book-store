@@ -234,9 +234,18 @@ const OrderPage = () => {
                     <Dropdown selected={order?.paymentStatus} order={order} listOptions={paymentStatuses} updateOrder={updatePayment}/>
                   ) : 'Giao dịch thành công' ,
                 deliveryStatus:
-                  deliveryStatuses?.find((item) => item._id === order?.deliveryStatus)?.name !== 'Đã nhận hàng' ? (
-                    <Dropdown selected={order?.deliveryStatus} order={order} listOptions={deliveryStatuses} updateOrder={updateDelivery}/>
-                  ) : 'Đã nhận hàng',
+                  ['Đã nhận hàng', 'Đã hủy',].includes(
+                    deliveryStatuses?.find((item) => item._id === order?.deliveryStatus)?.name
+                  ) ? (
+                      deliveryStatuses?.find((item) => item._id === order?.deliveryStatus)?.name
+                    ) : (
+                      <Dropdown
+                        selected={order?.deliveryStatus}
+                        order={order}
+                        listOptions={deliveryStatuses}
+                        updateOrder={updateDelivery}
+                      />
+                    ),
 
               }))}
               keyField='_id'

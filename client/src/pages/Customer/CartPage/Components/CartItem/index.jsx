@@ -57,7 +57,7 @@ const CartItem = ({ cartItem, handleUpdateItem, handleDeleteItem, }) => {
   }, [cartItem.checked,]);
 
   return (
-    <div className='flex justify-between items-center border-b py-4'>
+    <div className='text-xs sm:text-xs md:text-base flex justify-between items-center border-b py-4'>
       <div className='flex items-start gap-3 w-2/5'>
         <div className='flex content-center h-max'>
           <input
@@ -72,38 +72,38 @@ const CartItem = ({ cartItem, handleUpdateItem, handleDeleteItem, }) => {
             <img
               src={`${process.env.REACT_APP_HOST_IP}/${cartItem?.product?.images?.[0]}`}
               alt={cartItem?.product?.name}
-              className='w-20 h-24 p-0.5 object-fit-contain aspect-square border rounded'
+              className='md:w-20 md:h-24 h-12 w-10 p-0.5 object-fit-contain aspect-square border rounded'
             />
           ) : (
             <img
               src={`${process.env.PUBLIC_URL}/assets/pages/other/noImageItem.jpg`}
               alt='Product'
-              className='w-20 h-24 object-cover'
+              className='md:w-20 md:h-24 h-12 w-10 p-0.5 object-fit-contain aspect-square border rounded'
             />
           )}
 
           {/* Product Details */}
           <div>
-            <div className='flex items-center'>
-              <span className='font-normal break-words text-left'>
+            <div className='flex items-center w-full'>
+              <div className='font-normal truncate line-clamp-2 text-wrap w-full break-words text-left'>
                 {cartItem?.product?.name}
-              </span>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className={'w-1/2 flex justify-between'}>
+      <div className={'w-1/2 flex gap-1 justify-between'}>
         {/* Price */}
         <div className='font-semibold text-sm w-full content-center'>
           {formatCurrency(cartItem?.product?.price)}
         </div>
 
         {/* Quantity Selector */}
-        <div className='flex items-center space-x-2 w-full content-center'>
+        <div className='flex items-center md:space-x-2 space-x-0.5 w-full content-center'>
           <button
             onClick={handleDecrement}
-            className='border px-2 py-1 rounded'
+            className='border md:px-2 px-1 py-1 rounded'
           >
             <FontAwesomeIcon icon={faMinus} />
           </button>
@@ -111,11 +111,11 @@ const CartItem = ({ cartItem, handleUpdateItem, handleDeleteItem, }) => {
             type='text'
             value={quantity}
             readOnly
-            className='w-10 text-center border py-1 rounded'
+            className='md:w-10 w-5 text-center border py-1 rounded'
           />
           <button
             onClick={handleIncrement}
-            className='border px-2 py-1 rounded'
+            className='border md:px-2 px-1 py-1 rounded'
           >
             <FontAwesomeIcon icon={faPlus} />
           </button>

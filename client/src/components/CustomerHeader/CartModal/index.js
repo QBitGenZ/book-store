@@ -101,7 +101,7 @@ const CartModal = () => {
 
 function CartItem({ cartItem, }) {
   return (
-    <div className='flex justify-between items-center border-b py-4 max-w-[500px] min-w-[450px]'>
+    <div className='flex justify-between items-center border-b py-4 max-w-[500px] min-w-[350px]'>
 
       <div className='flex items-center gap-2 w-full'>
         {cartItem?.product?.images?.[0] ? (
@@ -120,7 +120,7 @@ function CartItem({ cartItem, }) {
 
         <div>
           <div className='flex items-center'>
-            <div className='text-sm text-left w-full'>
+            <div className='text-sm text-left truncate break-words min-w-12 max-w-32 '>
               {cartItem?.product?.name}
             </div>
           </div>
