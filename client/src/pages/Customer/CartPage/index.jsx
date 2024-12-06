@@ -143,7 +143,7 @@ const CartPage = () => {
                 className='hover:text-red-500 w-full content-center'
                 onClick={deleteAllItem}
               >
-                <FontAwesomeIcon icon={faTrash} />
+                <FontAwesomeIcon icon={faTrash}/>
               </button>
             </div>
           </div>
@@ -158,12 +158,19 @@ const CartPage = () => {
           ))}
         </div>
 
-        <div className={'w-1/3'}>
+        <div className={'hidden md:block w-1/3'}>
           <TotalCart
             totalPrice={totalPrice}
             totalProduct={totalProduct}
           ></TotalCart>
         </div>
+
+      </div>
+      <div className={'mt-3 md:hidden'}>
+        <TotalCart
+          totalPrice={totalPrice}
+          totalProduct={totalProduct}
+        ></TotalCart>
       </div>
     </>
   ) : (
