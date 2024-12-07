@@ -11,12 +11,12 @@ export default [
   },
   {
     id: `auth-${uuid4()}`,
-    path: authRoutes.forgotPassword,
+    path: authRoutes.adminForgotPassword,
     element: <ForgetPasswordPage />,
   },
   {
     id: `auth-${uuid4()}`,
-    path: authRoutes.resetPassword,
+    path: authRoutes.adminResetPassword,
     element: <ResetPasswordPage />,
   },
 ];

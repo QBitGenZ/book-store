@@ -46,7 +46,7 @@ const LoginAdminPage = () => {
             placeholder={translate('password')}
           />
           <div className='text-right'>
-            <Link className='no-underline' to={authRoutes.forgotPassword}>
+            <Link className='no-underline' to={authRoutes.adminForgotPassword}>
               <span className='no-underline'>
                 {translate('forgot-password')} ?
               </span>

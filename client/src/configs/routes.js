@@ -2,8 +2,10 @@ export const authRoutes = {
   login: '/login',
   logup: '/logup',
   resetPassword: '/reset-password',
+  adminResetPassword: '/admin/reset-password',
   adminLogin: '/admin/login',
   forgotPassword: '/forgot-password',
+  adminForgotPassword: '/admin/forgot-password',
 };
 
 export const adminRoutes = {

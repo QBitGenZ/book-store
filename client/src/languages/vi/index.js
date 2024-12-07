@@ -1,4 +1,8 @@
 const vi = {
+  'reset-password': 'Đặt lại mật khẩu',
+  'forget-password': 'Quên mật khẩu',
+  'send-code': 'Gửi mã',
+  'have-account': 'Đã có tài khoản',
   'sharing-at': 'Ngày chia sẻ',
   'avatar': 'Ảnh đại diện',
   'save': 'Lưu',
