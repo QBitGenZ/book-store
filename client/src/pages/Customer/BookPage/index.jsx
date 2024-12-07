@@ -55,6 +55,14 @@ const BookPage = () => {
     }
   };
 
+  const refresh = () => {
+    setMinPrice(0);
+    setMaxPrice(0);
+    setOrderBy('');
+    setSelectedCategory(null);
+    setDescending(true);
+  };
+
   React.useEffect(() => {
     if (!shop) dispatch(getShopRequestStart());
   });
@@ -88,6 +96,7 @@ const BookPage = () => {
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
           filterByPrice={filterByPrice}
+          refresh={refresh}
         ></Filter>
       </div>
       <div className={'w-full h-full'}>

@@ -20,6 +20,7 @@ function FilterSidebar({
   maxPrice,
   setMaxPrice,
   filterByPrice,
+  refresh,
 }) {
   const { types, } = useSelector((state) => state.type);
   const { shop, } = useSelector((state) => state.config);
@@ -51,7 +52,6 @@ function FilterSidebar({
           className='font-normal mb-3'
           onClick={() => {
             setSelectedCategory(null);
-            // getProducts();
           }}
           style={{
             fontWeight: selectedCategory === null ? 'bold' : 'lighter',
@@ -142,6 +142,26 @@ function FilterSidebar({
           >
             {translate('filter')}
           </button>
+          <button
+            type='button'
+            onClick={refresh}
+            className={`block border-2 mt-1 w-full px-3 py-1 rounded text-center text-sm font-semibold text-[${shop.accentColor}] e`}
+            style={{
+              borderColor: shop.accentColor,
+              color: shop.accentColor,
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.color = 'white';
+              e.currentTarget.style.backgroundColor = shop?.accentColor;
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.color = shop.accentColor;
+              e.currentTarget.style.borderColor = shop.accentColor;
+              e.currentTarget.style.backgroundColor = 'white';
+            }}
+          >
+            {translate('refresh')}
+          </button>
         </div>
       </div>
 
@@ -158,9 +178,9 @@ function FilterSidebar({
           >
             <span className={'mr-2'}>{translate('price')}</span>
             {!descending ? (
-              <FontAwesomeIcon icon={faArrowUp} />
+              <FontAwesomeIcon icon={faArrowUp}/>
             ) : (
-              <FontAwesomeIcon icon={faArrowDown} />
+              <FontAwesomeIcon icon={faArrowDown}/>
             )}
           </div>
         </div>
@@ -183,6 +203,7 @@ FilterSidebar.propTypes = {
   maxPrice: PropTypes.number,
   setMaxPrice: PropTypes.func,
   filterByPrice: PropTypes.func,
+  refresh: PropTypes.func,
 };
 
 export default FilterSidebar;
