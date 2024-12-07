@@ -271,7 +271,7 @@ const CustomerHeader = () => {
           <div className='flex items-center space-x-4'>
             <HeaderItem route={clientRoutes.home} name={'home'} />
             <DropdownCategories items={types} name={'Danh mục'} />
-            <HeaderItem route={clientRoutes.event} name={'event'} />
+            <HeaderItem route={clientRoutes.event} name={'events'} />
             <HeaderItem route={clientRoutes.book} name={'book'} />
             <HeaderItem route={clientRoutes.shareBook} name={'sharing-book'} />
           </div>

@@ -202,7 +202,7 @@ const sidebar = [
     label: (
       <div className='flex items-center'>
         <EventIcon fontSize='medium' />
-        <span className='ml-2'>{translate('event')}</span>
+        <span className='ml-2'>{translate('event-management')}</span>
       </div>
     ),
     path: adminRoutes.event,

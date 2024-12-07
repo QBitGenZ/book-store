@@ -53,18 +53,6 @@ const ProductInfoPage = () => {
     handleSnackbarOpen('Sản phẩm đã được thêm vào giỏ hàng!');
   };
 
-  // React.useEffect(() => {
-  //   if (createSuccess) {
-  //
-  //     const timer = setTimeout(() => {
-  //       dispatch(resetState()); // Reset createSuccess state
-  //       handleSnackbarClose(); // Close the Snackbar
-  //     }, 3000);
-  //
-  //     return () => clearTimeout(timer); // Cleanup timer on component unmount or re-render
-  //   }
-  // }, [createSuccess,]);
-
   React.useEffect(() => {
     getProduct();
     dispatch(resetState()); // Reset createSuccess state
@@ -86,7 +74,7 @@ const ProductInfoPage = () => {
     <>
       <Snackbar
         anchorOrigin={{
-          vertical, horizontal, 
+          vertical, horizontal,
         }}
         open={open}
         onClose={handleSnackbarClose}

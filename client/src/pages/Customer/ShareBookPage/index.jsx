@@ -25,7 +25,9 @@ const ShareBookPage = () => {
   };
 
   const getMyEBook = () => {
-    dispatch(getDonationsRequestStart());
+    dispatch(getDonationsRequestStart({
+      limit:1000,
+    }));
   };
 
   const getProducts = () => {
