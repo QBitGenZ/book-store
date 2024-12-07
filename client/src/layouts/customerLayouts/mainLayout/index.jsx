@@ -62,7 +62,7 @@ const CustomerMainLayout = ({ children, }) => {
     if (!user) return <Navigate to={authRoutes.login} />;
 
     return (
-      <div className='flex flex-col h-screen bg-[#F5F8FA]'>
+      <div className='flex flex-col bg-[#F5F8FA]'>
         {/* Main content container */}
         <CustomerHeader />
         <main className='flex-grow flex flex-col'>
