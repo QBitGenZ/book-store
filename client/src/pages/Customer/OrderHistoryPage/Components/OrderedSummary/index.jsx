@@ -6,11 +6,13 @@ import { updateOrderRequestStart, } from '~/redux/order/slice';
 import { getDeliveryStatusesRequestStart, } from '~/redux/deliveryStatus/slice';
 import { clientRoutes, } from '~/configs/routes';
 import { useNavigate, } from 'react-router-dom';
+import { getPaymentStatusesRequestStart, } from '~/redux/paymentStatus/slice';
 
 function OrderedSummary({ order, shippingCost = 0, }) {
   const items = order.items;
   const { shop, } = useSelector((state) => state.config);
   const { deliveryStatuses, } = useSelector((state) => state.deliveryStatus);
+  const { paymentStatuses, } = useSelector(state => state.paymentStatus);
   const [showAllItems, setShowAllItems,] = useState(false);
   const dispatch = useDispatch();
   const nav = useNavigate();
@@ -42,6 +44,13 @@ function OrderedSummary({ order, shippingCost = 0, }) {
     );
   };
 
+  const getPaymentStatus = () => {
+    dispatch(getPaymentStatusesRequestStart({
+      limit: 1000,
+      page: 1,
+    }));
+  };
+
   const updateDelivery = (id, deliveryStatus) => {
     if (!deliveryStatus) return;
     const data = {
@@ -49,6 +58,9 @@ function OrderedSummary({ order, shippingCost = 0, }) {
     };
 
     data.deliveryStatus = deliveryStatuses.find(item => item.name === deliveryStatus)._id;
+    if (deliveryStatus === 'Đã hủy') data.paymentStatus = paymentStatuses.find(item => item.name === 'Đã hủy')?._id;
+
+    // console.log(data);
 
     dispatch(
       updateOrderRequestStart({
@@ -60,6 +72,7 @@ function OrderedSummary({ order, shippingCost = 0, }) {
 
   React.useEffect(() => {
     getDeliveryStatus();
+    getPaymentStatus();
   }, [dispatch,]);
 
   return (

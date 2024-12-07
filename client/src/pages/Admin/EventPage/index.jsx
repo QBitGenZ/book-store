@@ -64,7 +64,7 @@ const EventPage = () => {
     formData.append('description', eventData.description);
     formData.append('startDate', eventData.startDate);
     formData.append('endDate', eventData.endDate);
-    formData.append('image', eventData.image?.file);
+    if (eventData?.image)formData.append('image', eventData.image?.file);
 
     dispatch(
       updateEventRequestStart({
@@ -88,7 +88,7 @@ const EventPage = () => {
     formData.append('description', description);
     formData.append('startDate', startDate);
     formData.append('endDate', endDate);
-    formData.append('image', image?.file);
+    if (image) formData.append('image', image?.file);
 
     dispatch(createEventRequestStart(formData));
     setShowCreateEvent(false);
@@ -135,19 +135,17 @@ const EventPage = () => {
         className='inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20'>
         Sắp diễn ra
       </span>);
-    else
-      if (new Date(item.startDate) <= now && new Date(item.endDate) >= now)
-        return (<span
-          className='inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20'>
+    if (new Date(item.startDate) <= now && new Date(item.endDate) >= now)
+      return (<span
+        className='inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20'>
         Đang diễn ra
-        </span>);
-      else
-        if (new Date(item.endDate) < now) {
-          return (
-            <span
-              className='inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10'>Kết thúc</span>
-          );
-        }
+      </span>);
+    if (new Date(item.endDate) < now)
+      return (
+        <span
+          className='inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10'>Kết thúc</span>
+      );
+
     return '';
   };
 

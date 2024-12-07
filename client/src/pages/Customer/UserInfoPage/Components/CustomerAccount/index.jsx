@@ -22,7 +22,7 @@ const CustomerAccount = () => {
   const [phone, setPhone,] = React.useState(user?.phone);
   const [email, setEmail,] = React.useState(user?.email);
   const [localAddress, setLocalAddress,] = React.useState(
-    user?.address[0].addressDetail
+    user?.address[0]?.addressDetail || ''
   );
 
   const handleChangeSource = (selectedFile) => {
