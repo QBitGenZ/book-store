@@ -21,7 +21,8 @@ import { AdminProfilePage,
   PublisherPage,
   ReadingEbookPage,
   UpdateProductPage,
-  UserPage, } from '~/pages';
+  UserPage,
+  UpdateEBookPage, CreateEbookPage, } from '~/pages';
 import React from 'react';
 
 export default [
@@ -139,5 +140,15 @@ export default [
     id: `admin-${uuid4}`,
     path: adminRoutes.readEbook,
     element: <ReadingEbookPage />,
+  },
+  {
+    id: `admin-${uuid4}`,
+    path: adminRoutes.updateEbook,
+    element: <UpdateEBookPage />,
+  },
+  {
+    id: `admin-${uuid4}`,
+    path: adminRoutes.createEbook,
+    element: <CreateEbookPage />,
   },
 ];

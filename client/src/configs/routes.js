@@ -35,6 +35,8 @@ export const adminRoutes = {
   authorDetail: '/admin/categories/authors/:id',
 
   ebook: '/admin/ebook',
+  createEbook: '/admin/create-ebook',
+  updateEbook: '/admin/update-ebook/:id',
   readEbook: '/admin/ebook/:id',
   bookCensorship: '/admin/ebook/sharing',
 };

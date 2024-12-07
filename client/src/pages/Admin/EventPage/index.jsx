@@ -100,7 +100,7 @@ const EventPage = () => {
       setShowConfirm(false);
       setShowUpdateEvent(false);
     });
-    setConfirmMessage('Are you sure you want to save these changes?');
+    setConfirmMessage('Bạn có chắc chắn muốn lưu những thay đổi này không?');
     setShowConfirm(true);
   };
 
