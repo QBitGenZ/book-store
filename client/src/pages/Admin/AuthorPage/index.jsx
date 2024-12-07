@@ -208,12 +208,15 @@ const AuthorPage = () => {
                 ...item,
                 avatar: item?.avatar ? (
                   <img
-                    className='h-20 inline-block object-cover'
+                    className='h-20 w-20 inline-block rounded-full object-cover'
                     src={`${process.env.REACT_APP_HOST_IP}/${item?.avatar}`}
                     alt={item?.fullname}
                   />
                 ) : (
-                  ''
+                  <img
+                    src={`${process.env.PUBLIC_URL}/assets/pages/other/unAuthorImage.webp`}
+                    className='h-20 w-20 inline-block rounded-full object-cover'
+                  />
                 ),
                 birthday: item?.birthday ? formatDate(item?.birthday) : '',
               }))}
