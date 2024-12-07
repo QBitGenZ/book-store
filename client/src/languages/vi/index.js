@@ -1,4 +1,5 @@
 const vi = {
+  'add-new-delivery-address': 'Thêm địa chỉ mới',
   'reset-password': 'Đặt lại mật khẩu',
   'forget-password': 'Quên mật khẩu',
   'send-code': 'Gửi mã',
