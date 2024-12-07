@@ -72,7 +72,7 @@ const UserPage = () => {
         body={confirmMessage}
         onConfirm={confirmAction}
         onHide={() => setShowConfirm(false)}
-        title='Confirm'
+        title='Xác nhận'
         show={showConfirm}
       />
       {/* <CreateModal*/}

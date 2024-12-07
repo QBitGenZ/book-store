@@ -112,7 +112,7 @@ const BookCensorshipPage = () => {
       ...value,
     };
     setSelectedObj(selectedCopy);
-    navigate(adminRoutes.updateProduct.replace(':id', value._id));
+    navigate(adminRoutes.updateEbook.replace(':id', value._id));
   };
 
   const handleShowDetail = (value) => {
@@ -129,7 +129,7 @@ const BookCensorshipPage = () => {
         body={confirmMessage}
         onConfirm={confirmAction}
         onHide={() => setShowConfirm(false)}
-        title='Confirm'
+        title='Xác nhận'
         show={showConfirm}
       />
 
@@ -232,7 +232,7 @@ const BookCensorshipPage = () => {
                   <img
                     src={`${process.env.PUBLIC_URL}/assets/pages/other/noImageItem.jpg`}
                     alt='Product'
-                    className='h-20 w-24 inline-block object-contain '
+                    className='h-20 w-24 inline-block object-contain'
                   />
                 ),
                 pubDate: formatDate(item?.pubDate),
@@ -241,7 +241,7 @@ const BookCensorshipPage = () => {
                 publisher: publishers?.find(
                   (publisher) => item.publisher === publisher._id
                 )?.name,
-                donor: users?.find((user) => item.donor === user._id)?.fullname,
+                donor: item.donor.fullname || users?.find((user) => item.donor === user._id)?.fullname,
                 createdAt: formatDate(item?.createdAt),
                 isShow: item.isShow ?
                   (<span

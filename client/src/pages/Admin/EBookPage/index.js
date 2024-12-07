@@ -95,7 +95,7 @@ const EBookPage = () => {
   };
 
   const handleCreate = () => {
-    // navigate(adminRoutes.createProduct);
+    navigate(adminRoutes.createEbook);
   };
 
   const handleUpdate = (value) => {
@@ -103,7 +103,7 @@ const EBookPage = () => {
       ...value,
     };
     setSelectedObj(selectedCopy);
-    navigate(adminRoutes.updateProduct.replace(':id', value._id));
+    navigate(adminRoutes.updateEbook.replace(':id', value._id));
   };
 
   const handleShowDetail = (value) => {
@@ -119,7 +119,7 @@ const EBookPage = () => {
         body={confirmMessage}
         onConfirm={confirmAction}
         onHide={() => setShowConfirm(false)}
-        title='Confirm'
+        title='Xác nhận'
         show={showConfirm}
       />
 

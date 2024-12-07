@@ -26,7 +26,7 @@ exports.getAll = async (req, res) => {
   }
 
   const defaultField = "name";
-  getAllDocuments(Book, query, defaultField, req, res);
+  getAllDocuments(Book, query, defaultField, req, res, ['donor']);
 };
 
 exports.getOne = async (req, res) => {

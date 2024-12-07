@@ -24,7 +24,8 @@ import EBookPage from './EBookPage';
 import BookCensorshipPage from './BookCensorshipPage';
 import ReadingEbookPage from './ReadingEbookPage';
 import EventDetailPage from './EventDetailPage';
-
+import CreateEbookPage from './CreateEbookPage';
+import UpdateEBookPage from './UpdateEBookPage';
 export {
   LoginAdminPage,
   ProductPage,
@@ -52,4 +53,6 @@ export {
   BookCensorshipPage,
   ReadingEbookPage,
   EventDetailPage,
+  CreateEbookPage,
+  UpdateEBookPage,
 };
