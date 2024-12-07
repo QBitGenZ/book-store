@@ -1,14 +1,8 @@
 import * as React from 'react';
 import { Unstable_Popup as BasePopup, } from '@mui/base/Unstable_Popup';
-import { useTheme, } from '@mui/system';
 import { FontAwesomeIcon, } from '@fortawesome/react-fontawesome';
 import { faComments, } from '@fortawesome/free-regular-svg-icons';
 import { faMinus, } from '@fortawesome/free-solid-svg-icons';
-
-function useIsDarkMode() {
-  const theme = useTheme();
-  return theme.palette.mode === 'dark';
-}
 
 export default function PopupChat() {
   const [anchor, setAnchor,] = React.useState(null);
