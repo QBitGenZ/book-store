@@ -19,6 +19,7 @@ import CustomerAuthorPage from './CustomerAuthorPage';
 import CustomerForgetPasswordPage from './CustomerForgetPasswordPage';
 import OrderDetailPage from './OrderDetailPage';
 import CustomerEventDetailPage from './CustomerEventDetailPage';
+import CustomerResetPasswordPage from './CustomerResetPasswordPage';
 
 export {
   LoginPage,
@@ -42,4 +43,5 @@ export {
   CustomerForgetPasswordPage,
   OrderDetailPage,
   CustomerEventDetailPage,
+  CustomerResetPasswordPage,
 };

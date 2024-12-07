@@ -20,7 +20,7 @@ const ForgetPasswordPage = () => {
         })
       )
     );
-    nav(authRoutes.resetPassword);
+    nav(authRoutes.adminResetPassword);
   };
 
   const render = () => {

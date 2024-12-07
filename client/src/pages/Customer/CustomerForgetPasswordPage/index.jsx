@@ -37,7 +37,7 @@ const CustomerForgetPasswordPage = () => {
           />
           <div className='text-right'>
             <span>{translate('have-account')}? </span>
-            <Link to={authRoutes.adminLogin}>{translate('login')}</Link>
+            <Link to={authRoutes.login}>{translate('login')}</Link>
           </div>
           <Button variant='contained' onClick={handleRequest}>
             {translate('send-code')}
