@@ -229,10 +229,23 @@ const OrderPage = () => {
                   ? new Date(order.paymentDate).toLocaleDateString()
                   : '',
                 createdAt: new Date(order.createdAt).toLocaleDateString(),
+                // paymentStatus:
+                // paymentStatuses?.find((item) => item._id === order?.paymentStatus)?.name !== 'Giao dịch thành công' ? (
+                //   <Dropdown selected={order?.paymentStatus} order={order} listOptions={paymentStatuses} updateOrder={updatePayment}/>
+                // ) : 'Giao dịch thành công' ,
                 paymentStatus:
-                  paymentStatuses?.find((item) => item._id === order?.paymentStatus)?.name !== 'Giao dịch thành công' ? (
-                    <Dropdown selected={order?.paymentStatus} order={order} listOptions={paymentStatuses} updateOrder={updatePayment}/>
-                  ) : 'Giao dịch thành công' ,
+                  ['Giao dịch thành công', 'Đã hủy',].includes(
+                    paymentStatuses?.find((item) => item._id === order?.paymentStatus)?.name
+                  ) ? (
+                      paymentStatuses?.find((item) => item._id === order?.paymentStatus)?.name
+                    ) : (
+                      <Dropdown
+                        selected={order?.paymentStatus}
+                        order={order}
+                        listOptions={paymentStatuses}
+                        updateOrder={updatePayment}
+                      />
+                    ),
                 deliveryStatus:
                   ['Đã nhận hàng', 'Đã hủy',].includes(
                     deliveryStatuses?.find((item) => item._id === order?.deliveryStatus)?.name
