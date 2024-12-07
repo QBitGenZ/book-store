@@ -1,4 +1,6 @@
 const vi = {
+  'basic-info': 'Thông tin cơ bản',
+  'refresh': 'Làm mới',
   'add-new-delivery-address': 'Thêm địa chỉ mới',
   'reset-password': 'Đặt lại mật khẩu',
   'forget-password': 'Quên mật khẩu',
@@ -29,6 +31,7 @@ const vi = {
   'create-product': 'Thêm mới sản phẩm',
   cancel: 'Hủy bỏ',
   events: 'Sự kiện',
+  event: 'Sự kiện',
   'price increase': 'Giá tăng dần',
   home: 'Trang chủ',
   'sharing-book': 'Chia sẻ sách',
@@ -128,7 +131,7 @@ const vi = {
   'stock-quantity': 'Số lượng tồn kho',
   quantity: 'Số lượng',
   create: 'Thêm',
-  event: 'Quản lý sự kiện',
+  'event-management': 'Quản lý sự kiện',
   title: 'Tựa đề',
   'start-date': 'Ngày bắt đầu',
   'end-date': 'Ngày kết thúc',
