@@ -48,7 +48,7 @@ export default function PopupChat() {
           </div>
           <iframe
             src='https://udify.app/chatbot/Vcb3ZgzLqLes2XDw'
-            className={'w-[400px] h-[400px] rounded'}
+            className={'w-[350px] h-[520px] rounded'}
             allow='microphone'>
           </iframe>
         </div>
