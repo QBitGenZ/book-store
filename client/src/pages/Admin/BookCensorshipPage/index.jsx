@@ -236,14 +236,13 @@ const BookCensorshipPage = () => {
                   />
                 ),
                 pubDate: formatDate(item?.pubDate),
-                author: authors?.find((author) => item.author === author._id)
-                  ?.fullname,
+                author: authors?.find((author) => item.author === author._id)?.fullname,
                 publisher: publishers?.find(
                   (publisher) => item.publisher === publisher._id
                 )?.name,
-                donor: item.donor.fullname || users?.find((user) => item.donor === user._id)?.fullname,
+                donor: item?.donor?.fullname || users?.find((user) => item.donor === user._id)?.fullname || '',
                 createdAt: formatDate(item?.createdAt),
-                isShow: item.isShow ?
+                isShow: item?.isShow ?
                   (<span
                     className='inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20'>Đã duyệt</span>)
                   :
