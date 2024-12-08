@@ -221,7 +221,7 @@ const EBookPage = () => {
                 publisher: publishers?.find(
                   (publisher) => item.publisher === publisher._id
                 )?.name,
-                donor: users?.find((user) => item.donor === user._id)?.fullname,
+                donor: item?.donor?.fullname || users?.find((user) => item.donor === user._id)?.fullname || '',
               }))}
               keyField='_id'
               onSort={(f, des) => {
